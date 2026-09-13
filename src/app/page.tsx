@@ -19,8 +19,17 @@ import { GithubSection } from "@/components/GithubSection";
 import { ResumeCTA } from "@/components/ResumeCTA";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { CommandPalette } from "@/components/CommandPalette";
-import { ResumeModal } from "@/components/ResumeModal";
+import dynamic from "next/dynamic";
+
+const CommandPalette = dynamic(
+  () => import("@/components/CommandPalette").then((mod) => mod.CommandPalette),
+  { ssr: false }
+);
+
+const ResumeModal = dynamic(
+  () => import("@/components/ResumeModal").then((mod) => mod.ResumeModal),
+  { ssr: false }
+);
 
 export default function Home() {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
@@ -40,7 +49,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative min-h-screen bg-[#07101A] text-[#F8FAFC] overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-300">
+    <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-300 transition-colors duration-200">
       {/* Liquid Cursor Wave Effect */}
       <CursorWave />
 

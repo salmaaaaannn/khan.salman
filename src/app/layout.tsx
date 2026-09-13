@@ -47,9 +47,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
-      <body className="bg-[#07090e] text-slate-100 antialiased selection:bg-cyan-500/20 selection:text-cyan-300">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-background text-foreground antialiased selection:bg-cyan-500/20 selection:text-cyan-300 transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
       </body>

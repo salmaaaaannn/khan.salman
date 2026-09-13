@@ -27,15 +27,15 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl bg-[#0B1620] border border-white/[0.1] shadow-2xl shadow-cyan-950/40 z-10 overflow-hidden backdrop-blur-xl">
+      <div className="relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl bg-white dark:bg-[#0B1620] border border-slate-200 dark:border-white/[0.1] shadow-2xl shadow-cyan-950/20 z-10 overflow-hidden backdrop-blur-xl">
         {/* Modal Toolbar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-[#081018] backdrop-blur-md">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/[0.08] bg-slate-100/90 dark:bg-[#081018] backdrop-blur-md">
           <div className="flex items-center space-x-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-sm shadow-cyan-400/50" />
-            <span className="font-mono text-sm text-slate-200 font-semibold">
+            <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse shadow-sm shadow-cyan-400/50" />
+            <span className="font-mono text-sm text-slate-800 dark:text-slate-200 font-semibold">
               Salman_Khan_Resume.pdf
             </span>
-            <span className="hidden sm:inline-block text-xs font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">
+            <span className="hidden sm:inline-block text-xs font-mono px-2 py-0.5 rounded bg-slate-200/70 dark:bg-white/5 border border-slate-300/60 dark:border-white/10 text-slate-600 dark:text-slate-400">
               Verified Source of Truth
             </span>
           </div>
@@ -43,22 +43,22 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
           <div className="flex items-center space-x-2">
             <button
               onClick={handlePrint}
-              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-slate-300 transition-colors"
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-200/60 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-300/60 dark:border-white/10 text-xs font-medium text-slate-700 dark:text-slate-300 transition-colors"
               title="Print or Save as PDF"
             >
-              <Printer className="w-3.5 h-3.5 text-cyan-400" />
+              <Printer className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
               <span className="hidden sm:inline">Print / Save PDF</span>
             </button>
             <button
               onClick={handlePrint}
-              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-[#07101A] font-bold text-xs transition-colors shadow-sm"
+              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-bold text-xs transition-colors shadow-sm active:scale-95"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors ml-2"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors ml-2"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -67,20 +67,20 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
         </div>
 
         {/* Resume Sheet Body */}
-        <div className="overflow-y-auto p-6 sm:p-10 bg-[#07101A] print:bg-white print:text-black">
+        <div className="overflow-y-auto p-6 sm:p-10 bg-slate-50 dark:bg-[#07101A] print:bg-white print:text-black">
           <div
             ref={resumeRef}
-            className="max-w-3xl mx-auto bg-[#0B1620] border border-white/[0.08] rounded-xl p-8 sm:p-12 shadow-2xl print:shadow-none print:border-none print:bg-white print:p-0"
+            className="max-w-3xl mx-auto bg-white dark:bg-[#0B1620] border border-slate-200 dark:border-white/[0.08] rounded-xl p-8 sm:p-12 shadow-md dark:shadow-2xl print:shadow-none print:border-none print:bg-white print:p-0"
           >
             {/* Header */}
-            <div className="border-b border-white/10 pb-6 mb-6 print:border-slate-300">
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white print:text-black">
+            <div className="border-b border-slate-200 dark:border-white/10 pb-6 mb-6 print:border-slate-300">
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white print:text-black">
                 {PORTFOLIO_DATA.personal.name}
               </h1>
-              <p className="text-cyan-400 font-mono text-sm sm:text-base mt-1.5 font-medium print:text-teal-700">
+              <p className="text-cyan-600 dark:text-cyan-400 font-mono text-sm sm:text-base mt-1.5 font-medium print:text-teal-700">
                 {PORTFOLIO_DATA.personal.role}
               </p>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 font-mono mt-3 print:text-slate-600">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 dark:text-slate-400 font-mono mt-3 print:text-slate-600">
                 <span>📍 {PORTFOLIO_DATA.personal.location}</span>
                 <span>•</span>
                 <span>✉️ {PORTFOLIO_DATA.personal.email}</span>
@@ -95,17 +95,17 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
 
             {/* Profile Summary */}
             <div className="mb-6">
-              <h2 className="text-xs font-mono uppercase tracking-widest text-slate-400 font-bold mb-2 print:text-slate-800">
+              <h2 className="text-xs font-mono uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mb-2 print:text-slate-800">
                 Executive Profile
               </h2>
-              <p className="text-sm text-slate-300 leading-relaxed print:text-slate-800">
+              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed print:text-slate-800">
                 {PORTFOLIO_DATA.about.whoIAm} {PORTFOLIO_DATA.personal.subheadline}
               </p>
             </div>
 
             {/* Core Competencies / Technical Stack */}
             <div className="mb-6">
-              <h2 className="text-xs font-mono uppercase tracking-widest text-slate-400 font-bold mb-3 print:text-slate-800">
+              <h2 className="text-xs font-mono uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mb-3 print:text-slate-800">
                 Technical Stack & Skills
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">

@@ -24,8 +24,11 @@ export function CursorWave() {
   useEffect(() => {
     setMounted(true);
 
-    // Detect if device has a precise pointer (mouse) vs touch
-    if (window.matchMedia("(pointer: coarse)").matches) {
+    // Detect if device has a precise pointer (mouse) vs touch, or prefers reduced motion
+    if (
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       setIsPointerDevice(false);
       return;
     }
@@ -37,17 +40,14 @@ export function CursorWave() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
-      if (
+      const shouldHover = Boolean(
         target?.closest("button") ||
         target?.closest("a") ||
         target?.closest("[role='button']") ||
         target?.tagName === "INPUT" ||
         target?.tagName === "TEXTAREA"
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
+      );
+      setIsHovering((prev) => (prev !== shouldHover ? shouldHover : prev));
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });

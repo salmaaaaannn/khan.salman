@@ -3,9 +3,28 @@
 @tailwind utilities;
 
 :root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-card: #ffffff;
+  --surface-inner: #f1f5f9;
+  --surface-glass: rgba(255, 255, 255, 0.85);
+  --border-glass: rgba(15, 23, 42, 0.08);
+  --accent-cyan: #0891b2;
+  --accent-indigo: #4f46e5;
+  --accent-violet: #7c3aed;
+  --accent-teal: #0d9488;
+  --text-muted: #64748b;
+  --paper-surface: #ffffff;
+  --paper-border: rgba(15, 23, 42, 0.08);
+}
+
+.dark {
   --background: #07101A;
   --foreground: #F8FAFC;
   --surface: #0B1620;
+  --surface-card: #0B1620;
+  --surface-inner: #07101A;
   --surface-glass: rgba(255, 255, 255, 0.05);
   --border-glass: rgba(255, 255, 255, 0.10);
   --accent-cyan: #22D3EE;
@@ -17,46 +36,51 @@
   --paper-border: rgba(255, 255, 255, 0.10);
 }
 
-.light {
-  --background: #f8fafc;
-  --foreground: #07101a;
-  --surface: #ffffff;
-  --surface-glass: rgba(255, 255, 255, 0.7);
-  --border-glass: rgba(15, 23, 42, 0.08);
-  --accent-cyan: #0891b2;
-  --accent-indigo: #4f46e5;
-  --accent-violet: #7c3aed;
-  --accent-teal: #0f766e;
-  --text-muted: #64748b;
-  --paper-surface: #ffffff;
-  --paper-border: rgba(15, 23, 42, 0.08);
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Color schemes for browser UI elements */
+html:not(.dark) {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 /* Developer subtle grid texture */
 .bg-grid-subtle {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-}
-
-.light .bg-grid-subtle {
-  background-image: 
     linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+
+.dark .bg-grid-subtle {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
 }
 
 /* Bento Glassmorphism Card */
 .glass-card,
 .paper-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dark .glass-card,
+.dark .paper-card {
   background: rgba(11, 22, 32, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -64,12 +88,99 @@ body {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
 
-.light .glass-card,
-.light .paper-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+/* LIGHT THEME AUTOMATIC ADAPTATIONS (Active when html does not have .dark) */
+html:not(.dark) body,
+html:not(.dark) main {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Card surfaces in light mode */
+html:not(.dark) .bg-\[\#0B1620\],
+html:not(.dark) .bg-\[\#0B1620\]\/90,
+html:not(.dark) .bg-\[\#0B1620\]\/85,
+html:not(.dark) .bg-\[\#0B1620\]\/80,
+html:not(.dark) .bg-\[\#0b0e14\],
+html:not(.dark) .bg-\[\#0d1219\],
+html:not(.dark) .bg-\[\#0e131b\],
+html:not(.dark) .bg-\[\#0c1017\] {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03) !important;
+}
+
+/* Inner containers / backgrounds in light mode */
+html:not(.dark) .bg-\[\#07101A\],
+html:not(.dark) .bg-\[\#07101A\]\/90,
+html:not(.dark) .bg-\[\#07101A\]\/80,
+html:not(.dark) .bg-\[\#05080E\],
+html:not(.dark) .bg-\[\#050B12\],
+html:not(.dark) .bg-\[\#081018\],
+html:not(.dark) .bg-\[\#0a0d12\] {
+  background-color: #f1f5f9 !important;
+}
+
+/* Borders in light mode */
+html:not(.dark) .border-white\/10,
+html:not(.dark) .border-white\/5,
+html:not(.dark) .border-white\/\[0\.08\],
+html:not(.dark) .border-white\/\[0\.1\],
+html:not(.dark) .border-white\/\[0\.04\],
+html:not(.dark) .border-white\/\[0\.05\] {
+  border-color: rgba(15, 23, 42, 0.10) !important;
+}
+
+/* Headings in light mode (protects buttons with dark/gradient text) */
+html:not(.dark) .text-\[\#F8FAFC\],
+html:not(.dark) h1:not([class*="bg-gradient"]):not([class*="text-slate-950"]):not([class*="text-[#07101A]"]),
+html:not(.dark) h2:not([class*="bg-gradient"]):not([class*="text-slate-950"]):not([class*="text-[#07101A]"]),
+html:not(.dark) h3:not([class*="bg-gradient"]):not([class*="text-slate-950"]):not([class*="text-[#07101A]"]),
+html:not(.dark) h4:not([class*="bg-gradient"]):not([class*="text-slate-950"]):not([class*="text-[#07101A]"]),
+html:not(.dark) .text-white:not([class*="bg-gradient"]):not([class*="bg-cyan"]):not([class*="bg-teal"]):not(button.btn-shimmer *):not(button.bg-gradient-to-r *):not(a.btn-shimmer *):not(a.bg-gradient-to-r *) {
+  color: #0f172a !important;
+}
+
+/* Secondary & body text in light mode */
+html:not(.dark) .text-slate-200:not(button.bg-gradient-to-r *):not(a.bg-gradient-to-r *) {
+  color: #1e293b !important;
+}
+
+html:not(.dark) .text-slate-300:not(button.bg-gradient-to-r *):not(a.bg-gradient-to-r *) {
+  color: #334155 !important;
+}
+
+html:not(.dark) .text-slate-400,
+html:not(.dark) .text-\[\#94A3B8\] {
+  color: #475569 !important;
+}
+
+html:not(.dark) .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* Subtle background chips and badges in light mode */
+html:not(.dark) .bg-white\/5,
+html:not(.dark) .bg-white\/\[0\.02\],
+html:not(.dark) .bg-white\/\[0\.03\],
+html:not(.dark) .bg-white\/\[0\.04\] {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+}
+
+html:not(.dark) .hover\:bg-white\/10:hover,
+html:not(.dark) .hover\:bg-white\/5:hover {
+  background-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Form inputs in light mode */
+html:not(.dark) input,
+html:not(.dark) textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #94a3b8 !important;
 }
 
 /* Button Shimmer */
@@ -113,12 +224,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #07101A;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #cbd5e1;
   border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
 }
 
 ::-webkit-scrollbar-thumb:hover {

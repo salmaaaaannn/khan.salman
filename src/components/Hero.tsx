@@ -35,6 +35,11 @@ export function Hero({ onOpenResume }: HeroProps) {
   const portraitMoveY = useTransform(smoothMouseY, [-500, 500], [-4, 4]);
 
   useEffect(() => {
+    // Only bind mouse tracking on precise pointer devices (desktops/laptops)
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
