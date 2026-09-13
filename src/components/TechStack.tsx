@@ -91,30 +91,30 @@ function MagneticSkillCard({
       onMouseLeave={handleMouseLeave}
       style={{ x: smoothX, y: smoothY }}
       whileHover={{ y: -3 }}
-      className="group rounded-2xl bg-[#0c1017]/90 border border-white/10 p-4 sm:p-5 backdrop-blur-md transition-all duration-200 hover:border-teal-500/40 hover:shadow-card-hover flex flex-col justify-between will-change-transform"
+      className="group rounded-2xl bg-[#0B1620]/80 border border-white/10 p-4 sm:p-5 backdrop-blur-xl transition-all duration-200 hover:border-cyan-500/35 hover:shadow-card-hover flex flex-col justify-between will-change-transform"
     >
       <div>
         <div className="flex items-center justify-between mb-3">
-          <div className="p-2 rounded-xl bg-white/5 border border-white/10 group-hover:bg-teal-500/10 group-hover:border-teal-500/30 transition-colors">
-            <IconComponent className="w-4 h-4 text-teal-400 group-hover:scale-110 transition-transform duration-200" />
+          <div className="p-2 rounded-xl bg-white/5 border border-white/10 group-hover:bg-cyan-500/10 group-hover:border-cyan-500/30 transition-colors">
+            <IconComponent className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform duration-200" />
           </div>
           <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${categoryColor}`}>
             {tech.category}
           </span>
         </div>
 
-        <h3 className="text-base font-bold text-white group-hover:text-teal-300 transition-colors">
+        <h3 className="text-base font-bold text-[#F8FAFC] group-hover:text-cyan-300 transition-colors">
           {tech.name}
         </h3>
 
-        <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
+        <p className="text-xs text-[#94A3B8] mt-1.5 leading-relaxed">
           {tech.description}
         </p>
       </div>
 
       <div className="pt-3 mt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-500">
-        <span className="group-hover:text-slate-400 transition-colors">production ready</span>
-        <span className="w-1.5 h-1.5 rounded-full bg-teal-500/60 group-hover:bg-teal-400 group-hover:scale-125 transition-all duration-200" />
+        <span className="group-hover:text-slate-300 transition-colors">production ready</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-cyan-500/60 group-hover:bg-cyan-400 group-hover:scale-125 transition-all duration-200" />
       </div>
     </motion.div>
   );
@@ -141,17 +141,17 @@ export function TechStack() {
   const getCategoryColor = (category: string) => {
     switch (category) {
       case "Frontend":
-        return "text-teal-400 bg-teal-500/10 border-teal-500/30";
-      case "Backend":
-        return "text-emerald-400 bg-emerald-500/10 border-emerald-500/30";
-      case "Database":
         return "text-cyan-400 bg-cyan-500/10 border-cyan-500/30";
+      case "Backend":
+        return "text-indigo-400 bg-indigo-500/10 border-indigo-500/30";
+      case "Database":
+        return "text-teal-400 bg-teal-500/10 border-teal-500/30";
       case "AI / ML":
-        return "text-teal-300 bg-teal-600/15 border-teal-500/30";
+        return "text-[#8B5CF6] bg-violet-600/15 border-violet-500/30";
       case "Programming & Problem Solving":
-        return "text-amber-400 bg-amber-500/10 border-amber-500/30";
+        return "text-cyan-300 bg-cyan-500/10 border-cyan-500/30";
       case "Tools & APIs":
-        return "text-slate-300 bg-white/5 border-white/10";
+        return "text-[#94A3B8] bg-white/5 border-white/10";
       default:
         return "text-slate-400 bg-white/5 border-white/10";
     }
@@ -168,14 +168,14 @@ export function TechStack() {
         className="flex flex-col md:flex-row md:items-end justify-between mb-12"
       >
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-xs font-mono text-teal-400 mb-3">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-300 mb-3">
             <Cpu className="w-3.5 h-3.5" />
             <span>Technical Capabilities</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-black text-[#F8FAFC] tracking-tight">
             Engineering Stack
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 mt-2 max-w-xl">
+          <p className="text-sm sm:text-base text-[#94A3B8] mt-2 max-w-xl">
             Verified technologies, frameworks, and problem-solving disciplines applied in full-stack architecture and AI systems.
           </p>
         </div>
@@ -188,8 +188,8 @@ export function TechStack() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 ${
                 selectedCategory === cat
-                  ? "bg-teal-600 text-slate-950 font-bold shadow-sm"
-                  : "text-slate-400 hover:text-white hover:bg-white/5"
+                  ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 font-bold shadow-cyan-soft"
+                  : "text-[#94A3B8] hover:text-white hover:bg-white/5"
               }`}
             >
               {cat}

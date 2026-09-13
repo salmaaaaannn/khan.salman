@@ -276,11 +276,11 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-xl rounded-2xl bg-[#0c1017] border border-white/10 shadow-2xl overflow-hidden z-10"
+            className="relative w-full max-w-xl rounded-2xl bg-[#0B1620] border border-white/[0.1] shadow-2xl shadow-cyan-950/40 overflow-hidden z-10 backdrop-blur-xl"
           >
             {/* Search header */}
-            <div className="flex items-center px-4 py-3.5 border-b border-white/10 bg-white/[0.02]">
-              <Search className="w-4 h-4 text-teal-400 mr-3 shrink-0" />
+            <div className="flex items-center px-4 py-3.5 border-b border-white/[0.08] bg-white/[0.02]">
+              <Search className="w-4 h-4 text-cyan-400 mr-3 shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -311,14 +311,14 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
                       onMouseEnter={() => setSelectedIndex(idx)}
                       className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left text-sm transition-colors ${
                         isSelected
-                          ? "bg-teal-500/10 text-teal-300 border border-teal-500/30"
+                          ? "bg-cyan-500/10 text-cyan-300 border border-cyan-500/30"
                           : "text-slate-300 hover:bg-white/5 border border-transparent"
                       }`}
                     >
                       <div className="flex items-center space-x-3">
                         <Icon
                           className={`w-4 h-4 ${
-                            isSelected ? "text-teal-400" : "text-slate-400"
+                            isSelected ? "text-cyan-400" : "text-slate-400"
                           }`}
                         />
                         <span className="font-medium">{cmd.label}</span>
@@ -334,7 +334,7 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
                           </kbd>
                         )}
                         {isSelected && (
-                          <CornerDownLeft className="w-3.5 h-3.5 text-teal-400" />
+                          <CornerDownLeft className="w-3.5 h-3.5 text-cyan-400" />
                         )}
                       </div>
                     </button>

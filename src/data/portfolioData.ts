@@ -241,8 +241,8 @@ export const PORTFOLIO_DATA = {
       liveUrl: "#",
     },
     {
-      id: "eathers",
-      title: "EATHERS",
+      id: "athers",
+      title: "ATHERS",
       subtitle: "Full-Stack Web Application",
       description:
         "A full-stack application architected with React, Node.js, Express, and MongoDB, delivering robust API endpoints, structured data models, and an intuitive user interface.",

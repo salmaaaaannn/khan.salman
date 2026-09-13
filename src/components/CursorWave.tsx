@@ -65,7 +65,7 @@ export function CursorWave() {
     <div className="pointer-events-none fixed inset-0 z-30 overflow-hidden select-none">
       {/* Outer soft ambient liquid wave */}
       <motion.div
-        className="absolute rounded-full bg-teal-500/[0.04] blur-2xl"
+        className="absolute rounded-full bg-cyan-500/[0.05] blur-2xl"
         style={{
           x: waveX,
           y: waveY,
@@ -79,7 +79,7 @@ export function CursorWave() {
 
       {/* Inner magnetic ripple ring */}
       <motion.div
-        className="absolute rounded-full border border-teal-500/15"
+        className="absolute rounded-full border border-cyan-400/20"
         style={{
           x: smoothX,
           y: smoothY,
@@ -87,14 +87,14 @@ export function CursorWave() {
           translateY: "-50%",
           width: isHovering ? 52 : 32,
           height: isHovering ? 52 : 32,
-          backgroundColor: isHovering ? "rgba(20, 184, 166, 0.08)" : "transparent",
+          backgroundColor: isHovering ? "rgba(34, 211, 238, 0.08)" : "transparent",
         }}
         transition={{ duration: 0.15 }}
       />
 
       {/* Center subtle fluid focus dot */}
       <motion.div
-        className="absolute w-1.5 h-1.5 rounded-full bg-teal-400/50"
+        className="absolute w-1.5 h-1.5 rounded-full bg-cyan-400/70"
         style={{
           x: mouseX,
           y: mouseY,

@@ -24,12 +24,13 @@ export function BackgroundWaveLayer() {
       {/* Ambient background glow orbs */}
       <motion.div
         style={{ y: bgTranslateY1 }}
-        className="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full bg-teal-600/[0.04] blur-3xl"
+        className="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full bg-cyan-500/[0.03] blur-3xl"
       />
       <motion.div
         style={{ y: bgTranslateY2 }}
-        className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] rounded-full bg-teal-800/[0.04] blur-3xl"
+        className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] rounded-full bg-indigo-600/[0.03] blur-3xl"
       />
+      <div className="absolute top-2/3 left-1/5 w-[400px] h-[400px] rounded-full bg-violet-600/[0.02] blur-3xl" />
 
       {/* Subtle flowing SVG background wave line */}
       <motion.svg

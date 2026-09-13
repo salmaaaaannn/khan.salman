@@ -27,11 +27,11 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl bg-[#0b0e14] border border-white/10 shadow-2xl z-10 overflow-hidden">
+      <div className="relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl bg-[#0B1620] border border-white/[0.1] shadow-2xl shadow-cyan-950/40 z-10 overflow-hidden backdrop-blur-xl">
         {/* Modal Toolbar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#0e131b] backdrop-blur-md">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-[#081018] backdrop-blur-md">
           <div className="flex items-center space-x-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-sm shadow-cyan-400/50" />
             <span className="font-mono text-sm text-slate-200 font-semibold">
               Salman_Khan_Resume.pdf
             </span>
@@ -46,12 +46,12 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
               className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-slate-300 transition-colors"
               title="Print or Save as PDF"
             >
-              <Printer className="w-3.5 h-3.5 text-teal-400" />
+              <Printer className="w-3.5 h-3.5 text-cyan-400" />
               <span className="hidden sm:inline">Print / Save PDF</span>
             </button>
             <button
               onClick={handlePrint}
-              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-slate-950 font-semibold text-xs transition-colors shadow-sm"
+              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-[#07101A] font-bold text-xs transition-colors shadow-sm"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download</span>
@@ -67,17 +67,17 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
         </div>
 
         {/* Resume Sheet Body */}
-        <div className="overflow-y-auto p-6 sm:p-10 bg-[#0a0d12] print:bg-white print:text-black">
+        <div className="overflow-y-auto p-6 sm:p-10 bg-[#07101A] print:bg-white print:text-black">
           <div
             ref={resumeRef}
-            className="max-w-3xl mx-auto bg-[#0d1219] border border-white/10 rounded-xl p-8 sm:p-12 shadow-inner print:shadow-none print:border-none print:bg-white print:p-0"
+            className="max-w-3xl mx-auto bg-[#0B1620] border border-white/[0.08] rounded-xl p-8 sm:p-12 shadow-2xl print:shadow-none print:border-none print:bg-white print:p-0"
           >
             {/* Header */}
             <div className="border-b border-white/10 pb-6 mb-6 print:border-slate-300">
               <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white print:text-black">
                 {PORTFOLIO_DATA.personal.name}
               </h1>
-              <p className="text-teal-400 font-mono text-sm sm:text-base mt-1.5 font-medium print:text-teal-700">
+              <p className="text-cyan-400 font-mono text-sm sm:text-base mt-1.5 font-medium print:text-teal-700">
                 {PORTFOLIO_DATA.personal.role}
               </p>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 font-mono mt-3 print:text-slate-600">
@@ -154,7 +154,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
                   <h3 className="text-sm font-bold text-white print:text-black">
                     {PORTFOLIO_DATA.featuredProject.title} — {PORTFOLIO_DATA.featuredProject.subtitle}
                   </h3>
-                  <span className="text-[11px] font-mono text-teal-400 font-semibold print:text-teal-800">
+                  <span className="text-[11px] font-mono text-cyan-400 font-semibold print:text-teal-800">
                     Featured AI Platform
                   </span>
                 </div>
@@ -266,8 +266,8 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
                   Honors & Achievements
                 </h2>
                 <div className="flex items-center space-x-2 text-xs">
-                  <Award className="w-4 h-4 text-teal-400 shrink-0" />
-                  <span className="font-bold text-teal-300 print:text-teal-800">
+                  <Award className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <span className="font-bold text-cyan-300 print:text-teal-800">
                     {PORTFOLIO_DATA.achievements[0].title}
                   </span>
                 </div>

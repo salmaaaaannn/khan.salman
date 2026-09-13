@@ -72,7 +72,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-400 ease-out ${
           scrolled
-            ? "h-14 sm:h-16 bg-[#0a0d12]/92 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20"
+            ? "h-14 sm:h-16 bg-[#07101A]/90 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-cyan-950/20"
             : "h-20 sm:h-24 bg-transparent border-b border-transparent"
         }`}
       >
@@ -86,11 +86,11 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-slate-950 font-bold font-mono text-xs shadow-teal-subtle transition-colors group-hover:bg-teal-500"
+              className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center text-[#07101A] font-bold font-mono text-xs shadow-md shadow-cyan-500/20 transition-transform"
             >
               {PORTFOLIO_DATA.personal.initials}
             </motion.div>
-            <span className="font-bold tracking-tight text-white text-sm sm:text-base font-mono uppercase group-hover:text-teal-400 transition-colors">
+            <span className="font-bold tracking-tight text-white text-sm sm:text-base font-mono uppercase group-hover:text-cyan-400 transition-colors">
               SALMAN KHAN
             </span>
           </a>
@@ -98,7 +98,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
           {/* Desktop Navigation Links with Fluid Liquid Pill Indicator (Jitter Inspired) */}
           <nav
             onMouseLeave={() => setHoveredSection(null)}
-            className="hidden md:flex items-center p-1 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md relative"
+            className="hidden md:flex items-center p-1 rounded-full bg-[#0B1620]/80 border border-white/[0.08] backdrop-blur-md relative"
           >
             {navLinks.map((link) => {
               const sectionId = link.href.substring(1);
@@ -113,7 +113,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`relative px-4 py-1.5 rounded-full text-xs font-medium font-mono transition-colors duration-200 z-10 ${
                     isActive
-                      ? "text-slate-950 font-bold"
+                      ? "text-[#07101A] font-bold"
                       : isHovered
                       ? "text-white"
                       : "text-slate-400 hover:text-slate-200"
@@ -128,7 +128,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
                   {isActive && (
                     <motion.div
                       layoutId="liquidActivePill"
-                      className="absolute inset-0 rounded-full bg-teal-400 shadow-sm shadow-teal-500/30"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 shadow-md shadow-cyan-500/30"
                       transition={{
                         type: "spring",
                         stiffness: 420,
@@ -160,7 +160,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
             {/* Quick Contact Icons */}
             <a
               href={`mailto:${PORTFOLIO_DATA.personal.email}`}
-              className="p-2 rounded-lg text-slate-400 hover:text-teal-400 hover:bg-white/5 transition-colors"
+              className="p-2 rounded-lg text-slate-400 hover:text-cyan-400 hover:bg-white/5 transition-colors"
               title={`Email: ${PORTFOLIO_DATA.personal.email}`}
             >
               <Mail className="w-4 h-4" />
@@ -168,7 +168,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
 
             <a
               href={`tel:${cleanPhone}`}
-              className="p-2 rounded-lg text-slate-400 hover:text-teal-400 hover:bg-white/5 transition-colors"
+              className="p-2 rounded-lg text-slate-400 hover:text-cyan-400 hover:bg-white/5 transition-colors"
               title={`Call: ${PORTFOLIO_DATA.personal.phone}`}
             >
               <Phone className="w-4 h-4" />
@@ -177,19 +177,19 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
             {/* CMD + K Shortcut Button */}
             <button
               onClick={onOpenCommandPalette}
-              className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-teal-300 text-xs font-mono transition-colors"
+              className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/[0.08] text-slate-400 hover:text-cyan-300 text-xs font-mono transition-colors"
               title="Open Command Palette (Cmd + K)"
             >
-              <Command className="w-3.5 h-3.5 text-teal-400" />
+              <Command className="w-3.5 h-3.5 text-cyan-400" />
               <span>⌘K</span>
             </button>
 
             {/* Resume Button */}
             <button
               onClick={onOpenResume}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-teal-500/10 hover:bg-teal-500/20 border border-teal-500/30 text-teal-300 text-xs font-medium transition-all hover:border-teal-500/50"
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-medium transition-all hover:border-cyan-500/50"
             >
-              <FileText className="w-3.5 h-3.5 text-teal-400" />
+              <FileText className="w-3.5 h-3.5 text-cyan-400" />
               <span>Resume</span>
             </button>
 
@@ -200,17 +200,17 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
           <div className="flex items-center space-x-2 lg:hidden">
             <button
               onClick={onOpenCommandPalette}
-              className="p-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-teal-300 text-xs font-mono"
+              className="p-2 rounded-lg bg-white/5 border border-white/[0.08] text-slate-400 hover:text-cyan-300 text-xs font-mono"
               aria-label="Open Command Palette"
             >
-              <Command className="w-4 h-4 text-teal-400" />
+              <Command className="w-4 h-4 text-cyan-400" />
             </button>
 
             <ThemeToggle />
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white transition-colors"
+              className="p-2 rounded-lg bg-white/5 border border-white/[0.08] text-slate-300 hover:text-white transition-colors"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -227,7 +227,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-35 bg-[#0a0d12]/98 backdrop-blur-2xl pt-24 pb-8 px-6 flex flex-col justify-between lg:hidden"
+            className="fixed inset-0 z-35 bg-[#07101A]/98 backdrop-blur-2xl pt-24 pb-8 px-6 flex flex-col justify-between lg:hidden"
           >
             <motion.nav
               initial="closed"
@@ -252,7 +252,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
                     onClick={(e) => handleNavClick(e, link.href)}
                     className={`flex items-center justify-between px-4 py-3 rounded-xl text-lg font-mono font-semibold transition-all ${
                       isActive
-                        ? "bg-teal-500/15 text-teal-300 border border-teal-500/30"
+                        ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/30"
                         : "text-slate-300 hover:text-white hover:bg-white/5"
                     }`}
                   >
@@ -263,20 +263,20 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
               })}
             </motion.nav>
 
-            <div className="pt-6 border-t border-white/10 space-y-4">
+            <div className="pt-6 border-t border-white/[0.08] space-y-4">
               <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                 <a
                   href={`mailto:${PORTFOLIO_DATA.personal.email}`}
-                  className="flex items-center justify-center space-x-2 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300"
+                  className="flex items-center justify-center space-x-2 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-slate-300"
                 >
-                  <Mail className="w-3.5 h-3.5 text-teal-400" />
+                  <Mail className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Email</span>
                 </a>
                 <a
                   href={`tel:${cleanPhone}`}
-                  className="flex items-center justify-center space-x-2 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300"
+                  className="flex items-center justify-center space-x-2 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-slate-300"
                 >
-                  <Phone className="w-3.5 h-3.5 text-teal-400" />
+                  <Phone className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Call</span>
                 </a>
               </div>
@@ -287,7 +287,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
                     href={PORTFOLIO_DATA.personal.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 rounded-lg bg-white/5 text-slate-300 hover:text-white"
+                    className="p-2.5 rounded-lg bg-white/[0.04] text-slate-300 hover:text-white"
                   >
                     <Github className="w-4 h-4" />
                   </a>
@@ -295,7 +295,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
                     href={PORTFOLIO_DATA.personal.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 rounded-lg bg-white/5 text-slate-300 hover:text-teal-400"
+                    className="p-2.5 rounded-lg bg-white/[0.04] text-slate-300 hover:text-cyan-400"
                   >
                     <Linkedin className="w-4 h-4" />
                   </a>
@@ -306,7 +306,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
                     setMobileMenuOpen(false);
                     onOpenResume();
                   }}
-                  className="px-4 py-2.5 rounded-xl bg-teal-600 text-slate-950 font-bold text-xs font-mono shadow-sm"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-teal-400 text-[#07101A] font-bold text-xs font-mono shadow-md shadow-cyan-500/20"
                 >
                   View Resume
                 </button>

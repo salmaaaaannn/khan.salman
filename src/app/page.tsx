@@ -40,7 +40,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative min-h-screen bg-[#0a0d12] text-slate-100 overflow-x-hidden selection:bg-teal-500/20 selection:text-teal-300">
+    <main className="relative min-h-screen bg-[#07101A] text-[#F8FAFC] overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-300">
       {/* Liquid Cursor Wave Effect */}
       <CursorWave />
 
