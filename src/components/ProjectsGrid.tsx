@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Calendar,
   Activity,
@@ -11,7 +11,7 @@ import {
   Sparkles,
   ArrowUpRight,
 } from "lucide-react";
-import { PORTFOLIO_DATA } from "@/data/portfolioData";
+import { PORTFOLIO_DATA, Project } from "@/data/portfolioData";
 import { FeaturedProject } from "./FeaturedProject";
 
 // Mini Interactive 2D Metaverse Simulation component
@@ -31,7 +31,7 @@ function MetaversePreview() {
   };
 
   return (
-    <div className="relative w-full h-44 rounded-xl bg-[#090d13] border border-white/10 overflow-hidden select-none font-mono">
+    <div className="relative w-full h-48 sm:h-56 rounded-2xl bg-[#090d13] border border-white/10 overflow-hidden select-none font-mono shadow-inner">
       {/* Grid Floor */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:20px_20px] opacity-30" />
 
@@ -69,36 +69,36 @@ function MetaversePreview() {
       </div>
 
       {/* Status Overlay */}
-      <div className="absolute top-2 left-2 flex items-center space-x-2 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10 text-[10px] text-slate-300">
+      <div className="absolute top-2.5 left-2.5 flex items-center space-x-2 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10 text-[10px] text-slate-300">
         <Radio className="w-3 h-3 text-teal-400 animate-pulse" />
         <span>Colyseus Room: #workspace-alpha</span>
       </div>
 
       {/* Controls */}
-      <div className="absolute bottom-2 right-2 flex items-center space-x-1 bg-black/80 backdrop-blur-md p-1 rounded-lg border border-white/10 text-[10px]">
+      <div className="absolute bottom-2.5 right-2.5 flex items-center space-x-1 bg-black/80 backdrop-blur-md p-1 rounded-lg border border-white/10 text-[10px]">
         <button
           onClick={() => moveAvatar(-10, 0)}
-          className="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 active:scale-95 transition-colors"
+          className="px-2.5 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 active:scale-95 transition-colors"
         >
           ←
         </button>
         <div className="flex flex-col space-y-1">
           <button
             onClick={() => moveAvatar(0, -10)}
-            className="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 active:scale-95 transition-colors"
+            className="px-2.5 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 active:scale-95 transition-colors"
           >
             ↑
           </button>
           <button
             onClick={() => moveAvatar(0, 10)}
-            className="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 active:scale-95 transition-colors"
+            className="px-2.5 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 active:scale-95 transition-colors"
           >
             ↓
           </button>
         </div>
         <button
           onClick={() => moveAvatar(10, 0)}
-          className="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 active:scale-95 transition-colors"
+          className="px-2.5 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 active:scale-95 transition-colors"
         >
           →
         </button>
@@ -110,7 +110,7 @@ function MetaversePreview() {
 // Visual Preview for AI Event Management
 function EventManagementPreview() {
   return (
-    <div className="w-full h-44 rounded-xl bg-[#090d13] border border-white/10 p-3.5 font-mono text-xs text-slate-300 flex flex-col justify-between overflow-hidden">
+    <div className="w-full h-48 sm:h-56 rounded-2xl bg-[#090d13] border border-white/10 p-4 font-mono text-xs text-slate-300 flex flex-col justify-between overflow-hidden shadow-inner">
       <div className="flex items-center justify-between pb-2 border-b border-white/10 text-[11px]">
         <span className="text-teal-400 font-semibold flex items-center space-x-1.5">
           <Calendar className="w-3.5 h-3.5" />
@@ -119,25 +119,25 @@ function EventManagementPreview() {
         <span className="text-[10px] text-slate-500">AI Match: 96%</span>
       </div>
 
-      <div className="space-y-2 my-auto">
-        <div className="p-2 rounded-lg bg-white/[0.03] border border-white/5 flex items-center justify-between">
+      <div className="space-y-2.5 my-auto">
+        <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5 flex items-center justify-between">
           <div className="truncate">
             <span className="text-white font-medium block truncate">
-              Keynote: Scalable Distributed Systems
+              Keynote: Scalable Distributed Architectures
             </span>
-            <span className="text-[10px] text-slate-400">Track: Cloud Architecture • Room 1</span>
+            <span className="text-[10px] text-slate-400">Track: Cloud Systems • Hall A</span>
           </div>
           <span className="text-[10px] px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 font-semibold shrink-0 ml-2">
             Recommended
           </span>
         </div>
 
-        <div className="p-2 rounded-lg bg-white/[0.03] border border-white/5 flex items-center justify-between">
+        <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5 flex items-center justify-between">
           <div className="truncate">
             <span className="text-white font-medium block truncate">
               Workshop: Applied Machine Learning Pipelines
             </span>
-            <span className="text-[10px] text-slate-400">Track: AI Engineering • Hall B</span>
+            <span className="text-[10px] text-slate-400">Track: AI Engineering • Room 3</span>
           </div>
           <span className="text-[10px] px-2 py-0.5 rounded bg-white/10 text-slate-300 font-semibold shrink-0 ml-2">
             Matching
@@ -156,7 +156,7 @@ function EventManagementPreview() {
 // Visual Preview for AI Fitness Tracker
 function FitnessTrackerPreview() {
   return (
-    <div className="w-full h-44 rounded-xl bg-[#090d13] border border-white/10 p-3.5 font-mono text-xs text-slate-300 flex flex-col justify-between overflow-hidden">
+    <div className="w-full h-48 sm:h-56 rounded-2xl bg-[#090d13] border border-white/10 p-4 font-mono text-xs text-slate-300 flex flex-col justify-between overflow-hidden shadow-inner">
       <div className="flex items-center justify-between pb-2 border-b border-white/10 text-[11px]">
         <span className="text-teal-400 font-semibold flex items-center space-x-1.5">
           <Activity className="w-3.5 h-3.5" />
@@ -165,20 +165,20 @@ function FitnessTrackerPreview() {
         <span className="text-[10px] text-emerald-400 font-semibold">Real-Time</span>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 my-auto text-center">
-        <div className="p-2 rounded-lg bg-white/[0.03] border border-white/5">
+      <div className="grid grid-cols-3 gap-2.5 my-auto text-center">
+        <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
           <span className="text-[10px] text-slate-400 uppercase block">Reps Count</span>
-          <span className="text-lg font-bold text-white">24</span>
+          <span className="text-xl font-bold text-white">24</span>
           <span className="text-[9px] text-teal-400 block">Form: 98%</span>
         </div>
-        <div className="p-2 rounded-lg bg-white/[0.03] border border-white/5">
+        <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
           <span className="text-[10px] text-slate-400 uppercase block">Joint Angle</span>
-          <span className="text-lg font-bold text-teal-300">92°</span>
+          <span className="text-xl font-bold text-teal-300">92°</span>
           <span className="text-[9px] text-emerald-400 block">Optimal</span>
         </div>
-        <div className="p-2 rounded-lg bg-white/[0.03] border border-white/5">
+        <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
           <span className="text-[10px] text-slate-400 uppercase block">Cadence</span>
-          <span className="text-lg font-bold text-slate-200">1.8s</span>
+          <span className="text-xl font-bold text-slate-200">1.8s</span>
           <span className="text-[9px] text-slate-400 block">Pace</span>
         </div>
       </div>
@@ -194,7 +194,7 @@ function FitnessTrackerPreview() {
 // Visual Preview for Eathers
 function EathersPreview() {
   return (
-    <div className="w-full h-44 rounded-xl bg-[#090d13] border border-white/10 p-3.5 font-mono text-xs text-slate-300 flex flex-col justify-between overflow-hidden">
+    <div className="w-full h-48 sm:h-56 rounded-2xl bg-[#090d13] border border-white/10 p-4 font-mono text-xs text-slate-300 flex flex-col justify-between overflow-hidden shadow-inner">
       <div className="flex items-center justify-between pb-2 border-b border-white/10 text-[11px]">
         <span className="text-teal-400 font-semibold flex items-center space-x-1.5">
           <Layers className="w-3.5 h-3.5" />
@@ -203,7 +203,7 @@ function EathersPreview() {
         <span className="text-[10px] text-slate-500">MongoDB Node API</span>
       </div>
 
-      <div className="space-y-1.5 my-auto text-[11px]">
+      <div className="space-y-2 my-auto text-[11px]">
         <div className="flex items-center space-x-2 text-slate-400">
           <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[9px] font-bold">GET</span>
           <span className="text-slate-200">/api/v1/items?filter=active</span>
@@ -248,48 +248,48 @@ export function ProjectsGrid() {
   };
 
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="projects" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Section Title with Scroll Reveal */}
       <motion.div
         initial={{ opacity: 0, y: 25 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="mb-12 text-center sm:text-left"
+        className="mb-16 text-center sm:text-left"
       >
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-xs font-mono text-teal-400 mb-3">
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-xs font-mono text-teal-400 mb-3">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Selected Work & Engineering Systems</span>
+          <span>Interactive Case Studies</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-          Featured Projects
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          Selected Engineering Works
         </h2>
         <p className="text-sm sm:text-base text-slate-400 mt-2 max-w-2xl">
-          Real-world applications spanning AI-assisted healthcare screening, multiplayer 2D virtual workspaces, and full-stack web platforms.
+          Architectural breakdowns of real-world production systems spanning clinical AI screening, real-time multiplayer spaces, and full-stack web products.
         </p>
       </motion.div>
 
-      {/* Featured Project: NURA AI */}
-      <div className="mb-12">
+      {/* Featured Flagship Scene: NURA AI */}
+      <div className="mb-20 sm:mb-28">
         <FeaturedProject />
       </div>
 
-      {/* Other Projects Grid with Staggered Entrance */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      {/* Other Projects: Spacious Editorial Case Study Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {otherProjects.map((proj, idx) => {
           return (
             <motion.div
               key={proj.id}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -4 }}
-              className="group rounded-2xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-7 backdrop-blur-md transition-all duration-300 hover:border-teal-500/40 hover:shadow-card-hover flex flex-col justify-between"
+              className="group rounded-3xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-teal-500/40 hover:shadow-card-hover flex flex-col justify-between"
             >
               <div>
                 {/* Visual Preview with subtle 2-4px movement on card hover */}
-                <div className="mb-5 overflow-hidden rounded-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">
+                <div className="mb-6 overflow-hidden rounded-2xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">
                   {renderPreview(proj.id)}
                 </div>
 
@@ -304,19 +304,19 @@ export function ProjectsGrid() {
                 </div>
 
                 {/* Description */}
-                <p className="text-xs sm:text-sm text-slate-300 mb-4 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-300 mb-5 leading-relaxed">
                   {proj.description}
                 </p>
 
                 {/* Problem / Solution Blocks */}
-                <div className="space-y-2 mb-4 text-xs font-mono">
-                  <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/5">
+                <div className="space-y-2.5 mb-5 text-xs font-mono">
+                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
                     <span className="text-slate-400 font-semibold block text-[11px] mb-0.5">
                       Problem:
                     </span>
                     <span className="text-slate-300">{proj.problem}</span>
                   </div>
-                  <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/5">
+                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
                     <span className="text-emerald-400 font-semibold block text-[11px] mb-0.5">
                       Solution:
                     </span>
@@ -331,7 +331,7 @@ export function ProjectsGrid() {
                   {proj.technologies.map((t) => (
                     <span
                       key={t}
-                      className="px-2 py-0.5 rounded text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300 group-hover:border-teal-500/20 transition-transform group-hover:translate-y-[-1px]"
+                      className="px-2.5 py-0.5 rounded text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300 group-hover:border-teal-500/20 transition-transform group-hover:translate-y-[-1px]"
                     >
                       {t}
                     </span>

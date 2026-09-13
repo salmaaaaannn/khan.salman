@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { TerminalCard } from "./TerminalCard";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 import {
@@ -10,7 +10,6 @@ import {
   Github,
   Linkedin,
   MapPin,
-  Sparkles,
   Phone,
 } from "lucide-react";
 
@@ -19,6 +18,29 @@ interface HeroProps {
 }
 
 export function Hero({ onOpenResume }: HeroProps) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 30, stiffness: 100 };
+  const smoothMouseX = useSpring(mouseX, springConfig);
+  const smoothMouseY = useSpring(mouseY, springConfig);
+
+  // Subtle floating background wave displacement based on mouse
+  const waveMoveX = useTransform(smoothMouseX, [-500, 500], [-18, 18]);
+  const waveMoveY = useTransform(smoothMouseY, [-500, 500], [-12, 12]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      mouseX.set(e.clientX - centerX);
+      mouseY.set(e.clientY - centerY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
   const scrollToSection = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     const el = document.getElementById(id);
@@ -27,29 +49,28 @@ export function Hero({ onOpenResume }: HeroProps) {
     }
   };
 
-  // Choreographed sequenced variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.12,
-        delayChildren: 0.08,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemFadeUp = {
-    hidden: { opacity: 0, y: 22 },
+    hidden: { opacity: 0, y: 24 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
     },
   };
 
-  const buttonScale = {
-    hidden: { opacity: 0, scale: 0.94 },
+  const buttonVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
       scale: 1,
@@ -57,21 +78,44 @@ export function Hero({ onOpenResume }: HeroProps) {
     },
   };
 
-  const terminalSlideIn = {
-    hidden: { opacity: 0, x: 35 },
+  const terminalVariants = {
+    hidden: { opacity: 0, x: 40 },
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.45 },
+      transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.45 },
     },
   };
+
+  const cleanPhone = PORTFOLIO_DATA.personal.phone.replace(/\s+/g, "");
 
   return (
     <section
       id="home"
-      className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-grid-subtle"
+      className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-grid-subtle"
     >
-      {/* Subtle Floating Ambient Background Orbs */}
+      {/* Abstract Floating Liquid Wave Background reacts to mouse */}
+      <motion.div
+        style={{ x: waveMoveX, y: waveMoveY }}
+        className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
+        aria-hidden="true"
+      >
+        <svg
+          viewBox="0 0 1000 1000"
+          className="w-[900px] h-[900px] opacity-15 text-teal-600/30 animate-pulse-slow"
+        >
+          <defs>
+            <radialGradient id="waveGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.35" />
+              <stop offset="60%" stopColor="#0f766e" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#0a0d12" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          <circle cx="500" cy="500" r="420" fill="url(#waveGlow)" />
+        </svg>
+      </motion.div>
+
+      {/* Floating Ambient Glow Orbs */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-teal-600/10 rounded-full blur-3xl pointer-events-none animate-float-slow" />
       <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-teal-800/10 rounded-full blur-3xl pointer-events-none animate-float-reverse" />
 
@@ -100,23 +144,23 @@ export function Hero({ onOpenResume }: HeroProps) {
               </div>
             </motion.div>
 
-            {/* 2. Name */}
+            {/* 2. SALMAN KHAN Reveals */}
             <motion.div variants={itemFadeUp}>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
-                {PORTFOLIO_DATA.personal.name}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.08] font-mono">
+                SALMAN KHAN
               </h1>
             </motion.div>
 
-            {/* 3. Role */}
+            {/* 3. Role Text */}
             <motion.div variants={itemFadeUp}>
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-teal-400 tracking-tight flex flex-wrap items-center gap-x-2">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-teal-400 tracking-tight flex flex-wrap items-center gap-x-3">
                 <span>Full-Stack Developer</span>
                 <span className="text-slate-600">|</span>
                 <span className="text-slate-200">AI/ML Developer</span>
               </div>
             </motion.div>
 
-            {/* 4. Headline & Supporting Text */}
+            {/* 4. Headline & Description */}
             <motion.div variants={itemFadeUp} className="space-y-2">
               <p className="text-lg sm:text-xl font-medium text-slate-200 max-w-2xl leading-relaxed">
                 &ldquo;{PORTFOLIO_DATA.personal.headline}&rdquo;
@@ -126,19 +170,17 @@ export function Hero({ onOpenResume }: HeroProps) {
               </p>
             </motion.div>
 
-            {/* 5. Primary CTAs */}
-            <motion.div variants={buttonScale} className="flex flex-wrap items-center gap-4 pt-2">
-              {/* View My Work Button */}
+            {/* 5. Primary CTA Buttons with Magnetic Hover */}
+            <motion.div variants={buttonVariants} className="flex flex-wrap items-center gap-4 pt-2">
               <a
                 href="#projects"
                 onClick={(e) => scrollToSection(e, "projects")}
                 className="btn-shimmer group inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 active:scale-95 text-slate-950 font-semibold text-sm transition-all duration-200 shadow-teal-soft hover:shadow-teal-subtle hover:-translate-y-0.5"
               >
                 <span>View My Work</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1.5" />
               </a>
 
-              {/* Contact Me Button */}
               <a
                 href="#contact"
                 onClick={(e) => scrollToSection(e, "contact")}
@@ -149,7 +191,7 @@ export function Hero({ onOpenResume }: HeroProps) {
               </a>
             </motion.div>
 
-            {/* Secondary Direct Coordinates (Clickable Email & Phone) */}
+            {/* Direct Coordinates */}
             <motion.div
               variants={itemFadeUp}
               className="pt-4 flex flex-wrap items-center gap-6 border-t border-white/10 text-xs text-slate-400 font-mono"
@@ -163,7 +205,7 @@ export function Hero({ onOpenResume }: HeroProps) {
               </a>
 
               <a
-                href={`tel:${PORTFOLIO_DATA.personal.phone.replace(/\s+/g, "")}`}
+                href={`tel:${cleanPhone}`}
                 className="inline-flex items-center space-x-1.5 text-slate-300 hover:text-teal-400 transition-colors"
               >
                 <Phone className="w-3.5 h-3.5 text-teal-400" />
@@ -193,9 +235,9 @@ export function Hero({ onOpenResume }: HeroProps) {
             </motion.div>
           </motion.div>
 
-          {/* 6. Right Column: Terminal Card slides in */}
+          {/* 6. Right Column: Terminal Card */}
           <motion.div
-            variants={terminalSlideIn}
+            variants={terminalVariants}
             initial="hidden"
             animate="visible"
             className="lg:col-span-5 flex justify-center lg:justify-end"

@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { ScrollProgress, BackToTop } from "@/components/ScrollProgress";
+import { CursorWave } from "@/components/CursorWave";
+import { ScrollWaveWrapper } from "@/components/ScrollWaveWrapper";
+import { WaveDivider } from "@/components/WaveDivider";
 import { Hero } from "@/components/Hero";
 import { BentoGrid } from "@/components/BentoGrid";
 import { ProjectsGrid } from "@/components/ProjectsGrid";
@@ -36,51 +39,69 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative min-h-screen bg-[#07090e] bg-grid-pattern overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-300">
-      {/* Scroll Progress Bar */}
+    <main className="relative min-h-screen bg-[#0a0d12] text-slate-100 overflow-x-hidden selection:bg-teal-500/20 selection:text-teal-300">
+      {/* Liquid Cursor Wave Effect */}
+      <CursorWave />
+
+      {/* Top Thin Scroll Progress Bar */}
       <ScrollProgress />
 
-      {/* Top Navbar */}
+      {/* Jitter-Inspired Fluid Liquid Navbar */}
       <Navbar
         onOpenCommandPalette={() => setCommandPaletteOpen(true)}
         onOpenResume={() => setResumeModalOpen(true)}
       />
 
-      {/* Hero Section with Interactive Terminal */}
-      <Hero onOpenResume={() => setResumeModalOpen(true)} />
+      {/* Velocity-Aware Scroll Wave Wrapper */}
+      <ScrollWaveWrapper>
+        {/* Hero Section */}
+        <Hero onOpenResume={() => setResumeModalOpen(true)} />
 
-      {/* Developer Dashboard / Connected Bento Grid */}
-      <BentoGrid />
+        {/* Wave Transition 1 */}
+        <WaveDivider />
 
-      {/* Projects Section: VITALS (Featured AI Healthcare) + Metaverse 2D + Event Mgmt + Fitness Tracker + Eathers */}
-      <ProjectsGrid />
+        {/* Developer Bento Grid */}
+        <BentoGrid />
 
-      {/* Engineering Stack categorized with interactive cards */}
-      <TechStack />
+        {/* About Developer Profile */}
+        <About />
 
-      {/* About Section structured as developer profile */}
-      <About />
+        {/* Wave Transition 2 */}
+        <WaveDivider flip />
 
-      {/* Experience Timeline */}
-      <ExperienceTimeline />
+        {/* Projects Section (Flagship NURA AI + Case Studies) */}
+        <ProjectsGrid />
 
-      {/* Education & Certifications */}
-      <EducationCertifications />
+        {/* Wave Transition 3 */}
+        <WaveDivider />
 
-      {/* Achievements: 3x Hackathon Winner */}
-      <Achievements />
+        {/* Engineering Stack with Magnetic Skill Cards */}
+        <TechStack />
 
-      {/* GitHub Activity & Repositories */}
-      <GithubSection />
+        {/* Experience Timeline with Scroll-Drawn Line & Marker */}
+        <ExperienceTimeline />
 
-      {/* Resume Call-to-Action */}
-      <ResumeCTA onOpenResume={() => setResumeModalOpen(true)} />
+        {/* Education & Certifications */}
+        <EducationCertifications />
 
-      {/* Contact Section */}
-      <Contact />
+        {/* Achievements: 3x Hackathon Winner */}
+        <Achievements />
 
-      {/* Footer */}
-      <Footer onOpenResume={() => setResumeModalOpen(true)} />
+        {/* GitHub Activity & Open Source Matrix */}
+        <GithubSection />
+
+        {/* Wave Transition 4 */}
+        <WaveDivider flip />
+
+        {/* Resume Call-to-Action */}
+        <ResumeCTA onOpenResume={() => setResumeModalOpen(true)} />
+
+        {/* Contact Section with Slow Fluid Wave */}
+        <Contact />
+
+        {/* Footer */}
+        <Footer onOpenResume={() => setResumeModalOpen(true)} />
+      </ScrollWaveWrapper>
 
       {/* Floating Back-to-Top Button */}
       <BackToTop />

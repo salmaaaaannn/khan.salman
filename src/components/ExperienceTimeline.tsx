@@ -1,12 +1,26 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Briefcase, Calendar, MapPin, CheckCircle2 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 export function ExperienceTimeline() {
   const experiences = PORTFOLIO_DATA.experience;
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 24,
+  });
+
+  const lineHeight = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
+  const markerTop = useTransform(smoothProgress, [0, 1], ["0%", "98%"]);
 
   return (
     <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -16,7 +30,7 @@ export function ExperienceTimeline() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="mb-12 text-center sm:text-left"
+        className="mb-14 text-center sm:text-left"
       >
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-xs font-mono text-teal-400 mb-3">
           <Briefcase className="w-3.5 h-3.5" />
@@ -30,37 +44,43 @@ export function ExperienceTimeline() {
         </p>
       </motion.div>
 
-      {/* Timeline Container */}
-      <div className="relative border-l border-white/10 ml-4 sm:ml-6 pl-6 sm:pl-8 space-y-12">
-        {/* Animated Line Indicator that draws on scroll */}
+      {/* Timeline Container with Dynamic Scroll-Drawn Line & Marker */}
+      <div
+        ref={containerRef}
+        className="relative border-l border-white/10 ml-4 sm:ml-6 pl-6 sm:pl-10 space-y-12"
+      >
+        {/* Animated Line that draws as user scrolls */}
         <motion.div
-          className="absolute -left-[1px] top-0 w-[2px] bg-gradient-to-b from-teal-500 via-teal-400 to-transparent"
-          initial={{ height: "0%" }}
-          whileInView={{ height: "100%" }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          style={{ height: lineHeight }}
+          className="absolute -left-[1px] top-0 w-[2px] bg-gradient-to-b from-teal-500 via-teal-400 to-emerald-400 will-change-transform"
+        />
+
+        {/* Dynamic Marker that rides down the timeline */}
+        <motion.div
+          style={{ top: markerTop }}
+          className="absolute -left-[5px] w-2.5 h-2.5 rounded-full bg-teal-400 shadow-lg shadow-teal-400/80 z-20 pointer-events-none"
         />
 
         {experiences.map((exp, idx) => (
           <motion.div
             key={idx}
-            initial={{ opacity: 0, y: 25 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="relative group"
           >
-            {/* Glowing Timeline Node */}
-            <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#0a0d12] border-2 border-teal-400 flex items-center justify-center group-hover:scale-125 transition-transform duration-300 shadow-teal-subtle">
+            {/* Base Timeline Node */}
+            <div className="absolute -left-[31px] sm:-left-[47px] top-2 w-4 h-4 rounded-full bg-[#0a0d12] border-2 border-teal-400 flex items-center justify-center group-hover:scale-125 transition-transform duration-300 shadow-teal-subtle">
               <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
             </div>
 
             {/* Experience Card */}
-            <div className="rounded-2xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-teal-500/40 hover:shadow-card-hover hover:-translate-y-1">
+            <div className="rounded-3xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-teal-500/40 hover:shadow-card-hover hover:-translate-y-1">
               {/* Header: Role & Period */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                 <div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-teal-300 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-teal-300 transition-colors">
                     {exp.role}
                   </h3>
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-mono text-slate-400 mt-1">

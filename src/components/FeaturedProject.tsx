@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   FileText,
   Scan,
@@ -12,13 +12,38 @@ import {
   ExternalLink,
   Sparkles,
   ArrowRight,
-  ChevronRight,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 export function FeaturedProject() {
   const project = PORTFOLIO_DATA.featuredProject;
   const [activeStep, setActiveStep] = useState(0);
+
+  // 3D perspective card tilt on mouse movement
+  const cardRef = useRef<HTMLDivElement>(null);
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+
+  const springTilt = { damping: 20, stiffness: 150 };
+  const smoothTiltX = useSpring(tiltX, springTilt);
+  const smoothTiltY = useSpring(tiltY, springTilt);
+
+  const rotateX = useTransform(smoothTiltY, [-100, 100], [3, -3]);
+  const rotateY = useTransform(smoothTiltX, [-100, 100], [-3, 3]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    tiltX.set(x);
+    tiltY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    tiltX.set(0);
+    tiltY.set(0);
+  };
 
   const pipelineStages = [
     {
@@ -30,8 +55,8 @@ export function FeaturedProject() {
       previewData: {
         documentName: "clinical_patient_report.pdf",
         patientId: "PT-9824-A",
-        intakeType: "Fasting Glucose & Comprehensive Metabolic Panel",
-        status: "Ingested via Web Interface",
+        intakeType: "Fasting Glucose & Metabolic Panel",
+        status: "Ingested via Web Portal",
       },
     },
     {
@@ -42,8 +67,8 @@ export function FeaturedProject() {
       tech: "Tesseract OCR Engine",
       previewData: {
         rawExtractedText: "Fasting Glucose: 128 mg/dL | HbA1c: 6.9% | Total Cholesterol: 218 mg/dL",
-        confidence: "Character & tabular layout digitized",
-        status: "Document Parsed to Structured Text",
+        confidence: "Character & tabular layout parsed",
+        status: "Digitized into Structured Format",
       },
     },
     {
@@ -55,7 +80,7 @@ export function FeaturedProject() {
       previewData: {
         endpoint: "POST /api/v1/screening/process",
         schema: "Pydantic Clinical Report Schema Validated",
-        status: "Input Sanitized & Feature Array Prepared",
+        status: "Feature Normalization Complete",
       },
     },
     {
@@ -66,8 +91,8 @@ export function FeaturedProject() {
       tech: "AI/ML Screening Models",
       previewData: {
         screeningModel: "Metabolic Risk Classification Engine",
-        biomarkerEvaluation: "Elevated Fasting Plasma Biomarkers Identified",
-        status: "Screening Classification Complete",
+        biomarkerEvaluation: "Elevated Fasting Plasma Biomarkers Flagged",
+        status: "Screening Inference Complete",
       },
     },
     {
@@ -77,7 +102,7 @@ export function FeaturedProject() {
       icon: Activity,
       tech: "Automated Clinical Reports",
       previewData: {
-        clinicalSummary: "Impaired fasting glycaemia indicators flagged for physician review.",
+        clinicalSummary: "Impaired fasting glycaemia flagged for physician review.",
         triagePriority: "Secondary Clinical Assessment Recommended",
         status: "Delivered to Clinician Portal",
       },
@@ -92,25 +117,30 @@ export function FeaturedProject() {
       initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="w-full"
     >
-      {/* Featured Project Container */}
-      <div className="group relative rounded-3xl bg-[#0e131b] border border-white/10 p-6 sm:p-8 lg:p-10 shadow-2xl transition-all duration-300 hover:border-teal-500/50 hover:shadow-card-hover hover:-translate-y-1 overflow-hidden">
+      {/* Featured Project Case Study Container */}
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="group relative rounded-3xl bg-[#0e131b] border border-white/10 p-6 sm:p-8 lg:p-12 shadow-2xl transition-all duration-300 hover:border-teal-500/50 hover:shadow-card-hover hover:-translate-y-1 overflow-hidden"
+      >
         {/* Subtle Ambient Radial Glow */}
         <div className="absolute -top-32 -right-32 w-96 h-96 bg-teal-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-800/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Top Header Badge & Category */}
+        {/* Top Header Badge & Actions */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 relative z-10">
           <div className="flex items-center space-x-3">
             <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-mono font-semibold tracking-wide shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-teal-400" />
-              <span>Featured Project</span>
+              <span>Flagship Case Study</span>
             </span>
 
             <span className="text-xs font-mono text-slate-400 hidden sm:inline-block">
-              // FLAGSHIP HEALTHCARE & AI PLATFORM
+              // HEALTHCARE & AI INTELLIGENCE PLATFORM
             </span>
           </div>
 
@@ -150,7 +180,7 @@ export function FeaturedProject() {
           </p>
         </div>
 
-        {/* Description & Technical Context */}
+        {/* Description & 3D Interactive Perspective Preview */}
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8 items-start">
           <div className="lg:col-span-7 space-y-4">
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -196,19 +226,22 @@ export function FeaturedProject() {
             </div>
           </div>
 
-          {/* Right side metric/clinical summary card with subtle hover shift */}
+          {/* Right side: 3D perspective mouse tilt preview card */}
           <motion.div
-            whileHover={{ y: -3, x: 2 }}
-            transition={{ duration: 0.2 }}
-            className="lg:col-span-5 rounded-2xl bg-[#090d13] border border-white/10 p-5 font-mono text-xs space-y-3"
+            style={{
+              rotateX,
+              rotateY,
+              transformStyle: "preserve-3d",
+            }}
+            className="lg:col-span-5 rounded-2xl bg-[#090d13] border border-white/10 p-5 font-mono text-xs space-y-3 will-change-transform"
           >
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <span className="text-slate-400 uppercase text-[11px] font-semibold">
-                Clinical Workflow Architecture
+                Clinical Workflow Specs
               </span>
               <span className="text-teal-400 text-[11px] flex items-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-1.5 inline-block" />
-                Verified Specs
+                <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-1.5 inline-block animate-pulse" />
+                Live Architecture
               </span>
             </div>
 
@@ -218,50 +251,64 @@ export function FeaturedProject() {
                 <span className="text-white font-medium">Next.js (App Router)</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">API Engine:</span>
+                <span className="text-slate-500">API Gateway:</span>
                 <span className="text-white font-medium">FastAPI Asynchronous</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">OCR Extraction:</span>
+                <span className="text-slate-500">OCR Engine:</span>
                 <span className="text-teal-300 font-medium">Tesseract OCR</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Inference:</span>
-                <span className="text-teal-300 font-medium">AI/ML Screening Models</span>
+                <span className="text-slate-500">Inference Mode:</span>
+                <span className="text-teal-300 font-medium">AI/ML Biomarker Screening</span>
               </div>
             </div>
 
             <div className="pt-3 border-t border-white/10 text-[11px] text-slate-400">
-              💡 <span className="text-slate-200">Interactive Pipeline:</span> Click through the 5 stages below to inspect how clinical reports flow from document ingest to screening insights.
+              💡 <span className="text-slate-200">Interactive Pipeline:</span> Click the stages below to step through clinical intake, OCR extraction, schema validation, screening inference, and physician reporting.
             </div>
           </motion.div>
         </div>
 
         {/* ========================================================================= */}
-        {/* ANIMATED HEALTHCARE SCREENING PIPELINE */}
+        {/* ANIMATED HEALTHCARE SCREENING PIPELINE WITH MOVING DATA DOTS */}
         {/* ========================================================================= */}
         <div className="relative z-10 pt-6 border-t border-white/10">
           <div className="flex items-center justify-between mb-4">
             <h4 className="text-sm font-mono uppercase tracking-wider text-teal-400 font-bold flex items-center space-x-2">
               <BrainCircuit className="w-4 h-4" />
-              <span>NURA AI Clinical Pipeline</span>
+              <span>NURA AI Pipeline</span>
             </h4>
             <span className="text-xs font-mono text-slate-500">
               Stage {activeStep + 1} of {pipelineStages.length}
             </span>
           </div>
 
-          {/* Progressive Connecting Line & Stages */}
+          {/* Progressive Connecting Line with Moving Data Dots */}
           <div className="relative mb-6">
-            {/* Background connecting line */}
+            {/* Background track line */}
             <div className="hidden sm:block absolute top-1/2 left-4 right-4 h-0.5 bg-white/10 -translate-y-1/2 z-0" />
             
-            {/* Animated Progressive Connecting Line */}
+            {/* Progress filled line */}
             <motion.div
               className="hidden sm:block absolute top-1/2 left-4 h-0.5 bg-gradient-to-r from-teal-500 to-teal-300 -translate-y-1/2 z-0"
               initial={{ width: "0%" }}
               animate={{ width: `${(activeStep / (pipelineStages.length - 1)) * 92}%` }}
               transition={{ duration: 0.4, ease: "easeOut" }}
+            />
+
+            {/* Traveling Data Pulse Dot */}
+            <motion.div
+              className="hidden sm:block absolute top-1/2 w-2 h-2 rounded-full bg-teal-300 -translate-y-1/2 shadow-lg shadow-teal-400/80 z-5"
+              animate={{
+                left: ["2%", "94%"],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             />
 
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 relative z-10">

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import {
   FileCode,
   Binary,
@@ -51,6 +51,74 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Share2,
   Figma,
 };
+
+// Magnetic Skill Card component
+function MagneticSkillCard({
+  tech,
+  categoryColor,
+}: {
+  tech: TechItem;
+  categoryColor: string;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { damping: 20, stiffness: 200, mass: 0.2 };
+  const smoothX = useSpring(x, springConfig);
+  const smoothY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const offsetX = (e.clientX - rect.left - rect.width / 2) * 0.12;
+    const offsetY = (e.clientY - rect.top - rect.height / 2) * 0.12;
+    x.set(offsetX);
+    y.set(offsetY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  const IconComponent = ICON_MAP[tech.iconName] || Code;
+
+  return (
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: smoothX, y: smoothY }}
+      whileHover={{ y: -3 }}
+      className="group rounded-2xl bg-[#0c1017]/90 border border-white/10 p-4 sm:p-5 backdrop-blur-md transition-all duration-200 hover:border-teal-500/40 hover:shadow-card-hover flex flex-col justify-between will-change-transform"
+    >
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <div className="p-2 rounded-xl bg-white/5 border border-white/10 group-hover:bg-teal-500/10 group-hover:border-teal-500/30 transition-colors">
+            <IconComponent className="w-4 h-4 text-teal-400 group-hover:scale-110 transition-transform duration-200" />
+          </div>
+          <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${categoryColor}`}>
+            {tech.category}
+          </span>
+        </div>
+
+        <h3 className="text-base font-bold text-white group-hover:text-teal-300 transition-colors">
+          {tech.name}
+        </h3>
+
+        <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
+          {tech.description}
+        </p>
+      </div>
+
+      <div className="pt-3 mt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-500">
+        <span className="group-hover:text-slate-400 transition-colors">production ready</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-teal-500/60 group-hover:bg-teal-400 group-hover:scale-125 transition-all duration-200" />
+      </div>
+    </motion.div>
+  );
+}
 
 export function TechStack() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -130,56 +198,16 @@ export function TechStack() {
         </div>
       </motion.div>
 
-      {/* Technology Cards Grid */}
-      <motion.div
-        layout
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-      >
-        {filteredTech.map((tech) => {
-          const IconComponent = ICON_MAP[tech.iconName] || Code;
-          return (
-            <motion.div
-              layout
-              key={tech.name}
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.3 }}
-              whileHover={{ y: -3, scale: 1.01 }}
-              className="group rounded-xl bg-[#0c1017]/90 border border-white/10 p-4 backdrop-blur-md transition-all duration-200 hover:border-teal-500/40 hover:shadow-card-hover flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover:bg-teal-500/10 group-hover:border-teal-500/30 transition-colors">
-                    <IconComponent className="w-4 h-4 text-teal-400 group-hover:scale-110 transition-transform duration-200" />
-                  </div>
-                  <span
-                    className={`text-[10px] font-mono px-2 py-0.5 rounded border ${getCategoryColor(
-                      tech.category
-                    )}`}
-                  >
-                    {tech.category}
-                  </span>
-                </div>
-
-                <h3 className="text-base font-bold text-white group-hover:text-teal-300 transition-colors">
-                  {tech.name}
-                </h3>
-
-                <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                  {tech.description}
-                </p>
-              </div>
-
-              <div className="pt-3 mt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-500">
-                <span className="group-hover:text-slate-400 transition-colors">production ready</span>
-                {/* Subtle animated indicator on hover */}
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-500/60 group-hover:bg-teal-400 group-hover:scale-125 transition-all duration-200" />
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+      {/* Technology Cards Grid with Magnetic Interaction */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {filteredTech.map((tech) => (
+          <MagneticSkillCard
+            key={tech.name}
+            tech={tech}
+            categoryColor={getCategoryColor(tech.category)}
+          />
+        ))}
+      </div>
     </section>
   );
 }

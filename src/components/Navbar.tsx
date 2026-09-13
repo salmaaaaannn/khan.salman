@@ -13,6 +13,7 @@ import {
   Command,
   Mail,
   Phone,
+  ArrowRight,
 } from "lucide-react";
 
 interface NavbarProps {
@@ -22,6 +23,7 @@ interface NavbarProps {
 
 export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
   const [activeSection, setActiveSection] = useState("home");
+  const [hoveredSection, setHoveredSection] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -31,16 +33,15 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
     { name: "Projects", href: "#projects" },
     { name: "Experience", href: "#experience" },
     { name: "Skills", href: "#skills" },
-    { name: "Achievements", href: "#achievements" },
     { name: "Contact", href: "#contact" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 25);
+      setScrolled(window.scrollY > 30);
 
       const sections = navLinks.map((l) => l.href.substring(1));
-      const scrollPos = window.scrollY + 200;
+      const scrollPos = window.scrollY + 220;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
@@ -51,7 +52,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -67,50 +68,86 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
   const cleanPhone = PORTFOLIO_DATA.personal.phone.replace(/\s+/g, "");
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0a0d12]/92 backdrop-blur-md border-b border-white/10 shadow-lg"
-          : "bg-transparent border-b border-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-400 ease-out ${
+          scrolled
+            ? "h-14 sm:h-16 bg-[#0a0d12]/92 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20"
+            : "h-20 sm:h-24 bg-transparent border-b border-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Brand Logo */}
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, "#home")}
-            className="flex items-center space-x-2.5 group"
+            className="flex items-center space-x-3 group cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-slate-950 font-bold font-mono text-xs shadow-teal-subtle group-hover:scale-105 transition-transform duration-200">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-slate-950 font-bold font-mono text-xs shadow-teal-subtle transition-colors group-hover:bg-teal-500"
+            >
               {PORTFOLIO_DATA.personal.initials}
-            </div>
-            <span className="font-semibold text-white group-hover:text-teal-400 transition-colors tracking-tight text-sm sm:text-base">
-              {PORTFOLIO_DATA.personal.name}
+            </motion.div>
+            <span className="font-bold tracking-tight text-white text-sm sm:text-base font-mono uppercase group-hover:text-teal-400 transition-colors">
+              SALMAN KHAN
             </span>
           </a>
 
-          {/* Desktop Navigation Links with animated active indicator */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-1.5 relative">
+          {/* Desktop Navigation Links with Fluid Liquid Pill Indicator (Jitter Inspired) */}
+          <nav
+            onMouseLeave={() => setHoveredSection(null)}
+            className="hidden md:flex items-center p-1 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md relative"
+          >
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
+              const sectionId = link.href.substring(1);
+              const isActive = activeSection === sectionId;
+              const isHovered = hoveredSection === sectionId;
+
               return (
                 <a
                   key={link.name}
                   href={link.href}
+                  onMouseEnter={() => setHoveredSection(sectionId)}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  className={`relative px-4 py-1.5 rounded-full text-xs font-medium font-mono transition-colors duration-200 z-10 ${
                     isActive
-                      ? "text-teal-400 font-semibold"
-                      : "text-slate-400 hover:text-white hover:bg-white/5"
+                      ? "text-slate-950 font-bold"
+                      : isHovered
+                      ? "text-white"
+                      : "text-slate-400 hover:text-slate-200"
                   }`}
                 >
-                  {link.name}
+                  {/* Subtle Text Translation on Hover */}
+                  <span className="relative z-10 block transition-transform duration-200 group-hover:-translate-y-0.5">
+                    {link.name}
+                  </span>
+
+                  {/* Active Liquid Sliding Pill (Highest Priority) */}
                   {isActive && (
                     <motion.div
-                      layoutId="activeNavIndicator"
-                      className="absolute bottom-0 left-2 right-2 h-0.5 bg-teal-400 rounded-full"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      layoutId="liquidActivePill"
+                      className="absolute inset-0 rounded-full bg-teal-400 shadow-sm shadow-teal-500/30"
+                      transition={{
+                        type: "spring",
+                        stiffness: 420,
+                        damping: 32,
+                        mass: 0.8,
+                      }}
+                    />
+                  )}
+
+                  {/* Hover Floating Aura when not active */}
+                  {!isActive && isHovered && (
+                    <motion.div
+                      layoutId="liquidHoverPill"
+                      className="absolute inset-0 rounded-full bg-white/10"
+                      transition={{
+                        type: "spring",
+                        stiffness: 450,
+                        damping: 35,
+                      }}
                     />
                   )}
                 </a>
@@ -118,7 +155,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right actions: Command Palette hint, Socials, Resume, ThemeToggle */}
+          {/* Right Action Icons & Controls */}
           <div className="hidden lg:flex items-center space-x-3">
             {/* Quick Contact Icons */}
             <a
@@ -180,93 +217,104 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile Drawer Menu with Smooth Framer Motion Entrance */}
+      {/* Mobile Animated Panel (Jitter Inspired Smooth Overlay) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="lg:hidden bg-[#0c1017]/95 backdrop-blur-xl border-b border-white/10 px-4 pt-2 pb-6 space-y-4 overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-35 bg-[#0a0d12]/98 backdrop-blur-2xl pt-24 pb-8 px-6 flex flex-col justify-between lg:hidden"
           >
-            <nav className="flex flex-col space-y-1">
+            <motion.nav
+              initial="closed"
+              animate="open"
+              variants={{
+                open: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+                closed: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+              }}
+              className="flex flex-col space-y-3"
+            >
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.substring(1);
                 return (
-                  <a
+                  <motion.a
                     key={link.name}
                     href={link.href}
+                    variants={{
+                      open: { opacity: 1, x: 0 },
+                      closed: { opacity: 0, x: -20 },
+                    }}
+                    transition={{ duration: 0.3 }}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-lg font-mono font-semibold transition-all ${
                       isActive
-                        ? "text-teal-400 bg-teal-500/10 font-semibold"
+                        ? "bg-teal-500/15 text-teal-300 border border-teal-500/30"
                         : "text-slate-300 hover:text-white hover:bg-white/5"
                     }`}
                   >
-                    {link.name}
-                  </a>
+                    <span>{link.name}</span>
+                    <ArrowRight className="w-4 h-4 opacity-50" />
+                  </motion.a>
                 );
               })}
-            </nav>
+            </motion.nav>
 
-            {/* Direct Contact Details in Mobile Drawer */}
-            <div className="pt-3 border-t border-white/10 space-y-2 text-xs font-mono">
-              <a
-                href={`mailto:${PORTFOLIO_DATA.personal.email}`}
-                className="flex items-center space-x-2 text-slate-300 hover:text-teal-400 p-2 rounded-lg hover:bg-white/5 transition-colors"
-              >
-                <Mail className="w-4 h-4 text-teal-400" />
-                <span>{PORTFOLIO_DATA.personal.email}</span>
-              </a>
-
-              <a
-                href={`tel:${cleanPhone}`}
-                className="flex items-center space-x-2 text-slate-300 hover:text-teal-400 p-2 rounded-lg hover:bg-white/5 transition-colors"
-              >
-                <Phone className="w-4 h-4 text-teal-400" />
-                <span>{PORTFOLIO_DATA.personal.phone}</span>
-              </a>
-            </div>
-
-            <div className="pt-3 border-t border-white/10 flex items-center justify-between">
-              <div className="flex items-center space-x-3">
+            <div className="pt-6 border-t border-white/10 space-y-4">
+              <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                 <a
-                  href={PORTFOLIO_DATA.personal.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-white"
-                  aria-label="GitHub"
+                  href={`mailto:${PORTFOLIO_DATA.personal.email}`}
+                  className="flex items-center justify-center space-x-2 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300"
                 >
-                  <Github className="w-4 h-4" />
+                  <Mail className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Email</span>
                 </a>
                 <a
-                  href={PORTFOLIO_DATA.personal.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-teal-400"
-                  aria-label="LinkedIn"
+                  href={`tel:${cleanPhone}`}
+                  className="flex items-center justify-center space-x-2 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300"
                 >
-                  <Linkedin className="w-4 h-4" />
+                  <Phone className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Call</span>
                 </a>
               </div>
 
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenResume();
-                }}
-                className="flex items-center space-x-1.5 px-3 py-2 rounded-lg bg-teal-600 text-slate-950 font-semibold text-xs shadow-sm"
-              >
-                <FileText className="w-3.5 h-3.5" />
-                <span>View Resume</span>
-              </button>
+              <div className="flex items-center justify-between pt-2">
+                <div className="flex items-center space-x-4">
+                  <a
+                    href={PORTFOLIO_DATA.personal.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-lg bg-white/5 text-slate-300 hover:text-white"
+                  >
+                    <Github className="w-4 h-4" />
+                  </a>
+                  <a
+                    href={PORTFOLIO_DATA.personal.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-lg bg-white/5 text-slate-300 hover:text-teal-400"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenResume();
+                  }}
+                  className="px-4 py-2.5 rounded-xl bg-teal-600 text-slate-950 font-bold text-xs font-mono shadow-sm"
+                >
+                  View Resume
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
