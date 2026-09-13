@@ -28,9 +28,9 @@ export function ThemeToggle() {
       title={`Switch to ${isDark ? "light" : "dark"} mode`}
     >
       {isDark ? (
-        <Sun className="w-4 h-4 transition-transform hover:rotate-45 text-amber-400" />
+        <Sun className="w-4 h-4 transition-transform hover:scale-110 text-amber-400" />
       ) : (
-        <Moon className="w-4 h-4 transition-transform -rotate-12 text-slate-700" />
+        <Moon className="w-4 h-4 transition-transform hover:scale-110 text-slate-700" />
       )}
     </button>
   );

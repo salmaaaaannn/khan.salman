@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { ScrollProgress, BackToTop } from "@/components/ScrollProgress";
 import { CursorWave } from "@/components/CursorWave";
 import { ScrollWaveWrapper } from "@/components/ScrollWaveWrapper";
+import { BackgroundWaveLayer } from "@/components/BackgroundWaveLayer";
 import { WaveDivider } from "@/components/WaveDivider";
 import { Hero } from "@/components/Hero";
 import { BentoGrid } from "@/components/BentoGrid";
@@ -42,6 +43,9 @@ export default function Home() {
     <main className="relative min-h-screen bg-[#0a0d12] text-slate-100 overflow-x-hidden selection:bg-teal-500/20 selection:text-teal-300">
       {/* Liquid Cursor Wave Effect */}
       <CursorWave />
+
+      {/* Dedicated background wave and parallax layer (isolated behind straight content) */}
+      <BackgroundWaveLayer />
 
       {/* Top Thin Scroll Progress Bar */}
       <ScrollProgress />

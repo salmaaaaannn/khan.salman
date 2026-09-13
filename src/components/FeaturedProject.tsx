@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import {
   FileText,
   Scan,
@@ -11,39 +11,12 @@ import {
   Github,
   ExternalLink,
   Sparkles,
-  ArrowRight,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 export function FeaturedProject() {
   const project = PORTFOLIO_DATA.featuredProject;
   const [activeStep, setActiveStep] = useState(0);
-
-  // 3D perspective card tilt on mouse movement
-  const cardRef = useRef<HTMLDivElement>(null);
-  const tiltX = useMotionValue(0);
-  const tiltY = useMotionValue(0);
-
-  const springTilt = { damping: 20, stiffness: 150 };
-  const smoothTiltX = useSpring(tiltX, springTilt);
-  const smoothTiltY = useSpring(tiltY, springTilt);
-
-  const rotateX = useTransform(smoothTiltY, [-100, 100], [3, -3]);
-  const rotateY = useTransform(smoothTiltX, [-100, 100], [-3, 3]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    tiltX.set(x);
-    tiltY.set(y);
-  };
-
-  const handleMouseLeave = () => {
-    tiltX.set(0);
-    tiltY.set(0);
-  };
 
   const pipelineStages = [
     {
@@ -121,12 +94,7 @@ export function FeaturedProject() {
       className="w-full"
     >
       {/* Featured Project Case Study Container */}
-      <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="group relative rounded-3xl bg-[#0e131b] border border-white/10 p-6 sm:p-8 lg:p-12 shadow-2xl transition-all duration-300 hover:border-teal-500/50 hover:shadow-card-hover hover:-translate-y-1 overflow-hidden"
-      >
+      <div className="group relative rounded-3xl bg-[#0e131b] border border-white/10 p-6 sm:p-8 lg:p-12 shadow-2xl transition-all duration-300 hover:border-teal-500/50 hover:shadow-card-hover hover:-translate-y-1 overflow-hidden">
         {/* Subtle Ambient Radial Glow */}
         <div className="absolute -top-32 -right-32 w-96 h-96 bg-teal-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-800/10 rounded-full blur-3xl pointer-events-none" />
@@ -180,7 +148,7 @@ export function FeaturedProject() {
           </p>
         </div>
 
-        {/* Description & 3D Interactive Perspective Preview */}
+        {/* Description & Straight Architectural Preview */}
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8 items-start">
           <div className="lg:col-span-7 space-y-4">
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -226,15 +194,8 @@ export function FeaturedProject() {
             </div>
           </div>
 
-          {/* Right side: 3D perspective mouse tilt preview card */}
-          <motion.div
-            style={{
-              rotateX,
-              rotateY,
-              transformStyle: "preserve-3d",
-            }}
-            className="lg:col-span-5 rounded-2xl bg-[#090d13] border border-white/10 p-5 font-mono text-xs space-y-3 will-change-transform"
-          >
+          {/* Right side: Perfectly straight preview card with clean subtle hover lift */}
+          <div className="lg:col-span-5 rounded-2xl bg-[#090d13] border border-white/10 p-5 font-mono text-xs space-y-3 transition-all duration-200 hover:border-teal-500/30 hover:-translate-y-1">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <span className="text-slate-400 uppercase text-[11px] font-semibold">
                 Clinical Workflow Specs
@@ -267,7 +228,7 @@ export function FeaturedProject() {
             <div className="pt-3 border-t border-white/10 text-[11px] text-slate-400">
               💡 <span className="text-slate-200">Interactive Pipeline:</span> Click the stages below to step through clinical intake, OCR extraction, schema validation, screening inference, and physician reporting.
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* ========================================================================= */}

@@ -120,7 +120,7 @@ export function BentoGrid() {
               <div className="flex items-start justify-between relative z-10 mb-4">
                 <div className="flex items-center space-x-3">
                   <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 group-hover:bg-teal-500/10 group-hover:border-teal-500/30 transition-all duration-300">
-                    <Icon className="w-5 h-5 text-teal-400 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" />
+                    <Icon className="w-5 h-5 text-teal-400 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <div>
                     <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block">
