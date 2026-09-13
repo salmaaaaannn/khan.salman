@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { GraduationCap, Award, CheckCircle, MapPin, Calendar, BookOpen } from "lucide-react";
+import { motion } from "framer-motion";
+import { GraduationCap, Award, CheckCircle, MapPin } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 export function EducationCertifications() {
@@ -9,15 +10,21 @@ export function EducationCertifications() {
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
         {/* Education Card */}
-        <div className="rounded-2xl bg-[#0c1017]/80 border border-white/10 p-6 sm:p-8 backdrop-blur-md">
+        <div className="rounded-2xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-8 backdrop-blur-md transition-colors hover:border-teal-500/30">
           <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+            <div className="p-2.5 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-400">
               <GraduationCap className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold block">
+              <span className="text-xs font-mono uppercase tracking-wider text-teal-400 font-semibold block">
                 Academic Foundation
               </span>
               <h3 className="text-xl font-bold text-white">Education</h3>
@@ -37,7 +44,7 @@ export function EducationCertifications() {
                   {edu.institution}
                 </div>
                 <div className="flex items-center text-xs text-slate-400 font-mono pt-1">
-                  <MapPin className="w-3.5 h-3.5 mr-1 text-cyan-400" />
+                  <MapPin className="w-3.5 h-3.5 mr-1 text-teal-400" />
                   <span>{edu.location}</span>
                 </div>
               </div>
@@ -46,13 +53,13 @@ export function EducationCertifications() {
         </div>
 
         {/* Certifications Card */}
-        <div className="rounded-2xl bg-[#0c1017]/80 border border-white/10 p-6 sm:p-8 backdrop-blur-md">
+        <div className="rounded-2xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-8 backdrop-blur-md transition-colors hover:border-teal-500/30">
           <div className="flex items-center space-x-3 mb-6">
-            <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+            <div className="p-2.5 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-400">
               <Award className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs font-mono uppercase tracking-wider text-indigo-400 font-semibold block">
+              <span className="text-xs font-mono uppercase tracking-wider text-teal-400 font-semibold block">
                 Professional Credentials
               </span>
               <h3 className="text-xl font-bold text-white">Certifications</h3>
@@ -69,7 +76,7 @@ export function EducationCertifications() {
                   <h4 className="text-base font-bold text-white">
                     {cert.name}
                   </h4>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 shrink-0 ml-2">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-teal-500/10 border border-teal-500/30 text-teal-300 shrink-0 ml-2">
                     {cert.date}
                   </span>
                 </div>
@@ -84,7 +91,7 @@ export function EducationCertifications() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

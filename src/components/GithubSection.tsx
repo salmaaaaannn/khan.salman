@@ -1,16 +1,13 @@
 "use client";
 
 import React from "react";
-import { Github, ExternalLink, Code2, GitFork, Star, Terminal } from "lucide-react";
+import { motion } from "framer-motion";
+import { Github, ExternalLink } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 export function GithubSection() {
-  // Generate a clean stylized contribution grid matrix (7 days x 28 weeks = 196 cells)
-  // Using deterministic CSS variations to create a realistic developer activity matrix without claiming fake numbers.
   const weeks = 28;
-  const days = 7;
 
-  // Levels 0 to 4
   const matrixLevels = [
     [0, 1, 2, 0, 3, 2, 1],
     [1, 2, 3, 1, 0, 2, 3],
@@ -45,24 +42,30 @@ export function GithubSection() {
   const getColorClass = (level: number) => {
     switch (level) {
       case 1:
-        return "bg-cyan-950 border-cyan-900";
+        return "bg-teal-950 border-teal-900";
       case 2:
-        return "bg-cyan-800 border-cyan-700";
+        return "bg-teal-800 border-teal-700";
       case 3:
-        return "bg-cyan-600 border-cyan-500";
+        return "bg-teal-600 border-teal-500";
       case 4:
-        return "bg-cyan-400 border-cyan-300 shadow-sm shadow-cyan-400/50";
+        return "bg-teal-400 border-teal-300 shadow-sm shadow-teal-400/40";
       default:
-        return "bg-white/[0.04] border-white/5";
+        return "bg-white/[0.03] border-white/5";
     }
   };
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="rounded-3xl bg-[#0c1017]/80 border border-white/10 p-6 sm:p-10 backdrop-blur-xl">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="rounded-3xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-10 backdrop-blur-md"
+      >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-white/10">
           <div>
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-400 mb-3">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-xs font-mono text-teal-400 mb-3">
               <Github className="w-3.5 h-3.5" />
               <span>Open Source & Engineering Activity</span>
             </div>
@@ -78,9 +81,9 @@ export function GithubSection() {
             href={PORTFOLIO_DATA.personal.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 hover:text-white text-xs font-mono font-semibold transition-all hover:border-cyan-500/40 self-start md:self-center"
+            className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 border border-white/15 text-slate-200 hover:text-white text-xs font-mono font-semibold transition-all hover:border-teal-500/40 self-start md:self-center"
           >
-            <Github className="w-4 h-4 text-cyan-400" />
+            <Github className="w-4 h-4 text-teal-400" />
             <span>Visit GitHub</span>
             <ExternalLink className="w-3.5 h-3.5 ml-1" />
           </a>
@@ -92,18 +95,18 @@ export function GithubSection() {
             <span>Commit & Build Cadence</span>
             <div className="flex items-center space-x-1.5 text-[11px]">
               <span className="text-slate-500">Less</span>
-              <span className="w-2.5 h-2.5 rounded-sm bg-white/[0.04] border border-white/5" />
-              <span className="w-2.5 h-2.5 rounded-sm bg-cyan-950 border border-cyan-900" />
-              <span className="w-2.5 h-2.5 rounded-sm bg-cyan-800 border border-cyan-700" />
-              <span className="w-2.5 h-2.5 rounded-sm bg-cyan-600 border border-cyan-500" />
-              <span className="w-2.5 h-2.5 rounded-sm bg-cyan-400 border border-cyan-300" />
+              <span className="w-2.5 h-2.5 rounded-sm bg-white/[0.03] border border-white/5" />
+              <span className="w-2.5 h-2.5 rounded-sm bg-teal-950 border border-teal-900" />
+              <span className="w-2.5 h-2.5 rounded-sm bg-teal-800 border border-teal-700" />
+              <span className="w-2.5 h-2.5 rounded-sm bg-teal-600 border border-teal-500" />
+              <span className="w-2.5 h-2.5 rounded-sm bg-teal-400 border border-teal-300" />
               <span className="text-slate-500">More</span>
             </div>
           </div>
 
           {/* Matrix Container */}
           <div className="overflow-x-auto pb-2">
-            <div className="inline-flex gap-1 p-3 rounded-xl bg-[#07090e] border border-white/5">
+            <div className="inline-flex gap-1 p-3 rounded-xl bg-[#090d13] border border-white/5">
               {matrixLevels.map((week, wIdx) => (
                 <div key={wIdx} className="flex flex-col gap-1">
                   {week.map((lvl, dIdx) => (
@@ -111,8 +114,8 @@ export function GithubSection() {
                       key={dIdx}
                       className={`w-3 h-3 rounded-[2.5px] border ${getColorClass(
                         lvl
-                      )} transition-all hover:scale-125 cursor-pointer`}
-                      title={`Activity block ${wIdx + 1}.${dIdx + 1}`}
+                      )} transition-transform hover:scale-125 cursor-pointer`}
+                      title={`Cadence block ${wIdx + 1}.${dIdx + 1}`}
                     />
                   ))}
                 </div>
@@ -123,7 +126,7 @@ export function GithubSection() {
             Continuous deployment & test automation cycles
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

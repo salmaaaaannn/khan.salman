@@ -20,7 +20,13 @@ export interface Project {
 
 export interface TechItem {
   name: string;
-  category: "Frontend" | "Backend" | "Databases" | "AI / ML" | "Tools";
+  category:
+    | "Frontend"
+    | "Backend"
+    | "Database"
+    | "AI / ML"
+    | "Programming & Problem Solving"
+    | "Tools & APIs";
   description: string;
   iconName: string;
 }
@@ -40,10 +46,11 @@ export const PORTFOLIO_DATA = {
     initials: "SK",
     role: "Full-Stack Developer | AI/ML Developer",
     location: "Mumbai, India",
-    headline: "Building intelligent products with modern full-stack technology.",
+    headline: "Building modern full-stack applications and intelligent software solutions.",
     subheadline:
       "Full-stack developer focused on building scalable web applications, AI-powered products, real-time systems, and practical developer solutions.",
-    email: "salmankhan.dev@outlook.com",
+    email: "salmanmuslimkhan@gmail.com",
+    phone: "+91 8928359076",
     github: "https://github.com/salmankhan",
     linkedin: "https://linkedin.com/in/salmankhan",
     terminal: {
@@ -62,9 +69,9 @@ export const PORTFOLIO_DATA = {
     whatIBuild: [
       "Full-stack web applications",
       "AI-powered applications",
-      "Real-time multiplayer/web experiences",
-      "Data-driven dashboards",
-      "API-driven systems",
+      "Real-time multiplayer & collaborative systems",
+      "Data-driven dashboards & analytics",
+      "API-driven architectures & microservices",
     ],
     currentFocus: "Modern full-stack development + AI/ML integration.",
     corePrinciples: [
@@ -80,55 +87,67 @@ export const PORTFOLIO_DATA = {
       id: "role",
       title: "Current Role",
       value: "Full-Stack Developer / AI-ML Developer",
-      description: "Bridging modern frontend architectures with scalable backend microservices & AI models.",
+      tagline: "Architecture & Integration",
+      detail:
+        "Building end-to-end web applications paired with high-performance APIs and practical machine learning capabilities.",
+      accent: "teal",
       colSpan: "col-span-12 md:col-span-6 lg:col-span-4",
-      accent: "cyan",
     },
     {
       id: "stack",
       title: "Primary Stack",
       value: "React + Next.js + Node.js + Python",
-      description: "Production-tested stack for enterprise applications, data pipelines, and intelligent platforms.",
+      tagline: "Full-Stack Ecosystem",
+      detail:
+        "Component-driven React/Next.js frontends connected to resilient Node.js and Python microservices.",
+      accent: "teal",
       colSpan: "col-span-12 md:col-span-6 lg:col-span-4",
-      accent: "indigo",
     },
     {
       id: "ai",
       title: "AI Focus",
       value: "Machine Learning + AI-Powered Apps",
-      description: "OCR document intelligence, classification models, predictive analytics, and computer vision.",
+      tagline: "Applied Intelligence",
+      detail:
+        "Document OCR extraction, predictive health screening, and computer vision classification pipelines.",
+      accent: "teal",
       colSpan: "col-span-12 md:col-span-6 lg:col-span-4",
-      accent: "violet",
     },
     {
       id: "backend",
-      title: "Backend",
-      value: "Node.js + Express + FastAPI",
-      description: "High-performance asynchronous APIs, schema validation, and secure service integrations.",
-      colSpan: "col-span-12 md:col-span-6 lg:col-span-4",
+      title: "Backend Engine",
+      value: "Node.js + Express.js + FastAPI",
+      tagline: "Asynchronous APIs",
+      detail:
+        "Designing high-throughput RESTful endpoints, request validation schemas, and real-time socket connections.",
       accent: "teal",
+      colSpan: "col-span-12 md:col-span-6 lg:col-span-4",
     },
     {
       id: "database",
-      title: "Database",
+      title: "Data Persistence",
       value: "MongoDB + MySQL",
-      description: "Relational integrity paired with flexible document persistence for high-throughput apps.",
+      tagline: "Polyglot Storage",
+      detail:
+        "Flexible document schemas in MongoDB coupled with relational integrity and transactional consistency in MySQL.",
+      accent: "teal",
       colSpan: "col-span-12 md:col-span-6 lg:col-span-4",
-      accent: "cyan",
     },
     {
       id: "achievement",
-      title: "Achievement",
+      title: "Recognition",
       value: "3× Hackathon Winner",
-      description: "Demonstrated ability to architect, build, and pitch functional MVPs under rigorous time constraints.",
+      tagline: "Rapid Prototyping",
+      detail:
+        "Proven record of architecting, implementing, and delivering competitive solutions within 24-48 hour hackathons.",
+      accent: "teal",
       colSpan: "col-span-12 md:col-span-12 lg:col-span-4",
-      accent: "indigo",
     },
   ],
 
   featuredProject: {
-    id: "vitals",
-    title: "VITALS",
+    id: "nura-ai",
+    title: "NURA AI",
     subtitle: "AI-Assisted Healthcare Screening Platform",
     description:
       "An AI-assisted healthcare screening web platform built using Next.js and FastAPI, with OCR/document extraction using Tesseract and AI/ML capabilities for healthcare screening and insights.",
@@ -138,40 +157,40 @@ export const PORTFOLIO_DATA = {
       "An automated end-to-end clinical screening pipeline combining Next.js interactive UI, FastAPI asynchronous services, Tesseract OCR for document digitization, and AI/ML risk screening modules.",
     technologies: ["Next.js", "FastAPI", "Python", "Tesseract", "AI/ML"],
     featured: true,
-    accentColor: "cyan",
+    accentColor: "teal",
     pipeline: [
       {
         step: 1,
-        name: "Patient / Document",
-        description: "Clinical intake and diagnostic document upload via web portal",
+        name: "Healthcare Input",
+        description: "Patient diagnostic panel & medical report upload via web interface",
         icon: "FileText",
       },
       {
         step: 2,
-        name: "OCR Extraction",
+        name: "OCR",
         description: "High-precision text & numerical lab data extraction using Tesseract OCR",
         icon: "Scan",
       },
       {
         step: 3,
-        name: "Backend Validation",
-        description: "FastAPI schema validation, clinical sanity checks, and normalization",
+        name: "AI Processing",
+        description: "FastAPI schema validation, clinical sanity checks, and feature normalization",
         icon: "ShieldCheck",
       },
       {
         step: 4,
-        name: "AI Screening",
+        name: "Screening",
         description: "Machine Learning screening models evaluating biomarker health risk indicators",
         icon: "BrainCircuit",
       },
       {
         step: 5,
-        name: "Healthcare Insights",
+        name: "Insights",
         description: "Actionable summary reports, risk categorization, and doctor referral guidance",
         icon: "Activity",
       },
     ],
-    githubUrl: "https://github.com/salmankhan/vitals",
+    githubUrl: "https://github.com/salmankhan/nura-ai",
     liveUrl: "#",
   } as Project,
 
@@ -187,7 +206,7 @@ export const PORTFOLIO_DATA = {
       solution:
         "Engineered a multiplayer virtual environment utilizing Phaser game physics, Colyseus/WebSocket real-time state synchronization, and React UI overlays for low-latency player presence.",
       technologies: ["Phaser", "React", "Node.js", "Colyseus", "WebSockets"],
-      accentColor: "indigo",
+      accentColor: "teal",
       githubUrl: "https://github.com/salmankhan/metaverse-2d",
       liveUrl: "#",
     },
@@ -202,7 +221,7 @@ export const PORTFOLIO_DATA = {
       solution:
         "Integrated AI recommendation algorithms to match attendee profiles with event tracks, coupled with a responsive administration dashboard for scheduling and attendee analytics.",
       technologies: ["Python", "FastAPI", "React", "Machine Learning", "MySQL"],
-      accentColor: "violet",
+      accentColor: "teal",
       githubUrl: "https://github.com/salmankhan/ai-event-management",
       liveUrl: "#",
     },
@@ -232,7 +251,7 @@ export const PORTFOLIO_DATA = {
       solution:
         "Engineered a resilient full-stack architecture featuring RESTful API controllers, MongoDB persistence, token-based authentication, and a responsive frontend interface.",
       technologies: ["React", "Node.js", "Express.js", "MongoDB", "REST APIs"],
-      accentColor: "cyan",
+      accentColor: "teal",
       githubUrl: "https://github.com/salmankhan/eathers",
       liveUrl: "#",
     },
@@ -240,38 +259,40 @@ export const PORTFOLIO_DATA = {
 
   techStack: [
     // Frontend
-    { name: "JavaScript", category: "Frontend", description: "Modern ES6+ asynchronous web scripting", iconName: "FileCode" },
-    { name: "TypeScript", category: "Frontend", description: "Strict static typing and robust enterprise architecture", iconName: "Binary" },
-    { name: "React", category: "Frontend", description: "Component-driven frontend development and reactive state", iconName: "Atom" },
+    { name: "React", category: "Frontend", description: "Component-driven frontend architecture & reactive UI state", iconName: "Atom" },
     { name: "Next.js", category: "Frontend", description: "Server-side rendering, App Router, and static site generation", iconName: "Globe" },
-    { name: "HTML", category: "Frontend", description: "Semantic markup, accessibility, and modern structure", iconName: "Layout" },
-    { name: "CSS", category: "Frontend", description: "Responsive styling, modern Flexbox, and CSS Grid layouts", iconName: "Palette" },
-    { name: "Tailwind CSS", category: "Frontend", description: "Utility-first modern design system styling", iconName: "Sparkles" },
+    { name: "TypeScript", category: "Frontend", description: "Type-safe application engineering with strict compile-time checks", iconName: "Binary" },
+    { name: "Tailwind CSS", category: "Frontend", description: "Utility-first modern design systems and fluid responsiveness", iconName: "Sparkles" },
 
     // Backend
-    { name: "Node.js", category: "Backend", description: "Event-driven asynchronous server-side runtime", iconName: "Server" },
-    { name: "Express.js", category: "Backend", description: "Minimalist and flexible Node.js web application framework", iconName: "Layers" },
+    { name: "FastAPI", category: "Backend", description: "High-performance asynchronous Python web APIs with OpenAPI validation", iconName: "Zap" },
+    { name: "Node.js", category: "Backend", description: "Event-driven asynchronous server-side runtime for scalable services", iconName: "Server" },
+    { name: "Express.js", category: "Backend", description: "Minimalist server framework for RESTful routing & middleware", iconName: "Layers" },
     { name: "Python", category: "Backend", description: "Versatile backend programming and machine learning workflows", iconName: "Terminal" },
-    { name: "FastAPI", category: "Backend", description: "High-performance Python APIs with automatic OpenAPI docs", iconName: "Zap" },
 
-    // Databases
-    { name: "MongoDB", category: "Databases", description: "NoSQL document persistence and scalable collections", iconName: "Database" },
-    { name: "MySQL", category: "Databases", description: "Relational database schema design and SQL query optimization", iconName: "HardDrive" },
+    // Database
+    { name: "MongoDB", category: "Database", description: "NoSQL document persistence, aggregation pipelines, and collections", iconName: "Database" },
+    { name: "MySQL", category: "Database", description: "Relational database schema design and SQL query optimization", iconName: "HardDrive" },
 
     // AI / ML
     { name: "Machine Learning", category: "AI / ML", description: "AI-powered application development and inference pipelines", iconName: "BrainCircuit" },
-    { name: "Supervised Learning", category: "AI / ML", description: "Regression and classification modeling on tabular & structured data", iconName: "TrendingUp" },
+    { name: "Supervised Learning", category: "AI / ML", description: "Regression and classification modeling on tabular & clinical data", iconName: "TrendingUp" },
     { name: "Unsupervised Learning", category: "AI / ML", description: "Clustering, dimensionality reduction, and pattern discovery", iconName: "Network" },
+    { name: "Computer Vision", category: "AI / ML", description: "Image preprocessing, landmark detection, and OCR document parsing", iconName: "Eye" },
     { name: "Python AI/ML Ecosystem", category: "AI / ML", description: "NumPy, Pandas, Scikit-Learn data science environment", iconName: "Cpu" },
-    { name: "Computer Vision", category: "AI / ML", description: "Image preprocessing, feature extraction, and OCR document parsing", iconName: "Eye" },
 
-    // Tools
-    { name: "Git", category: "Tools", description: "Distributed version control and branch management", iconName: "GitBranch" },
-    { name: "GitHub", category: "Tools", description: "Collaborative code reviews, pull requests, and CI/CD actions", iconName: "Github" },
-    { name: "VS Code", category: "Tools", description: "Primary IDE configuration, debugging, and productivity workflows", iconName: "Code" },
-    { name: "Postman", category: "Tools", description: "API endpoint testing, mocking, and automated assertions", iconName: "Send" },
-    { name: "REST APIs", category: "Tools", description: "RESTful resource design, HTTP semantics, and payload validation", iconName: "Share2" },
-    { name: "Figma", category: "Tools", description: "UI/UX wireframing, component tokens, and layout prototyping", iconName: "Figma" },
+    // Programming & Problem Solving
+    { name: "Data Structures & Algorithms", category: "Programming & Problem Solving", description: "Algorithmic optimization, time/space complexity analysis", iconName: "Binary" },
+    { name: "TypeScript", category: "Programming & Problem Solving", description: "Strict static typing and enterprise OOP/FP paradigms", iconName: "FileCode" },
+    { name: "Python", category: "Programming & Problem Solving", description: "Data structures, scripting, and algorithmic problem solving", iconName: "Terminal" },
+    { name: "JavaScript", category: "Programming & Problem Solving", description: "Modern ES6+ asynchronous web scripting & event loop", iconName: "Code" },
+
+    // Tools & APIs
+    { name: "REST APIs", category: "Tools & APIs", description: "RESTful resource design, HTTP semantics, and contract validation", iconName: "Share2" },
+    { name: "Git", category: "Tools & APIs", description: "Distributed version control, branch workflows, and Git management", iconName: "GitBranch" },
+    { name: "VS Code", category: "Tools & APIs", description: "Primary IDE configuration, debugging, and productivity workflows", iconName: "Code" },
+    { name: "Postman", category: "Tools & APIs", description: "API endpoint testing, mocking, and automated assertions", iconName: "Send" },
+    { name: "Figma", category: "Tools & APIs", description: "UI/UX wireframing, component tokens, and layout prototyping", iconName: "Figma" },
   ] as TechItem[],
 
   experience: [

@@ -14,14 +14,14 @@ export function ScrollProgress() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div className="fixed top-0 left-0 right-0 h-[2px] bg-transparent z-50 pointer-events-none">
       <div
-        className="h-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-violet-500 transition-all duration-100 ease-out"
+        className="h-full bg-gradient-to-r from-teal-600 via-teal-400 to-emerald-400 transition-all duration-75 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>
@@ -33,9 +33,9 @@ export function BackToTop() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > 400);
+      setVisible(window.scrollY > 450);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -49,7 +49,7 @@ export function BackToTop() {
     <button
       onClick={scrollToTop}
       aria-label="Back to top"
-      className="fixed bottom-6 right-6 z-40 p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-white/10 text-slate-400 hover:text-cyan-400 shadow-xl backdrop-blur-md transition-all hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+      className="fixed bottom-6 right-6 z-40 p-2.5 rounded-xl bg-[#0c1017]/90 hover:bg-[#131924] border border-white/10 text-slate-400 hover:text-teal-400 shadow-xl backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
     >
       <ArrowUp className="w-4 h-4" />
     </button>

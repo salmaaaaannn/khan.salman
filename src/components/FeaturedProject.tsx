@@ -1,20 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import {
   FileText,
   Scan,
   ShieldCheck,
   BrainCircuit,
   Activity,
-  ArrowRight,
   Github,
   ExternalLink,
   Sparkles,
-  CheckCircle2,
+  ArrowRight,
   ChevronRight,
-  AlertCircle,
-  FileCheck,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
@@ -25,67 +23,63 @@ export function FeaturedProject() {
   const pipelineStages = [
     {
       id: 0,
-      title: "Patient / Document",
-      sub: "Clinical Intake & Upload",
+      title: "Healthcare Input",
+      sub: "Patient Intake & Document Ingest",
       icon: FileText,
-      tech: "Next.js UI & File Upload",
+      tech: "Next.js UI & Web Portal",
       previewData: {
-        documentName: "clinical_lab_report_panel.pdf",
-        patientId: "PT-9482-B",
-        sampleType: "Fasting Metabolic & Lipid Panel",
+        documentName: "clinical_patient_report.pdf",
+        patientId: "PT-9824-A",
+        intakeType: "Fasting Glucose & Comprehensive Metabolic Panel",
         status: "Ingested via Web Interface",
       },
     },
     {
       id: 1,
-      title: "OCR Extraction",
-      sub: "Text & Tabular Digitization",
+      title: "OCR",
+      sub: "Document & Lab Digitization",
       icon: Scan,
       tech: "Tesseract OCR Engine",
       previewData: {
-        rawExtractedText: "Glucose: 126 mg/dL | HbA1c: 6.8% | Total Chol: 215 mg/dL",
-        confidence: "98.4% OCR Confidence",
-        bboxes: "18 bounding boxes parsed",
-        status: "Text Normalized",
+        rawExtractedText: "Fasting Glucose: 128 mg/dL | HbA1c: 6.9% | Total Cholesterol: 218 mg/dL",
+        confidence: "Character & tabular layout digitized",
+        status: "Document Parsed to Structured Text",
       },
     },
     {
       id: 2,
-      title: "Backend Validation",
-      sub: "Sanity & Pydantic Checks",
+      title: "AI Processing",
+      sub: "Validation & Normalization",
       icon: ShieldCheck,
       tech: "FastAPI & Python Schemas",
       previewData: {
-        endpoint: "POST /api/v1/screening/validate",
-        schema: "LabReportSchema validated",
-        latency: "14ms async execution",
-        status: "Input Sanitized & Verified",
+        endpoint: "POST /api/v1/screening/process",
+        schema: "Pydantic Clinical Report Schema Validated",
+        status: "Input Sanitized & Feature Array Prepared",
       },
     },
     {
       id: 3,
-      title: "AI Screening",
-      sub: "Machine Learning Evaluation",
+      title: "Screening",
+      sub: "Biomarker Risk Evaluation",
       icon: BrainCircuit,
-      tech: "Scikit-Learn / ML Models",
+      tech: "AI/ML Screening Models",
       previewData: {
-        biomarkerEvaluation: "Type-2 Glycemic Risk Model",
-        riskProbability: "High Probability (0.84)",
-        classification: "Elevated Risk / Screening Alert",
-        status: "Inference Complete",
+        screeningModel: "Metabolic Risk Classification Engine",
+        biomarkerEvaluation: "Elevated Fasting Plasma Biomarkers Identified",
+        status: "Screening Classification Complete",
       },
     },
     {
       id: 4,
-      title: "Healthcare Insights",
-      sub: "Clinical Action & Triage",
+      title: "Insights",
+      sub: "Clinical Guidance & Referral",
       icon: Activity,
-      tech: "Automated Report Generator",
+      tech: "Automated Clinical Reports",
       previewData: {
-        clinicalSummary: "Impaired fasting glycaemia detected. Recommend formal oral GTT.",
-        priority: "Tier-2 Priority Follow-up",
-        exportReady: "Summary PDF generated for clinician review",
-        status: "Delivered to Doctor Portal",
+        clinicalSummary: "Impaired fasting glycaemia indicators flagged for physician review.",
+        triagePriority: "Secondary Clinical Assessment Recommended",
+        status: "Delivered to Clinician Portal",
       },
     },
   ];
@@ -94,18 +88,24 @@ export function FeaturedProject() {
   const CurrentIcon = currentStage.icon;
 
   return (
-    <div className="w-full">
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className="w-full"
+    >
       {/* Featured Project Container */}
-      <div className="relative rounded-3xl bg-gradient-to-b from-[#0e1420] to-[#080b11] border border-cyan-500/30 shadow-2xl p-6 sm:p-8 lg:p-10 overflow-hidden group hover:border-cyan-500/50 transition-all duration-300">
+      <div className="group relative rounded-3xl bg-[#0e131b] border border-white/10 p-6 sm:p-8 lg:p-10 shadow-2xl transition-all duration-300 hover:border-teal-500/50 hover:shadow-card-hover hover:-translate-y-1 overflow-hidden">
         {/* Subtle Ambient Radial Glow */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-32 -right-32 w-96 h-96 bg-teal-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-800/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Top Header Badge & Category */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 relative z-10">
           <div className="flex items-center space-x-3">
-            <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-mono font-semibold tracking-wide shadow-sm shadow-cyan-500/20">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-mono font-semibold tracking-wide shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-teal-400" />
               <span>Featured Project</span>
             </span>
 
@@ -121,17 +121,17 @@ export function FeaturedProject() {
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 hover:text-white transition-colors"
             >
-              <Github className="w-3.5 h-3.5 text-cyan-400" />
+              <Github className="w-3.5 h-3.5 text-teal-400" />
               <span>GitHub</span>
             </a>
 
             <a
               href={project.liveUrl}
               onClick={(e) => e.preventDefault()}
-              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black text-xs font-semibold font-mono transition-colors shadow-lg shadow-cyan-500/20"
-              title="Interactive pipeline demo running below"
+              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-slate-950 text-xs font-semibold font-mono transition-colors shadow-sm"
+              title="Interactive pipeline simulation running below"
             >
-              <span>Interactive Demo</span>
+              <span>Interactive Pipeline</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -141,11 +141,11 @@ export function FeaturedProject() {
         <div className="relative z-10 mb-6">
           <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white flex items-center gap-3">
             {project.title}
-            <span className="text-xs sm:text-sm font-mono font-normal text-cyan-400 px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20">
+            <span className="text-xs sm:text-sm font-mono font-normal text-teal-400 px-3 py-1 rounded-md bg-teal-500/10 border border-teal-500/20">
               Next.js + FastAPI
             </span>
           </h3>
-          <p className="text-lg sm:text-xl font-medium text-cyan-300 mt-2 font-mono">
+          <p className="text-lg sm:text-xl font-medium text-teal-300 mt-2 font-mono">
             {project.subtitle}
           </p>
         </div>
@@ -158,8 +158,8 @@ export function FeaturedProject() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                <span className="text-xs font-mono text-cyan-400 font-semibold block mb-1">
+              <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
+                <span className="text-xs font-mono text-teal-400 font-semibold block mb-1">
                   Problem Addressed:
                 </span>
                 <p className="text-xs text-slate-400 leading-relaxed">
@@ -167,7 +167,7 @@ export function FeaturedProject() {
                 </p>
               </div>
 
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+              <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
                 <span className="text-xs font-mono text-emerald-400 font-semibold block mb-1">
                   Engineered Solution:
                 </span>
@@ -177,33 +177,38 @@ export function FeaturedProject() {
               </div>
             </div>
 
-            {/* Technology Badges */}
+            {/* Technology Badges with micro hover */}
             <div className="pt-2">
               <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-2">
                 Technology Badges:
               </span>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech) => (
-                  <span
+                  <motion.span
                     key={tech}
-                    className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 shadow-sm"
+                    whileHover={{ y: -2, scale: 1.03 }}
+                    className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-teal-500/10 border border-teal-500/30 text-teal-300 shadow-sm cursor-default"
                   >
                     {tech}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Right side metric/clinical summary card */}
-          <div className="lg:col-span-5 rounded-2xl bg-[#090d15] border border-white/10 p-5 font-mono text-xs space-y-3">
+          {/* Right side metric/clinical summary card with subtle hover shift */}
+          <motion.div
+            whileHover={{ y: -3, x: 2 }}
+            transition={{ duration: 0.2 }}
+            className="lg:col-span-5 rounded-2xl bg-[#090d13] border border-white/10 p-5 font-mono text-xs space-y-3"
+          >
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <span className="text-slate-400 uppercase text-[11px] font-semibold">
-                Clinical Workflow Specs
+                Clinical Workflow Architecture
               </span>
-              <span className="text-emerald-400 text-[11px] flex items-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 inline-block" />
-                Live Architecture
+              <span className="text-teal-400 text-[11px] flex items-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-1.5 inline-block" />
+                Verified Specs
               </span>
             </div>
 
@@ -213,80 +218,93 @@ export function FeaturedProject() {
                 <span className="text-white font-medium">Next.js (App Router)</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">API Gateway:</span>
+                <span className="text-slate-500">API Engine:</span>
                 <span className="text-white font-medium">FastAPI Asynchronous</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">OCR Engine:</span>
-                <span className="text-cyan-300 font-medium">Tesseract OCR</span>
+                <span className="text-slate-500">OCR Extraction:</span>
+                <span className="text-teal-300 font-medium">Tesseract OCR</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Inference Mode:</span>
-                <span className="text-indigo-300 font-medium">AI/ML Biomarker Screening</span>
+                <span className="text-slate-500">Inference:</span>
+                <span className="text-teal-300 font-medium">AI/ML Screening Models</span>
               </div>
             </div>
 
             <div className="pt-3 border-t border-white/10 text-[11px] text-slate-400">
-              💡 <span className="text-slate-300">Interactive Pipeline:</span> Click the pipeline steps below to inspect how patient records progress from raw upload to clinical insight.
+              💡 <span className="text-slate-200">Interactive Pipeline:</span> Click through the 5 stages below to inspect how clinical reports flow from document ingest to screening insights.
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* ========================================================================= */}
-        {/* INTERACTIVE HEALTHCARE SCREENING PIPELINE VISUALIZATION */}
+        {/* ANIMATED HEALTHCARE SCREENING PIPELINE */}
         {/* ========================================================================= */}
         <div className="relative z-10 pt-6 border-t border-white/10">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-sm font-mono uppercase tracking-wider text-cyan-400 font-bold flex items-center space-x-2">
+            <h4 className="text-sm font-mono uppercase tracking-wider text-teal-400 font-bold flex items-center space-x-2">
               <BrainCircuit className="w-4 h-4" />
-              <span>AI Healthcare Screening Pipeline</span>
+              <span>NURA AI Clinical Pipeline</span>
             </h4>
             <span className="text-xs font-mono text-slate-500">
-              Step {activeStep + 1} of {pipelineStages.length}
+              Stage {activeStep + 1} of {pipelineStages.length}
             </span>
           </div>
 
-          {/* Pipeline Steps Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-6">
-            {pipelineStages.map((stage, idx) => {
-              const StepIcon = stage.icon;
-              const isSelected = activeStep === idx;
-              const isPassed = activeStep > idx;
+          {/* Progressive Connecting Line & Stages */}
+          <div className="relative mb-6">
+            {/* Background connecting line */}
+            <div className="hidden sm:block absolute top-1/2 left-4 right-4 h-0.5 bg-white/10 -translate-y-1/2 z-0" />
+            
+            {/* Animated Progressive Connecting Line */}
+            <motion.div
+              className="hidden sm:block absolute top-1/2 left-4 h-0.5 bg-gradient-to-r from-teal-500 to-teal-300 -translate-y-1/2 z-0"
+              initial={{ width: "0%" }}
+              animate={{ width: `${(activeStep / (pipelineStages.length - 1)) * 92}%` }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            />
 
-              return (
-                <button
-                  key={stage.id}
-                  onClick={() => setActiveStep(idx)}
-                  className={`p-3 rounded-xl border text-left transition-all relative overflow-hidden ${
-                    isSelected
-                      ? "bg-cyan-500/20 border-cyan-400 shadow-md shadow-cyan-500/20 text-white"
-                      : isPassed
-                      ? "bg-white/5 border-cyan-500/30 text-slate-300 hover:bg-white/10"
-                      : "bg-white/[0.02] border-white/10 text-slate-400 hover:bg-white/5"
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <StepIcon
-                      className={`w-4 h-4 ${
-                        isSelected ? "text-cyan-400" : isPassed ? "text-emerald-400" : "text-slate-500"
-                      }`}
-                    />
-                    <span className="text-[10px] font-mono opacity-60">0{idx + 1}</span>
-                  </div>
-                  <div className="text-xs font-bold truncate">{stage.title}</div>
-                  <div className="text-[10px] font-mono text-slate-400 truncate mt-0.5">
-                    {stage.sub}
-                  </div>
-                </button>
-              );
-            })}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 relative z-10">
+              {pipelineStages.map((stage, idx) => {
+                const StepIcon = stage.icon;
+                const isSelected = activeStep === idx;
+                const isPassed = activeStep > idx;
+
+                return (
+                  <button
+                    key={stage.id}
+                    onClick={() => setActiveStep(idx)}
+                    className={`p-3 rounded-xl border text-left transition-all relative overflow-hidden ${
+                      isSelected
+                        ? "bg-teal-500/20 border-teal-400 shadow-teal-subtle text-white scale-[1.02]"
+                        : isPassed
+                        ? "bg-white/5 border-teal-500/30 text-slate-300 hover:bg-white/10"
+                        : "bg-[#0a0d12] border-white/10 text-slate-400 hover:bg-white/5"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <StepIcon
+                        className={`w-4 h-4 ${
+                          isSelected ? "text-teal-400" : isPassed ? "text-teal-300" : "text-slate-500"
+                        }`}
+                      />
+                      <span className="text-[10px] font-mono opacity-60">0{idx + 1}</span>
+                    </div>
+                    <div className="text-xs font-bold truncate">{stage.title}</div>
+                    <div className="text-[10px] font-mono text-slate-400 truncate mt-0.5">
+                      {stage.sub}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Active Step Real-Time Inspection Console */}
-          <div className="rounded-2xl bg-[#080b10] border border-cyan-500/20 p-5 font-mono text-xs text-slate-300">
+          {/* Active Stage Real-Time Inspection Console */}
+          <div className="rounded-2xl bg-[#090d13] border border-teal-500/30 p-5 font-mono text-xs text-slate-300">
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
               <div className="flex items-center space-x-2">
-                <CurrentIcon className="w-4 h-4 text-cyan-400" />
+                <CurrentIcon className="w-4 h-4 text-teal-400" />
                 <span className="font-bold text-white text-sm">
                   Stage 0{activeStep + 1}: {currentStage.title}
                 </span>
@@ -298,7 +316,7 @@ export function FeaturedProject() {
                   onClick={() =>
                     setActiveStep((prev) => (prev > 0 ? prev - 1 : pipelineStages.length - 1))
                   }
-                  className="px-2 py-1 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 text-[11px]"
+                  className="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-[11px] transition-colors"
                 >
                   Prev
                 </button>
@@ -306,18 +324,18 @@ export function FeaturedProject() {
                   onClick={() =>
                     setActiveStep((prev) => (prev < pipelineStages.length - 1 ? prev + 1 : 0))
                   }
-                  className="px-2 py-1 rounded bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 text-[11px] font-semibold"
+                  className="px-2.5 py-1 rounded bg-teal-600/20 hover:bg-teal-600/30 border border-teal-500/40 text-teal-300 text-[11px] font-semibold transition-colors"
                 >
                   Next Step →
                 </button>
               </div>
             </div>
 
-            {/* Stage Output Simulator */}
+            {/* Stage Output Data */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {Object.entries(currentStage.previewData).map(([key, val]) => (
                 <div key={key} className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                  <span className="text-[10px] uppercase tracking-wider text-cyan-400/80 block mb-1">
+                  <span className="text-[10px] uppercase tracking-wider text-teal-400 block mb-1">
                     {key.replace(/([A-Z])/g, " $1")}
                   </span>
                   <span className="text-slate-200 font-mono text-xs">{val}</span>
@@ -327,6 +345,6 @@ export function FeaturedProject() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

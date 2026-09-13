@@ -1,18 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
+  Phone,
   MapPin,
   Github,
   Linkedin,
   Send,
-  Sparkles,
   CheckCircle2,
-  AlertCircle,
-  ArrowUpRight,
   Copy,
   Check,
+  ArrowUpRight,
 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
@@ -25,7 +25,9 @@ export function Contact() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [copiedType, setCopiedType] = useState<"email" | "phone" | null>(null);
+
+  const cleanPhone = PORTFOLIO_DATA.personal.phone.replace(/\s+/g, "");
 
   const validate = () => {
     const errs: Record<string, string> = {};
@@ -52,10 +54,10 @@ export function Contact() {
     }
   };
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(PORTFOLIO_DATA.personal.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = (text: string, type: "email" | "phone") => {
+    navigator.clipboard.writeText(text);
+    setCopiedType(type);
+    setTimeout(() => setCopiedType(null), 2000);
   };
 
   const openMailto = () => {
@@ -68,9 +70,15 @@ export function Contact() {
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-12 text-center sm:text-left">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-400 mb-3">
+      {/* Header with Scroll Reveal */}
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-12 text-center sm:text-left"
+      >
+        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-xs font-mono text-teal-400 mb-3">
           <Mail className="w-3.5 h-3.5" />
           <span>Get in Touch</span>
         </div>
@@ -80,31 +88,55 @@ export function Contact() {
         <p className="text-sm sm:text-base text-slate-400 mt-2 max-w-2xl">
           Interested in discussing full-stack development, AI/ML integration, or collaborative engineering opportunities? Reach out directly.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Contact Channels & Location */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="rounded-2xl bg-[#0c1017]/80 border border-white/10 p-6 sm:p-8 backdrop-blur-md space-y-6">
+        {/* Left Column: Coordinates & Dedicated Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-5 space-y-6"
+        >
+          <div className="rounded-2xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-8 backdrop-blur-md space-y-6">
             <h3 className="text-lg font-bold text-white tracking-tight">
-              Contact Coordinates
+              Direct Coordinates
             </h3>
 
-            {/* Email with copy button */}
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 block">
-                Primary Email
-              </span>
+            {/* Email Card with Mailto & Copy */}
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm sm:text-base text-white font-mono font-medium truncate mr-2">
-                  {PORTFOLIO_DATA.personal.email}
+                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-semibold">
+                  Email Address
                 </span>
-                <button
-                  onClick={copyEmail}
-                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-cyan-400 transition-colors shrink-0"
-                  title="Copy email"
+                <AnimatePresence>
+                  {copiedType === "email" && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded"
+                    >
+                      Copied!
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <a
+                  href={`mailto:${PORTFOLIO_DATA.personal.email}`}
+                  className="text-sm sm:text-base text-white font-mono font-medium truncate mr-2 hover:text-teal-400 transition-colors"
                 >
-                  {copied ? (
+                  {PORTFOLIO_DATA.personal.email}
+                </a>
+                <button
+                  onClick={() => copyToClipboard(PORTFOLIO_DATA.personal.email, "email")}
+                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-teal-400 transition-colors shrink-0"
+                  title="Copy email to clipboard"
+                >
+                  {copiedType === "email" ? (
                     <Check className="w-4 h-4 text-emerald-400" />
                   ) : (
                     <Copy className="w-4 h-4" />
@@ -113,31 +145,91 @@ export function Contact() {
               </div>
             </div>
 
+            {/* Phone Card with Tel & Copy */}
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-semibold">
+                  Phone Number
+                </span>
+                <AnimatePresence>
+                  {copiedType === "phone" && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded"
+                    >
+                      Copied!
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <a
+                  href={`tel:${cleanPhone}`}
+                  className="text-sm sm:text-base text-white font-mono font-medium truncate mr-2 hover:text-teal-400 transition-colors"
+                >
+                  {PORTFOLIO_DATA.personal.phone}
+                </a>
+                <button
+                  onClick={() => copyToClipboard(PORTFOLIO_DATA.personal.phone, "phone")}
+                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-teal-400 transition-colors shrink-0"
+                  title="Copy phone to clipboard"
+                >
+                  {copiedType === "phone" ? (
+                    <Check className="w-4 h-4 text-emerald-400" />
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Dedicated "Email Me" & "Call Me" CTAs */}
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              <a
+                href={`mailto:${PORTFOLIO_DATA.personal.email}`}
+                className="btn-shimmer inline-flex items-center justify-center space-x-2 py-3 rounded-xl bg-teal-600 hover:bg-teal-500 active:scale-95 text-slate-950 font-semibold text-xs font-mono transition-all duration-200 shadow-sm"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>Email Me</span>
+              </a>
+
+              <a
+                href={`tel:${cleanPhone}`}
+                className="inline-flex items-center justify-center space-x-2 py-3 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 hover:border-teal-500/30 text-slate-200 hover:text-white font-medium text-xs font-mono transition-all duration-200"
+              >
+                <Phone className="w-3.5 h-3.5 text-teal-400" />
+                <span>Call Me</span>
+              </a>
+            </div>
+
             {/* Location */}
             <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
               <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 block">
                 Base Location
               </span>
               <div className="flex items-center text-sm sm:text-base text-white font-medium">
-                <MapPin className="w-4 h-4 mr-2 text-cyan-400 shrink-0" />
+                <MapPin className="w-4 h-4 mr-2 text-teal-400 shrink-0" />
                 <span>{PORTFOLIO_DATA.personal.location}</span>
               </div>
             </div>
 
-            {/* Social Links */}
+            {/* Social Networks */}
             <div className="space-y-2 pt-2">
               <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 block mb-1">
-                Professional Networks
+                Networks
               </span>
               <div className="grid grid-cols-2 gap-3">
                 <a
                   href={PORTFOLIO_DATA.personal.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] hover:bg-white/5 border border-white/5 hover:border-indigo-500/30 text-xs font-mono text-slate-300 transition-all"
+                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] hover:bg-white/5 border border-white/5 hover:border-teal-500/30 text-xs font-mono text-slate-300 transition-all"
                 >
                   <div className="flex items-center space-x-2">
-                    <Linkedin className="w-4 h-4 text-indigo-400" />
+                    <Linkedin className="w-4 h-4 text-teal-400" />
                     <span>LinkedIn</span>
                   </div>
                   <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
@@ -147,28 +239,28 @@ export function Contact() {
                   href={PORTFOLIO_DATA.personal.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] hover:bg-white/5 border border-white/5 hover:border-cyan-500/30 text-xs font-mono text-slate-300 transition-all"
+                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] hover:bg-white/5 border border-white/5 hover:border-teal-500/30 text-xs font-mono text-slate-300 transition-all"
                 >
                   <div className="flex items-center space-x-2">
-                    <Github className="w-4 h-4 text-cyan-400" />
+                    <Github className="w-4 h-4 text-teal-400" />
                     <span>GitHub</span>
                   </div>
                   <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
                 </a>
               </div>
             </div>
-
-            {/* Response notice */}
-            <div className="pt-2 text-xs font-mono text-slate-500 border-t border-white/5 flex items-center space-x-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
-              <span>Available for engineering inquiries</span>
-            </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column: Contact Form */}
-        <div className="lg:col-span-7">
-          <div className="rounded-2xl bg-[#0c1017]/80 border border-white/10 p-6 sm:p-8 backdrop-blur-md">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-7"
+        >
+          <div className="rounded-2xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-8 backdrop-blur-md">
             {submitted ? (
               <div className="py-8 text-center space-y-4">
                 <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">
@@ -178,12 +270,12 @@ export function Contact() {
                   Message Staged Successfully
                 </h3>
                 <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-                  Thank you, <span className="font-semibold text-white">{formData.name}</span>. This frontend is currently operating in static showcase mode without an external live mail relay.
+                  Thank you, <span className="font-semibold text-white">{formData.name}</span>. This frontend demonstrates a responsive form interface. You can also launch your default email client directly.
                 </p>
                 <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                   <button
                     onClick={openMailto}
-                    className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-xs font-mono transition-colors"
+                    className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 active:scale-95 text-slate-950 font-semibold text-xs font-mono transition-colors"
                   >
                     <Mail className="w-3.5 h-3.5" />
                     <span>Launch in Default Email App</span>
@@ -205,7 +297,7 @@ export function Contact() {
                   {/* Name */}
                   <div>
                     <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-1.5">
-                      Your Name <span className="text-cyan-400">*</span>
+                      Your Name <span className="text-teal-400">*</span>
                     </label>
                     <input
                       type="text"
@@ -213,11 +305,11 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
-                      placeholder="e.g. Sarah Connor"
+                      placeholder="e.g. John Smith"
                       className={`w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border text-sm text-white placeholder:text-slate-600 focus:outline-none transition-colors ${
                         errors.name
                           ? "border-red-500/60 focus:border-red-500"
-                          : "border-white/10 focus:border-cyan-500/50"
+                          : "border-white/10 focus:border-teal-500/50"
                       }`}
                     />
                     {errors.name && (
@@ -228,7 +320,7 @@ export function Contact() {
                   {/* Email */}
                   <div>
                     <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-1.5">
-                      Your Email <span className="text-cyan-400">*</span>
+                      Your Email <span className="text-teal-400">*</span>
                     </label>
                     <input
                       type="email"
@@ -236,11 +328,11 @@ export function Contact() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      placeholder="e.g. sarah@example.com"
+                      placeholder="e.g. john@example.com"
                       className={`w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border text-sm text-white placeholder:text-slate-600 focus:outline-none transition-colors ${
                         errors.email
                           ? "border-red-500/60 focus:border-red-500"
-                          : "border-white/10 focus:border-cyan-500/50"
+                          : "border-white/10 focus:border-teal-500/50"
                       }`}
                     />
                     {errors.email && (
@@ -252,7 +344,7 @@ export function Contact() {
                 {/* Subject */}
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-1.5">
-                    Subject <span className="text-cyan-400">*</span>
+                    Subject <span className="text-teal-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -260,11 +352,11 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, subject: e.target.value })
                     }
-                    placeholder="e.g. Engineering Project Inquiry"
+                    placeholder="e.g. Full-Stack / AI Project Discussion"
                     className={`w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border text-sm text-white placeholder:text-slate-600 focus:outline-none transition-colors ${
                       errors.subject
                         ? "border-red-500/60 focus:border-red-500"
-                        : "border-white/10 focus:border-cyan-500/50"
+                        : "border-white/10 focus:border-teal-500/50"
                     }`}
                   />
                   {errors.subject && (
@@ -275,7 +367,7 @@ export function Contact() {
                 {/* Message */}
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-1.5">
-                    Message <span className="text-cyan-400">*</span>
+                    Message <span className="text-teal-400">*</span>
                   </label>
                   <textarea
                     rows={5}
@@ -287,7 +379,7 @@ export function Contact() {
                     className={`w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border text-sm text-white placeholder:text-slate-600 focus:outline-none transition-colors resize-none ${
                       errors.message
                         ? "border-red-500/60 focus:border-red-500"
-                        : "border-white/10 focus:border-cyan-500/50"
+                        : "border-white/10 focus:border-teal-500/50"
                     }`}
                   />
                   {errors.message && (
@@ -298,19 +390,15 @@ export function Contact() {
                 {/* Submit button */}
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-semibold font-mono text-sm transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 active:scale-[0.99]"
+                  className="w-full flex items-center justify-center space-x-2 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 active:scale-[0.99] text-slate-950 font-semibold font-mono text-sm transition-all duration-200 shadow-sm"
                 >
                   <Send className="w-4 h-4" />
                   <span>Send Message</span>
                 </button>
-
-                <p className="text-[11px] font-mono text-slate-500 text-center pt-1">
-                  Protected with client-side form validation
-                </p>
               </form>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

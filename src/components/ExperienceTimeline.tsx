@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Briefcase, Calendar, MapPin, CheckCircle2, Terminal } from "lucide-react";
+import { motion } from "framer-motion";
+import { Briefcase, Calendar, MapPin, CheckCircle2 } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 export function ExperienceTimeline() {
@@ -9,9 +10,15 @@ export function ExperienceTimeline() {
 
   return (
     <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-12 text-center sm:text-left">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-400 mb-3">
+      {/* Header with Scroll Reveal */}
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-12 text-center sm:text-left"
+      >
+        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-xs font-mono text-teal-400 mb-3">
           <Briefcase className="w-3.5 h-3.5" />
           <span>Professional History</span>
         </div>
@@ -21,37 +28,53 @@ export function ExperienceTimeline() {
         <p className="text-sm sm:text-base text-slate-400 mt-2 max-w-2xl">
           Engineering roles, software responsibilities, and delivered technical outcomes.
         </p>
-      </div>
+      </motion.div>
 
       {/* Timeline Container */}
       <div className="relative border-l border-white/10 ml-4 sm:ml-6 pl-6 sm:pl-8 space-y-12">
+        {/* Animated Line Indicator that draws on scroll */}
+        <motion.div
+          className="absolute -left-[1px] top-0 w-[2px] bg-gradient-to-b from-teal-500 via-teal-400 to-transparent"
+          initial={{ height: "0%" }}
+          whileInView={{ height: "100%" }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        />
+
         {experiences.map((exp, idx) => (
-          <div key={idx} className="relative group">
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="relative group"
+          >
             {/* Glowing Timeline Node */}
-            <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#07090e] border-2 border-cyan-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-lg shadow-cyan-500/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+            <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#0a0d12] border-2 border-teal-400 flex items-center justify-center group-hover:scale-125 transition-transform duration-300 shadow-teal-subtle">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
             </div>
 
             {/* Experience Card */}
-            <div className="rounded-2xl bg-[#0c1017]/80 border border-white/10 p-6 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/40 hover:shadow-xl">
+            <div className="rounded-2xl bg-[#0c1017]/90 border border-white/10 p-6 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-teal-500/40 hover:shadow-card-hover hover:-translate-y-1">
               {/* Header: Role & Period */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                 <div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
+                  <h3 className="text-xl font-bold text-white group-hover:text-teal-300 transition-colors">
                     {exp.role}
                   </h3>
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-mono text-slate-400 mt-1">
                     <span className="text-slate-200 font-semibold">{exp.company}</span>
                     <span>•</span>
                     <span className="flex items-center">
-                      <MapPin className="w-3 h-3 mr-1 text-cyan-400" />
+                      <MapPin className="w-3 h-3 mr-1 text-teal-400" />
                       {exp.location}
                     </span>
                   </div>
                 </div>
 
-                <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-300 self-start sm:self-center">
-                  <Calendar className="w-3 h-3 text-cyan-400" />
+                <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-xs font-mono text-teal-300 self-start sm:self-center">
+                  <Calendar className="w-3 h-3 text-teal-400" />
                   <span>{exp.period}</span>
                 </div>
               </div>
@@ -64,7 +87,7 @@ export function ExperienceTimeline() {
                 <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
                   {exp.responsibilities.map((resp, rIdx) => (
                     <li key={rIdx} className="flex items-start space-x-2.5 leading-relaxed">
-                      <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
                       <span>{resp}</span>
                     </li>
                   ))}
@@ -88,7 +111,7 @@ export function ExperienceTimeline() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

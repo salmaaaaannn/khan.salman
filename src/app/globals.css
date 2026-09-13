@@ -3,21 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background: #07090e;
-  --foreground: #f1f5f9;
-  --card: #0c1017;
-  --card-border: rgba(255, 255, 255, 0.08);
-  --accent-cyan: #06b6d4;
-  --accent-indigo: #6366f1;
-  --accent-violet: #8b5cf6;
-  --accent-teal: #14b8a6;
+  --background: #0a0d12;
+  --foreground: #f3f4f6;
+  --paper-surface: #0f141c;
+  --paper-border: rgba(255, 255, 255, 0.08);
+  --accent-teal: #0d9488;
+  --accent-teal-light: #14b8a6;
+  --accent-teal-dark: #0f766e;
 }
 
 .light {
   --background: #f8fafc;
   --foreground: #0f172a;
-  --card: #ffffff;
-  --card-border: rgba(15, 23, 42, 0.08);
+  --paper-surface: #ffffff;
+  --paper-border: rgba(15, 23, 42, 0.08);
+  --accent-teal: #0f766e;
+  --accent-teal-light: #0d9488;
+  --accent-teal-dark: #115e59;
 }
 
 body {
@@ -28,54 +30,77 @@ body {
   scroll-behavior: smooth;
 }
 
-/* Developer grid overlay */
-.bg-grid-pattern {
-  background-size: 40px 40px;
+/* Developer subtle grid texture */
+.bg-grid-subtle {
+  background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
 }
 
-.light .bg-grid-pattern {
+.light .bg-grid-subtle {
   background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 }
 
-/* Glassmorphism utility */
-.glass-panel {
-  background: rgba(12, 16, 23, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* Minimalist paper card */
+.paper-card {
+  background: rgba(15, 20, 28, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.light .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.light .paper-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
-/* Subtle glow hover */
-.card-hover-glow {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* Button Shimmer */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
 }
 
-.card-hover-glow:hover {
-  transform: translateY(-3px);
-  border-color: rgba(6, 182, 212, 0.4);
-  box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.15);
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: buttonShimmer 4.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Custom scrollbar */
+@keyframes buttonShimmer {
+  0% {
+    left: -100%;
+  }
+  30% {
+    left: 140%;
+  }
+  100% {
+    left: 140%;
+  }
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #07090e;
+  background: #0a0d12;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -84,20 +109,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #0d9488;
 }
 
-/* Code & Monospace styling */
-.font-mono-tech {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-/* Accessibility: respect reduced motion */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation-duration: 0.01ms !important;
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
 }

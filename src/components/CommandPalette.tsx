@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
   Home,
@@ -10,6 +11,7 @@ import {
   Layers,
   Award,
   Mail,
+  Phone,
   FileText,
   Github,
   Linkedin,
@@ -41,8 +43,11 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
   const [search, setSearch] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
   const { theme, setTheme } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const cleanPhone = PORTFOLIO_DATA.personal.phone.replace(/\s+/g, "");
 
   const scrollToSection = (id: string) => {
     onClose();
@@ -59,6 +64,15 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
     setCopiedEmail(true);
     setTimeout(() => {
       setCopiedEmail(false);
+      onClose();
+    }, 1200);
+  };
+
+  const copyPhone = () => {
+    navigator.clipboard.writeText(PORTFOLIO_DATA.personal.phone);
+    setCopiedPhone(true);
+    setTimeout(() => {
+      setCopiedPhone(false);
       onClose();
     }, 1200);
   };
@@ -132,6 +146,26 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
       shortcut: "R",
     },
     {
+      id: "email-me",
+      label: "Email Me (salmanmuslimkhan@gmail.com)",
+      category: "Actions",
+      icon: Mail,
+      action: () => {
+        window.location.href = `mailto:${PORTFOLIO_DATA.personal.email}`;
+        onClose();
+      },
+    },
+    {
+      id: "call-me",
+      label: `Call Me (${PORTFOLIO_DATA.personal.phone})`,
+      category: "Actions",
+      icon: Phone,
+      action: () => {
+        window.location.href = `tel:${cleanPhone}`;
+        onClose();
+      },
+    },
+    {
       id: "copy-email",
       label: copiedEmail ? "Email Copied!" : "Copy Email Address",
       category: "Actions",
@@ -139,8 +173,15 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
       action: copyEmail,
     },
     {
+      id: "copy-phone",
+      label: copiedPhone ? "Phone Copied!" : "Copy Phone Number",
+      category: "Actions",
+      icon: copiedPhone ? Check : Copy,
+      action: copyPhone,
+    },
+    {
       id: "theme",
-      label: `Toggle Theme (Currently ${theme === "light" ? "Light" : "Dark"})`,
+      label: `Toggle Theme (${theme === "light" ? "Light" : "Dark"})`,
       category: "Actions",
       icon: theme === "light" ? Moon : Sun,
       action: () => {
@@ -215,92 +256,104 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, filtered, selectedIndex, onClose]);
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-28 px-4">
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-        onClick={onClose}
-      />
-
-      {/* Modal Dialog */}
-      <div className="relative w-full max-w-xl rounded-2xl bg-[#0c1017] dark:bg-[#0c1017] border border-white/10 shadow-2xl overflow-hidden z-10 transition-all">
-        {/* Search header */}
-        <div className="flex items-center px-4 py-3.5 border-b border-white/10 bg-white/[0.02]">
-          <Search className="w-4 h-4 text-cyan-400 mr-3 shrink-0" />
-          <input
-            ref={inputRef}
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Type a command or search sections..."
-            className="w-full bg-transparent text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none font-mono"
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-28 px-4">
+          {/* Backdrop with Fade */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={onClose}
           />
-          <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-mono text-slate-400 bg-white/5 border border-white/10 rounded">
-            ESC
-          </kbd>
-        </div>
 
-        {/* Command list */}
-        <div className="max-h-80 overflow-y-auto p-2 divide-y divide-white/5">
-          {filtered.length === 0 ? (
-            <div className="py-8 text-center text-sm text-slate-400 font-mono">
-              No matching commands found.
+          {/* Modal Dialog with Fade + Scale + Blur */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -10 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full max-w-xl rounded-2xl bg-[#0c1017] border border-white/10 shadow-2xl overflow-hidden z-10"
+          >
+            {/* Search header */}
+            <div className="flex items-center px-4 py-3.5 border-b border-white/10 bg-white/[0.02]">
+              <Search className="w-4 h-4 text-teal-400 mr-3 shrink-0" />
+              <input
+                ref={inputRef}
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Type a command or search sections..."
+                className="w-full bg-transparent text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none font-mono"
+              />
+              <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-mono text-slate-400 bg-white/5 border border-white/10 rounded">
+                ESC
+              </kbd>
             </div>
-          ) : (
-            filtered.map((cmd, idx) => {
-              const Icon = cmd.icon;
-              const isSelected = idx === selectedIndex;
-              return (
-                <button
-                  key={cmd.id}
-                  onClick={cmd.action}
-                  onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left text-sm transition-colors ${
-                    isSelected
-                      ? "bg-cyan-500/10 text-cyan-300 border border-cyan-500/30"
-                      : "text-slate-300 hover:bg-white/5 border border-transparent"
-                  }`}
-                >
-                  <div className="flex items-center space-x-3">
-                    <Icon
-                      className={`w-4 h-4 ${
-                        isSelected ? "text-cyan-400" : "text-slate-400"
+
+            {/* Command list */}
+            <div className="max-h-80 overflow-y-auto p-2 divide-y divide-white/5">
+              {filtered.length === 0 ? (
+                <div className="py-8 text-center text-sm text-slate-400 font-mono">
+                  No matching commands found.
+                </div>
+              ) : (
+                filtered.map((cmd, idx) => {
+                  const Icon = cmd.icon;
+                  const isSelected = idx === selectedIndex;
+                  return (
+                    <button
+                      key={cmd.id}
+                      onClick={cmd.action}
+                      onMouseEnter={() => setSelectedIndex(idx)}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left text-sm transition-colors ${
+                        isSelected
+                          ? "bg-teal-500/10 text-teal-300 border border-teal-500/30"
+                          : "text-slate-300 hover:bg-white/5 border border-transparent"
                       }`}
-                    />
-                    <span className="font-medium">{cmd.label}</span>
-                    <span className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">
-                      {cmd.category}
-                    </span>
-                  </div>
+                    >
+                      <div className="flex items-center space-x-3">
+                        <Icon
+                          className={`w-4 h-4 ${
+                            isSelected ? "text-teal-400" : "text-slate-400"
+                          }`}
+                        />
+                        <span className="font-medium">{cmd.label}</span>
+                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">
+                          {cmd.category}
+                        </span>
+                      </div>
 
-                  <div className="flex items-center space-x-2">
-                    {cmd.shortcut && (
-                      <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">
-                        {cmd.shortcut}
-                      </kbd>
-                    )}
-                    {isSelected && (
-                      <CornerDownLeft className="w-3.5 h-3.5 text-cyan-400" />
-                    )}
-                  </div>
-                </button>
-              );
-            })
-          )}
-        </div>
+                      <div className="flex items-center space-x-2">
+                        {cmd.shortcut && (
+                          <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">
+                            {cmd.shortcut}
+                          </kbd>
+                        )}
+                        {isSelected && (
+                          <CornerDownLeft className="w-3.5 h-3.5 text-teal-400" />
+                        )}
+                      </div>
+                    </button>
+                  );
+                })
+              )}
+            </div>
 
-        {/* Footer */}
-        <div className="px-4 py-2 border-t border-white/10 bg-white/[0.02] flex items-center justify-between text-[11px] text-slate-500 font-mono">
-          <div className="flex items-center space-x-3">
-            <span>↑↓ to navigate</span>
-            <span>↵ to select</span>
-          </div>
-          <span>developer cmd+k</span>
+            {/* Footer */}
+            <div className="px-4 py-2 border-t border-white/10 bg-white/[0.02] flex items-center justify-between text-[11px] text-slate-500 font-mono">
+              <div className="flex items-center space-x-3">
+                <span>↑↓ to navigate</span>
+                <span>↵ to select</span>
+              </div>
+              <span>developer cmd+k</span>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 }
