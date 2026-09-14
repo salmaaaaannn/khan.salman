@@ -62,39 +62,28 @@ export function CursorWave() {
   if (!mounted || !isPointerDevice) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-30 overflow-hidden select-none">
-      {/* Outer soft ambient liquid wave */}
+    <div
+      className="pointer-events-none fixed inset-0 z-20 overflow-hidden select-none"
+      aria-hidden="true"
+    >
+      {/* Delicate spring-interpolated ripple ring */}
       <motion.div
-        className="absolute rounded-full bg-cyan-500/[0.05] blur-2xl"
-        style={{
-          x: waveX,
-          y: waveY,
-          translateX: "-50%",
-          translateY: "-50%",
-          width: isHovering ? 320 : 240,
-          height: isHovering ? 320 : 240,
-        }}
-        transition={{ duration: 0.2 }}
-      />
-
-      {/* Inner magnetic ripple ring */}
-      <motion.div
-        className="absolute rounded-full border border-cyan-400/20"
+        className="absolute rounded-full border border-teal-500/25 dark:border-cyan-400/30 shadow-[0_0_12px_rgba(34,211,238,0.12)]"
         style={{
           x: smoothX,
           y: smoothY,
           translateX: "-50%",
           translateY: "-50%",
-          width: isHovering ? 52 : 32,
-          height: isHovering ? 52 : 32,
-          backgroundColor: isHovering ? "rgba(34, 211, 238, 0.08)" : "transparent",
+          width: isHovering ? 36 : 24,
+          height: isHovering ? 36 : 24,
+          backgroundColor: isHovering ? "rgba(34, 211, 238, 0.06)" : "transparent",
         }}
         transition={{ duration: 0.15 }}
       />
 
-      {/* Center subtle fluid focus dot */}
+      {/* Center subtle teal/white sprinkle dot */}
       <motion.div
-        className="absolute w-1.5 h-1.5 rounded-full bg-cyan-400/70"
+        className="absolute w-1.5 h-1.5 rounded-full bg-teal-500/80 dark:bg-cyan-300 shadow-[0_0_6px_rgba(34,211,238,0.6)]"
         style={{
           x: mouseX,
           y: mouseY,

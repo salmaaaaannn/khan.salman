@@ -37,9 +37,21 @@ export function EducationCertifications() {
                 key={idx}
                 className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-2 hover:border-cyan-500/20 transition-colors"
               >
-                <h4 className="text-base font-bold text-[#F8FAFC]">
-                  {edu.degree}
-                </h4>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+                  <h4 className="text-base font-bold text-[#F8FAFC]">
+                    {edu.degree}
+                  </h4>
+                  {edu.current ? (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shrink-0 self-start sm:self-auto">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                      Currently Pursuing • {edu.expectedCompletion}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono text-slate-400 border border-white/10 shrink-0 self-start sm:self-auto">
+                      {edu.status}
+                    </span>
+                  )}
+                </div>
                 <div className="text-xs sm:text-sm text-slate-300 font-medium">
                   {edu.institution}
                 </div>

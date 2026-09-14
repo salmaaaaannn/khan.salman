@@ -33,8 +33,20 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
     { name: "Projects", href: "#projects" },
     { name: "Experience", href: "#experience" },
     { name: "Skills", href: "#skills" },
+    { name: "Achievements", href: "#achievements" },
     { name: "Contact", href: "#contact" },
   ];
+
+  // Close mobile menu on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
 
   // Lock body scrolling when mobile menu is open
   useEffect(() => {
@@ -95,7 +107,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
+        className={`fixed top-0 left-0 right-0 z-50 isolate transition-all duration-300 ease-out ${
           scrolled
             ? "h-16 bg-white/90 dark:bg-[#07101A]/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.08] shadow-sm dark:shadow-cyan-950/20"
             : "h-16 bg-white/90 dark:bg-[#07101A]/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.08] lg:h-20 lg:bg-transparent lg:border-transparent lg:shadow-none"
@@ -294,7 +306,7 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
                       }}
                       transition={{ duration: 0.25 }}
                       onClick={(e) => handleNavClick(e, link.href)}
-                      className={`min-h-[48px] flex items-center justify-between px-4 py-3 rounded-xl text-base font-mono font-semibold transition-all ${
+                      className={`min-h-[44px] flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-mono font-semibold transition-all ${
                         isActive
                           ? "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30"
                           : "text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
@@ -305,6 +317,26 @@ export function Navbar({ onOpenCommandPalette, onOpenResume }: NavbarProps) {
                     </motion.a>
                   );
                 })}
+
+                {/* 8. Resume Item in Menu List */}
+                <motion.button
+                  variants={{
+                    open: { opacity: 1, x: 0 },
+                    closed: { opacity: 0, x: -16 },
+                  }}
+                  transition={{ duration: 0.25 }}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenResume();
+                  }}
+                  className="min-h-[44px] flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-mono font-semibold text-cyan-600 dark:text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 transition-all text-left"
+                >
+                  <span className="flex items-center space-x-2">
+                    <FileText className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                    <span>Resume</span>
+                  </span>
+                  <ArrowRight className="w-4 h-4 opacity-50" />
+                </motion.button>
               </motion.nav>
 
               <div className="pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.08] space-y-3.5">

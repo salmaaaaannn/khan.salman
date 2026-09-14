@@ -251,13 +251,22 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
                 <h2 className="text-xs font-mono uppercase tracking-widest text-slate-400 font-bold mb-2 print:text-slate-800">
                   Education & Credentials
                 </h2>
-                <div className="text-xs text-slate-300 print:text-slate-700">
-                  <p className="font-semibold text-white print:text-black">
-                    {PORTFOLIO_DATA.education[0].degree}
-                  </p>
-                  <p className="text-slate-400 print:text-slate-600">
-                    {PORTFOLIO_DATA.education[0].institution}, {PORTFOLIO_DATA.education[0].location}
-                  </p>
+                <div className="space-y-2 text-xs text-slate-300 print:text-slate-700">
+                  {PORTFOLIO_DATA.education.map((edu, idx) => (
+                    <div key={idx}>
+                      <div className="flex items-baseline justify-between">
+                        <p className="font-semibold text-white print:text-black">
+                          {edu.degree}
+                        </p>
+                        <span className="text-[10px] font-mono text-cyan-400 print:text-teal-700 shrink-0 ml-2">
+                          {edu.current ? `Pursuing (Exp. ${edu.expectedCompletion})` : edu.status}
+                        </span>
+                      </div>
+                      <p className="text-slate-400 print:text-slate-600">
+                        {edu.institution}, {edu.location}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
 

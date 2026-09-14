@@ -40,6 +40,15 @@ export interface ExperienceItem {
   technologies: string[];
 }
 
+export interface EducationItem {
+  degree: string;
+  institution: string;
+  location: string;
+  status: "Graduated" | "Pursuing";
+  expectedCompletion?: string;
+  current?: boolean;
+}
+
 export const PORTFOLIO_DATA = {
   personal: {
     name: "Salman Khan",
@@ -313,11 +322,21 @@ export const PORTFOLIO_DATA = {
 
   education: [
     {
-      degree: "Bachelor of Engineering (Computer Engineering)",
+      degree: "Master of Computer Applications (MCA)",
       institution: "University of Mumbai",
       location: "Mumbai, India",
+      status: "Pursuing",
+      expectedCompletion: "2028",
+      current: true,
     },
-  ],
+    {
+      degree: "B.Sc. Information Technology (B.Sc.IT)",
+      institution: "University of Mumbai",
+      location: "Mumbai, India",
+      status: "Graduated",
+      current: false,
+    },
+  ] as EducationItem[],
 
   certifications: [
     {
