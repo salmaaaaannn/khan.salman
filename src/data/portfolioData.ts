@@ -60,15 +60,15 @@ export const PORTFOLIO_DATA = {
       "Full-stack developer focused on building scalable web applications, AI-powered products, real-time systems, and practical developer solutions.",
     email: "salmanmuslimkhan@gmail.com",
     phone: "+91 8928359076",
-    github: "https://github.com/salmankhan",
-    linkedin: "https://linkedin.com/in/salmankhan",
+    github: "https://github.com/salmaaaaannn",
+    linkedin: "https://linkedin.com/in/salman-khan-03a45a290",
     terminal: {
       user: "salman",
       host: "portfolio",
       whoami: "Salman Khan",
-      role: "Full-Stack Developer\nAI/ML Developer",
+      role: "Full-Stack + AI/ML Developer",
       stack: "React • Next.js • Node • Python\nFastAPI • MongoDB • MySQL",
-      status: "Building intelligent systems",
+      status: "MCA • 2028",
     },
   },
 
@@ -199,8 +199,6 @@ export const PORTFOLIO_DATA = {
         icon: "Activity",
       },
     ],
-    githubUrl: "https://github.com/salmankhan/nura-ai",
-    liveUrl: "#",
   } as Project,
 
   projects: [
@@ -216,8 +214,6 @@ export const PORTFOLIO_DATA = {
         "Engineered a multiplayer virtual environment utilizing Phaser game physics, Colyseus/WebSocket real-time state synchronization, and React UI overlays for low-latency player presence.",
       technologies: ["Phaser", "React", "Node.js", "Colyseus", "WebSockets"],
       accentColor: "teal",
-      githubUrl: "https://github.com/salmankhan/metaverse-2d",
-      liveUrl: "#",
     },
     {
       id: "ai-event-management",
@@ -231,8 +227,6 @@ export const PORTFOLIO_DATA = {
         "Integrated AI recommendation algorithms to match attendee profiles with event tracks, coupled with a responsive administration dashboard for scheduling and attendee analytics.",
       technologies: ["Python", "FastAPI", "React", "Machine Learning", "MySQL"],
       accentColor: "teal",
-      githubUrl: "https://github.com/salmankhan/ai-event-management",
-      liveUrl: "#",
     },
     {
       id: "ai-fitness-tracker",
@@ -246,8 +240,6 @@ export const PORTFOLIO_DATA = {
         "Implemented real-time computer vision pose landmark detection to track form accuracy, count repetitions, and present personalized performance metrics on an intuitive dashboard.",
       technologies: ["AI/ML", "Computer Vision", "Python", "React", "Tailwind CSS"],
       accentColor: "teal",
-      githubUrl: "https://github.com/salmankhan/ai-fitness-tracker",
-      liveUrl: "#",
     },
     {
       id: "athers",
@@ -261,8 +253,6 @@ export const PORTFOLIO_DATA = {
         "Engineered a resilient full-stack architecture featuring RESTful API controllers, MongoDB persistence, token-based authentication, and a responsive frontend interface.",
       technologies: ["React", "Node.js", "Express.js", "MongoDB", "REST APIs"],
       accentColor: "teal",
-      githubUrl: "https://github.com/salmankhan/eathers",
-      liveUrl: "#",
     },
   ] as Project[],
 
@@ -325,12 +315,12 @@ export const PORTFOLIO_DATA = {
       degree: "Master of Computer Applications (MCA)",
       institution: "University of Mumbai",
       location: "Mumbai, India",
-      status: "Pursuing",
+      status: "Currently Pursuing",
       expectedCompletion: "2028",
       current: true,
     },
     {
-      degree: "B.Sc. Information Technology (B.Sc.IT)",
+      degree: "B.Sc. Information Technology",
       institution: "University of Mumbai",
       location: "Mumbai, India",
       status: "Graduated",

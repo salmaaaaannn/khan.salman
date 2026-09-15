@@ -113,25 +113,34 @@ export function FeaturedProject() {
           </div>
 
           <div className="flex items-center space-x-2">
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 hover:text-white transition-colors"
-            >
-              <Github className="w-3.5 h-3.5 text-cyan-400" />
-              <span>GitHub</span>
-            </a>
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 hover:text-white transition-colors"
+              >
+                <Github className="w-3.5 h-3.5 text-cyan-400" />
+                <span>GitHub</span>
+              </a>
+            )}
 
-            <a
-              href={project.liveUrl}
-              onClick={(e) => e.preventDefault()}
-              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 text-xs font-semibold font-mono transition-colors shadow-cyan-soft"
-              title="Interactive pipeline simulation running below"
-            >
-              <span>Interactive Pipeline</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            {project.liveUrl && project.liveUrl !== "#" ? (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 text-xs font-semibold font-mono transition-colors shadow-cyan-soft"
+              >
+                <span>Live Demo</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            ) : (
+              <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-300">
+                <Sparkles className="w-3 h-3 text-cyan-400" />
+                <span>Interactive Pipeline Below</span>
+              </span>
+            )}
           </div>
         </div>
 

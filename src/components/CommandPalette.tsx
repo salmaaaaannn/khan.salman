@@ -20,6 +20,7 @@ import {
   Copy,
   Check,
   CornerDownLeft,
+  X,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
@@ -80,7 +81,7 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
   const commands: CommandItem[] = [
     {
       id: "home",
-      label: "Go to Home",
+      label: "Home",
       category: "Navigation",
       icon: Home,
       action: () => scrollToSection("home"),
@@ -88,7 +89,7 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
     },
     {
       id: "about",
-      label: "Go to About",
+      label: "About",
       category: "Navigation",
       icon: User,
       action: () => scrollToSection("about"),
@@ -96,43 +97,63 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
     },
     {
       id: "projects",
-      label: "Go to Projects",
+      label: "Projects",
       category: "Navigation",
       icon: FolderGit2,
       action: () => scrollToSection("projects"),
       shortcut: "P",
     },
     {
-      id: "experience",
-      label: "Go to Experience",
-      category: "Navigation",
-      icon: Briefcase,
-      action: () => scrollToSection("experience"),
-      shortcut: "E",
-    },
-    {
       id: "skills",
-      label: "Go to Skills",
+      label: "Skills",
       category: "Navigation",
       icon: Layers,
       action: () => scrollToSection("skills"),
       shortcut: "S",
     },
     {
-      id: "achievements",
-      label: "Go to Achievements",
-      category: "Navigation",
-      icon: Award,
-      action: () => scrollToSection("achievements"),
-      shortcut: "T",
-    },
-    {
       id: "contact",
-      label: "Go to Contact",
+      label: "Contact",
       category: "Navigation",
       icon: Mail,
       action: () => scrollToSection("contact"),
       shortcut: "C",
+    },
+    {
+      id: "github",
+      label: "GitHub",
+      category: "Links",
+      icon: Github,
+      action: () => {
+        window.open(PORTFOLIO_DATA.personal.github, "_blank");
+        onClose();
+      },
+    },
+    {
+      id: "linkedin",
+      label: "LinkedIn",
+      category: "Links",
+      icon: Linkedin,
+      action: () => {
+        window.open(PORTFOLIO_DATA.personal.linkedin, "_blank");
+        onClose();
+      },
+    },
+    {
+      id: "experience",
+      label: "Experience",
+      category: "Navigation",
+      icon: Briefcase,
+      action: () => scrollToSection("experience"),
+      shortcut: "E",
+    },
+    {
+      id: "achievements",
+      label: "Achievements",
+      category: "Navigation",
+      icon: Award,
+      action: () => scrollToSection("achievements"),
+      shortcut: "T",
     },
     {
       id: "resume",
@@ -287,10 +308,17 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Type a command or search sections..."
+                placeholder="Search portfolio..."
                 className="w-full bg-transparent text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none font-mono"
               />
-              <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded">
+              <button
+                onClick={onClose}
+                aria-label="Close command palette"
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 sm:hidden shrink-0 ml-2"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded ml-2">
                 ESC
               </kbd>
             </div>

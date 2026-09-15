@@ -31,36 +31,65 @@ export function EducationCertifications() {
             </div>
           </div>
 
-          <div className="space-y-4">
-            {education.map((edu, idx) => (
-              <div
-                key={idx}
-                className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-2 hover:border-cyan-500/20 transition-colors"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+          {/* Timeline Container */}
+          <div className="relative pl-6 sm:pl-8 space-y-5 before:absolute before:left-2 sm:before:left-3 before:top-3 before:bottom-3 before:w-0.5 before:bg-gradient-to-b before:from-cyan-400 before:via-teal-500/40 before:to-slate-700/30">
+            {/* 1. MCA - Currently Pursuing */}
+            <div className="relative group">
+              {/* Timeline Node */}
+              <div className="absolute -left-6 sm:-left-8 top-1.5 flex items-center justify-center">
+                <span className="relative flex h-4 w-4">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-cyan-500 border-2 border-[#0B1620]" />
+                </span>
+              </div>
+
+              <div className="p-4 rounded-xl bg-white/[0.02] border border-cyan-500/20 space-y-1.5 hover:border-cyan-500/40 transition-colors">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                   <h4 className="text-base font-bold text-[#F8FAFC]">
-                    {edu.degree}
+                    MCA — Currently Pursuing
                   </h4>
-                  {edu.current ? (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shrink-0 self-start sm:self-auto">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                      Currently Pursuing • {edu.expectedCompletion}
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono text-slate-400 border border-white/10 shrink-0 self-start sm:self-auto">
-                      {edu.status}
-                    </span>
-                  )}
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 shrink-0 self-start sm:self-auto">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                    Expected completion: 2028
+                  </span>
                 </div>
                 <div className="text-xs sm:text-sm text-slate-300 font-medium">
-                  {edu.institution}
+                  University of Mumbai
                 </div>
-                <div className="flex items-center text-xs text-[#94A3B8] font-mono pt-1">
+                <div className="flex items-center text-xs text-[#94A3B8] font-mono pt-0.5">
                   <MapPin className="w-3.5 h-3.5 mr-1 text-cyan-400" />
-                  <span>{edu.location}</span>
+                  <span>Mumbai, India</span>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* 2. B.Sc. Information Technology - Graduated */}
+            <div className="relative group">
+              {/* Timeline Node */}
+              <div className="absolute -left-6 sm:-left-8 top-1.5 flex items-center justify-center">
+                <span className="w-4 h-4 rounded-full bg-slate-700 border-2 border-[#0B1620] flex items-center justify-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+                </span>
+              </div>
+
+              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-1.5 hover:border-cyan-500/20 transition-colors">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <h4 className="text-base font-bold text-[#F8FAFC]">
+                    B.Sc. Information Technology — Graduated
+                  </h4>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono text-slate-400 border border-white/10 shrink-0 self-start sm:self-auto">
+                    Graduated
+                  </span>
+                </div>
+                <div className="text-xs sm:text-sm text-slate-300 font-medium">
+                  University of Mumbai
+                </div>
+                <div className="flex items-center text-xs text-[#94A3B8] font-mono pt-0.5">
+                  <MapPin className="w-3.5 h-3.5 mr-1 text-cyan-400" />
+                  <span>Mumbai, India</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

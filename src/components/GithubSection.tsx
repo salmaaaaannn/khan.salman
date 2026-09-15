@@ -2,78 +2,62 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Code2, GitBranch, Terminal, Cpu } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 export function GithubSection() {
-  const weeks = 28;
-
-  const matrixLevels = [
-    [0, 1, 2, 0, 3, 2, 1],
-    [1, 2, 3, 1, 0, 2, 3],
-    [2, 3, 4, 2, 1, 3, 2],
-    [1, 0, 2, 3, 2, 1, 0],
-    [0, 2, 1, 2, 3, 4, 1],
-    [2, 1, 3, 4, 2, 0, 2],
-    [1, 3, 2, 1, 0, 2, 3],
-    [3, 2, 4, 3, 2, 1, 2],
-    [0, 1, 2, 0, 1, 2, 3],
-    [2, 3, 1, 2, 4, 3, 2],
-    [1, 2, 3, 1, 2, 0, 1],
-    [3, 4, 2, 3, 1, 2, 0],
-    [2, 1, 0, 2, 3, 2, 1],
-    [1, 2, 3, 4, 2, 1, 2],
-    [0, 3, 2, 1, 0, 2, 3],
-    [2, 1, 4, 3, 2, 1, 0],
-    [3, 2, 1, 2, 3, 4, 2],
-    [1, 0, 2, 3, 1, 2, 1],
-    [2, 3, 4, 2, 1, 0, 2],
-    [1, 2, 1, 3, 4, 2, 1],
-    [0, 1, 2, 1, 2, 3, 2],
-    [2, 3, 0, 2, 1, 2, 3],
-    [3, 4, 2, 1, 3, 2, 1],
-    [1, 2, 3, 2, 0, 1, 2],
-    [2, 1, 4, 3, 2, 1, 0],
-    [0, 2, 1, 2, 3, 4, 2],
-    [1, 3, 2, 1, 2, 3, 1],
-    [2, 4, 3, 2, 1, 2, 0],
+  const engineeringFocus = [
+    {
+      title: "Full-Stack Web Architecture",
+      description: "Scalable client-server applications engineered with Next.js, React, Node.js, and TypeScript.",
+      icon: Code2,
+      tag: "Full-Stack",
+    },
+    {
+      title: "AI & Machine Learning Systems",
+      description: "Applied AI models, document OCR extraction pipelines, and automated healthcare screening engines.",
+      icon: Cpu,
+      tag: "AI / ML",
+    },
+    {
+      title: "Backend & Microservices",
+      description: "Asynchronous RESTful APIs with FastAPI, Express.js, MongoDB document stores, and MySQL schemas.",
+      icon: Terminal,
+      tag: "Backend",
+    },
+    {
+      title: "Version Control & Prototyping",
+      description: "Modular Git branch workflows, rapid MVP iteration, and clean architectural separation of concerns.",
+      icon: GitBranch,
+      tag: "Engineering",
+    },
   ];
 
-  const getColorClass = (level: number) => {
-    switch (level) {
-      case 1:
-        return "bg-cyan-950/70 border-cyan-900/60";
-      case 2:
-        return "bg-cyan-800/80 border-cyan-700/70";
-      case 3:
-        return "bg-cyan-600 border-cyan-500";
-      case 4:
-        return "bg-cyan-400 border-cyan-300 shadow-sm shadow-cyan-400/40";
-      default:
-        return "bg-white/[0.03] border-white/5";
-    }
-  };
-
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 25 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="rounded-3xl bg-[#0B1620]/80 border border-white/10 p-6 sm:p-10 backdrop-blur-xl hover:border-cyan-500/35 transition-all shadow-xl"
+        className="rounded-3xl bg-[#0B1620]/85 border border-white/10 p-6 sm:p-10 lg:p-12 backdrop-blur-xl hover:border-cyan-500/35 transition-all shadow-xl relative overflow-hidden"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-white/10">
+        {/* Subtle Ambient Glow */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/[0.06] rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/[0.05] rounded-full blur-3xl pointer-events-none" />
+
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-white/10 relative z-10">
           <div>
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-300 mb-3">
               <Github className="w-3.5 h-3.5 text-cyan-400" />
               <span>Open Source & Engineering Activity</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#F8FAFC] tracking-tight">
-              Explore My Code and Projects
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#F8FAFC] tracking-tight">
+              Explore Code & Repositories
             </h3>
-            <p className="text-xs sm:text-sm text-[#94A3B8] mt-1 max-w-xl">
-              Inspect repositories, full-stack implementations, and AI experiments on GitHub.
+            <p className="text-xs sm:text-sm text-[#94A3B8] mt-2 max-w-xl leading-relaxed">
+              Explore public implementations, full-stack web applications, and AI pipelines directly on GitHub.
             </p>
           </div>
 
@@ -81,49 +65,67 @@ export function GithubSection() {
             href={PORTFOLIO_DATA.personal.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 text-slate-200 hover:text-white text-xs font-mono font-semibold transition-all hover:border-cyan-500/40 self-start md:self-center"
+            className="inline-flex items-center space-x-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 active:scale-95 text-slate-950 text-xs sm:text-sm font-mono font-bold transition-all shadow-cyan-soft self-start md:self-center shrink-0"
           >
-            <Github className="w-4 h-4 text-cyan-400" />
-            <span>Visit GitHub</span>
-            <ExternalLink className="w-3.5 h-3.5 ml-1" />
+            <Github className="w-4 h-4" />
+            <span>Visit @salmaaaaannn</span>
+            <ExternalLink className="w-3.5 h-3.5 ml-0.5" />
           </a>
         </div>
 
-        {/* Contribution Activity Grid Visual */}
-        <div className="pt-8">
-          <div className="flex items-center justify-between mb-3 text-xs font-mono text-slate-400">
-            <span>Commit & Build Cadence</span>
-            <div className="flex items-center space-x-1.5 text-[11px]">
-              <span className="text-slate-500">Less</span>
-              <span className="w-2.5 h-2.5 rounded-sm bg-white/[0.03] border border-white/5" />
-              <span className="w-2.5 h-2.5 rounded-sm bg-cyan-950/70 border border-cyan-900/60" />
-              <span className="w-2.5 h-2.5 rounded-sm bg-cyan-800/80 border border-cyan-700/70" />
-              <span className="w-2.5 h-2.5 rounded-sm bg-cyan-600 border border-cyan-500" />
-              <span className="w-2.5 h-2.5 rounded-sm bg-cyan-400 border border-cyan-300" />
-              <span className="text-slate-500">More</span>
-            </div>
+        {/* Engineering Areas Showcase */}
+        <div className="pt-8 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {engineeringFocus.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/25 transition-all flex flex-col justify-between group/card"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="p-2 rounded-xl bg-white/5 border border-white/10 group-hover/card:bg-cyan-500/10 group-hover/card:border-cyan-500/30 transition-colors">
+                        <Icon className="w-4 h-4 text-cyan-400" />
+                      </div>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">
+                        {item.tag}
+                      </span>
+                    </div>
+                    <h4 className="text-sm font-bold text-[#F8FAFC] group-hover/card:text-cyan-300 transition-colors">
+                      {item.title}
+                    </h4>
+                    <p className="text-xs text-[#94A3B8] mt-2 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-500">
+                    <span>Repository Focus</span>
+                    <span className="text-cyan-400 font-semibold group-hover/card:underline">GitHub</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
-          {/* Matrix Container */}
-          <div className="overflow-x-auto pb-2">
-            <div className="inline-flex gap-1 p-3 rounded-xl bg-[#07101A] border border-white/5">
-              {matrixLevels.map((week, wIdx) => (
-                <div key={wIdx} className="flex flex-col gap-1">
-                  {week.map((lvl, dIdx) => (
-                    <div
-                      key={dIdx}
-                      className={`w-3 h-3 rounded-[2.5px] border ${getColorClass(
-                        lvl
-                      )} transition-transform hover:scale-125 cursor-pointer`}
-                      title={`Cadence block ${wIdx + 1}.${dIdx + 1}`}
-                    />
-                  ))}
-                </div>
-              ))}
+          {/* Profile Handle Strip */}
+          <div className="mt-6 p-4 rounded-2xl bg-[#07101A]/80 border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+            <div className="flex items-center space-x-3">
+              <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-slate-300">
+                Official Profile: <strong className="text-white">github.com/salmaaaaannn</strong>
+              </span>
             </div>
-          </div>
-          <div className="text-[11px] font-mono text-slate-500 mt-2 text-right">
-            Continuous deployment & test automation cycles
+            <a
+              href={PORTFOLIO_DATA.personal.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 flex items-center space-x-1 underline underline-offset-4"
+            >
+              <span>View All Repositories</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
         </div>
       </motion.div>

@@ -44,20 +44,25 @@ export function Achievements() {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/[0.06] rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left: Trophy Visual */}
-          <div className="lg:col-span-4 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/[0.02] border border-white/5 group-hover:border-cyan-500/20 transition-colors">
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shadow-lg mb-4 group-hover:scale-105 transition-transform duration-300">
-              <Trophy className="w-12 h-12 text-cyan-400 animate-pulse-slow" />
-              <div className="absolute -bottom-2 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 font-mono font-black text-[10px] tracking-wider uppercase shadow-sm">
-                {achievement.badge}
+          {/* Left: Trophy Visual with Restrained Award Interaction */}
+          <div className="lg:col-span-4 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/[0.02] border border-white/5 group-hover:border-cyan-500/25 transition-colors">
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-cyan-500/15 via-teal-500/10 to-amber-500/10 border border-cyan-500/30 flex items-center justify-center shadow-lg mb-4 cursor-default group/trophy"
+            >
+              <Trophy className="w-12 h-12 text-cyan-400 group-hover/trophy:text-cyan-300 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]" />
+              <div className="absolute -bottom-2 px-3 py-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 text-slate-950 font-mono font-black text-[10px] tracking-wider uppercase shadow-md shadow-cyan-500/30">
+                3× Champion
               </div>
-            </div>
+            </motion.div>
 
             <h3 className="text-xl font-bold text-[#F8FAFC] tracking-tight">
-              Hackathon Excellence
+              3× Hackathon Winner
             </h3>
-            <p className="text-xs font-mono text-cyan-300/80 mt-1">
-              3 Distinct Winning Solutions
+            <p className="text-xs font-mono text-cyan-300/90 mt-1">
+              Competitive Hackathon Prototyping
             </p>
           </div>
 

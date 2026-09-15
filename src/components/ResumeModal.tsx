@@ -87,9 +87,9 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
                 <span>•</span>
                 <span>📞 {PORTFOLIO_DATA.personal.phone}</span>
                 <span>•</span>
-                <span>🔗 github.com/salmankhan</span>
+                <span>🔗 github.com/salmaaaaannn</span>
                 <span>•</span>
-                <span>💼 linkedin.com/in/salmankhan</span>
+                <span>💼 linkedin.com/in/salman-khan-03a45a290</span>
               </div>
             </div>
 

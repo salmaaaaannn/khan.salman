@@ -12,6 +12,8 @@ import {
   Linkedin,
   MapPin,
   Phone,
+  Activity,
+  FileText,
 } from "lucide-react";
 
 interface HeroProps {
@@ -139,14 +141,14 @@ export function Hero({ onOpenResume }: HeroProps) {
             animate="visible"
             className="lg:col-span-7 space-y-6 text-left"
           >
-            {/* 1. Availability Badge */}
+            {/* 1. Compact Status Indicator */}
             <motion.div variants={itemFadeUp} className="inline-flex items-center space-x-2.5">
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#0B1620]/85 border border-cyan-500/30 text-xs font-mono text-cyan-300 backdrop-blur-md shadow-sm">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
                 </span>
-                <span className="font-medium">Available for Opportunities</span>
+                <span className="font-medium">Open to opportunities</span>
                 <span className="text-slate-600">•</span>
                 <span className="text-slate-300 flex items-center">
                   <MapPin className="w-3 h-3 mr-1 text-cyan-400" />
@@ -181,25 +183,53 @@ export function Hero({ onOpenResume }: HeroProps) {
               </p>
             </motion.div>
 
-            {/* 5. Primary CTA Buttons with Magnetic Hover */}
-            <motion.div variants={buttonVariants} className="flex flex-wrap items-center gap-4 pt-2">
+            {/* 5. Primary Action Buttons */}
+            <motion.div variants={buttonVariants} className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href="#projects"
                 onClick={(e) => scrollToSection(e, "projects")}
-                className="btn-shimmer group inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 active:scale-95 text-slate-950 font-semibold text-sm transition-all duration-200 shadow-cyan-soft hover:shadow-cyan-subtle hover:-translate-y-0.5"
+                className="btn-shimmer group inline-flex items-center space-x-2 px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 active:scale-95 text-slate-950 font-semibold text-xs sm:text-sm transition-all duration-200 shadow-cyan-soft hover:shadow-cyan-subtle hover:-translate-y-0.5"
               >
-                <span>View My Work</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1.5" />
+                <span>View Projects</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
               </a>
 
               <a
                 href="#contact"
                 onClick={(e) => scrollToSection(e, "contact")}
-                className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-[#0B1620]/80 hover:bg-[#0B1620] active:scale-95 border border-white/10 hover:border-cyan-500/40 text-slate-200 hover:text-white font-medium text-sm transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
+                className="inline-flex items-center space-x-2 px-5 py-3 rounded-xl bg-[#0B1620]/80 hover:bg-[#0B1620] active:scale-95 border border-white/10 hover:border-cyan-500/40 text-slate-200 hover:text-white font-medium text-xs sm:text-sm transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
               >
                 <Mail className="w-4 h-4 text-cyan-400" />
                 <span>Contact Me</span>
               </a>
+
+              <a
+                href={PORTFOLIO_DATA.personal.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 hover:border-cyan-500/30 text-slate-300 hover:text-white text-xs sm:text-sm font-mono transition-all duration-200 hover:-translate-y-0.5"
+              >
+                <Github className="w-4 h-4 text-cyan-400" />
+                <span>GitHub</span>
+              </a>
+
+              <a
+                href={PORTFOLIO_DATA.personal.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 hover:border-cyan-500/30 text-slate-300 hover:text-white text-xs sm:text-sm font-mono transition-all duration-200 hover:-translate-y-0.5"
+              >
+                <Linkedin className="w-4 h-4 text-cyan-400" />
+                <span>LinkedIn</span>
+              </a>
+
+              <button
+                onClick={onOpenResume}
+                className="inline-flex items-center space-x-2 px-4 py-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 active:scale-95 border border-cyan-500/30 hover:border-cyan-500/50 text-cyan-300 text-xs sm:text-sm font-medium transition-all duration-200 hover:-translate-y-0.5"
+              >
+                <FileText className="w-4 h-4 text-cyan-400" />
+                <span>Resume</span>
+              </button>
             </motion.div>
 
             {/* Direct Coordinates */}
@@ -331,6 +361,56 @@ export function Hero({ onOpenResume }: HeroProps) {
               className="w-full max-w-md"
             >
               <TerminalCard />
+            </motion.div>
+
+            {/* Small System / Developer Status Bento Panel */}
+            <motion.div
+              variants={itemFadeUp}
+              className="w-full max-w-md rounded-2xl bg-[#0B1620]/85 border border-white/10 p-4 font-mono text-xs shadow-xl backdrop-blur-xl group hover:border-cyan-500/30 transition-all"
+            >
+              <div className="flex items-center justify-between pb-2 mb-3 border-b border-white/10">
+                <div className="flex items-center space-x-2 text-slate-300 font-semibold tracking-wider uppercase text-[11px]">
+                  <Activity className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>SYSTEM STATUS</span>
+                </div>
+                <span className="text-[10px] text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">
+                  Nominal
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-300 mb-3">
+                <div className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-slate-200">Portfolio</span>
+                  <span className="text-slate-500">—</span>
+                  <span className="text-emerald-400 font-semibold">Online</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-slate-200">Development</span>
+                  <span className="text-slate-500">—</span>
+                  <span className="text-emerald-400 font-semibold">Active</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  <span className="text-slate-200">AI / ML</span>
+                  <span className="text-slate-500">—</span>
+                  <span className="text-cyan-400 font-semibold">Building</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-slate-200">Open Source</span>
+                  <span className="text-slate-500">—</span>
+                  <span className="text-emerald-400 font-semibold">Active</span>
+                </div>
+              </div>
+
+              <div className="pt-2.5 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <span className="text-slate-400 uppercase tracking-wider text-[10px] font-semibold">CURRENT FOCUS</span>
+                <span className="text-cyan-300 font-bold bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+                  Full-Stack + AI/ML
+                </span>
+              </div>
             </motion.div>
           </div>
         </div>

@@ -15,9 +15,8 @@ export function TerminalCard() {
   useEffect(() => {
     const timers = [
       setTimeout(() => setTypedLines(1), 350),  // whoami
-      setTimeout(() => setTypedLines(2), 750),  // role
-      setTimeout(() => setTypedLines(3), 1150), // stack
-      setTimeout(() => setTypedLines(4), 1550), // status
+      setTimeout(() => setTypedLines(2), 850),  // role
+      setTimeout(() => setTypedLines(3), 1350), // status
     ];
 
     return () => timers.forEach(clearTimeout);
@@ -32,25 +31,22 @@ export function TerminalCard() {
 
     switch (trimmed) {
       case "help":
-        result = "Available commands: whoami, role, stack, status, contact, projects, clear";
+        result = "Available commands: whoami, role, status, projects, contact, clear";
         break;
       case "whoami":
         result = `${PORTFOLIO_DATA.personal.name} — ${PORTFOLIO_DATA.personal.location}`;
         break;
       case "role":
-        result = PORTFOLIO_DATA.personal.role;
-        break;
-      case "stack":
-        result = "React, Next.js, Node.js, Python, FastAPI, MongoDB, MySQL, TypeScript";
+        result = "Full-Stack + AI/ML Developer";
         break;
       case "status":
-        result = "Building intelligent systems with full-stack & AI/ML architecture.";
+        result = "MCA • 2028 (Currently Pursuing)";
         break;
       case "contact":
         result = `Email: ${PORTFOLIO_DATA.personal.email} | Phone: ${PORTFOLIO_DATA.personal.phone}`;
         break;
       case "projects":
-        result = "Key Projects: NURA AI (AI Healthcare), METAVERSE 2D, AI EVENT MANAGEMENT, AI FITNESS TRACKER, EATHERS";
+        result = "Flagship: NURA AI (AI-Assisted Healthcare Screening Platform)";
         break;
       case "clear":
         setOutputHistory([]);
@@ -69,9 +65,9 @@ export function TerminalCard() {
       {/* Terminal Titlebar */}
       <div className="flex items-center justify-between px-4 py-2.5 bg-[#07101A]/90 border-b border-white/10">
         <div className="flex items-center space-x-2">
-          <span className="w-3 h-3 rounded-full bg-[#ff5f56]/80 hover:opacity-100 transition-opacity cursor-pointer inline-block" />
-          <span className="w-3 h-3 rounded-full bg-[#ffbd2e]/80 hover:opacity-100 transition-opacity cursor-pointer inline-block" />
-          <span className="w-3 h-3 rounded-full bg-[#27c93f]/80 hover:opacity-100 transition-opacity cursor-pointer inline-block" />
+          <span className="w-3 h-3 rounded-full bg-[#ff5f56]/80 inline-block" />
+          <span className="w-3 h-3 rounded-full bg-[#ffbd2e]/80 inline-block" />
+          <span className="w-3 h-3 rounded-full bg-[#27c93f]/80 inline-block" />
         </div>
 
         <div className="flex items-center space-x-2 text-xs font-mono text-[#94A3B8]">
@@ -86,7 +82,7 @@ export function TerminalCard() {
       </div>
 
       {/* Terminal Body */}
-      <div className="p-4 sm:p-5 font-mono text-xs sm:text-sm space-y-3 text-slate-200 select-text overflow-x-hidden min-h-[260px]">
+      <div className="p-4 sm:p-5 font-mono text-xs sm:text-sm space-y-3 text-slate-200 select-text overflow-x-hidden min-h-[220px]">
         {/* Command 1: whoami */}
         {typedLines >= 1 && (
           <div className="transition-opacity duration-300 opacity-100">
@@ -107,43 +103,28 @@ export function TerminalCard() {
               <span className="text-cyan-400 font-bold">$</span>
               <span className="text-slate-300">role</span>
             </div>
-            <div className="pl-4 mt-1 text-slate-300 space-y-0.5">
-              <div className="text-cyan-300 font-medium">Full-Stack Developer</div>
-              <div className="text-indigo-300 font-medium">AI/ML Developer</div>
+            <div className="pl-4 mt-1 text-cyan-300 font-medium">
+              Full-Stack + AI/ML Developer
             </div>
           </div>
         )}
 
-        {/* Command 3: stack */}
+        {/* Command 3: status */}
         {typedLines >= 3 && (
-          <div className="transition-opacity duration-300 opacity-100">
-            <div className="flex items-center space-x-2 text-slate-400">
-              <span className="text-cyan-400 font-bold">$</span>
-              <span className="text-slate-300">stack</span>
-            </div>
-            <div className="pl-4 mt-1 text-slate-300 space-y-0.5">
-              <div className="text-slate-200">React • Next.js • Node • Python</div>
-              <div className="text-[#94A3B8]">FastAPI • MongoDB • MySQL</div>
-            </div>
-          </div>
-        )}
-
-        {/* Command 4: status */}
-        {typedLines >= 4 && (
           <div className="transition-opacity duration-300 opacity-100">
             <div className="flex items-center space-x-2 text-slate-400">
               <span className="text-cyan-400 font-bold">$</span>
               <span className="text-slate-300">status</span>
             </div>
-            <div className="pl-4 mt-1 flex items-center space-x-2 text-cyan-300 font-medium">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 inline-block animate-ping" />
-              <span>Building intelligent systems</span>
+            <div className="pl-4 mt-1 flex items-center space-x-2 text-emerald-400 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
+              <span>MCA • 2028</span>
             </div>
           </div>
         )}
 
         {/* Blinking cursor during typing phase */}
-        {typedLines < 4 && (
+        {typedLines < 3 && (
           <div className="flex items-center space-x-1 text-cyan-400">
             <span>$</span>
             <span className="w-2 h-4 bg-cyan-400 inline-block animate-pulse" />
@@ -164,7 +145,7 @@ export function TerminalCard() {
         ))}
 
         {/* Interactive Command Prompt once typing is done */}
-        {typedLines >= 4 && (
+        {typedLines >= 3 && (
           <form
             onSubmit={handleCommand}
             className="pt-2 border-t border-white/10 flex items-center space-x-2"

@@ -6,6 +6,7 @@ import { ScrollProgress, BackToTop } from "@/components/ScrollProgress";
 import { CursorWave } from "@/components/CursorWave";
 import { ScrollWaveWrapper } from "@/components/ScrollWaveWrapper";
 import { BackgroundWaveLayer } from "@/components/BackgroundWaveLayer";
+import { LoadingScreen } from "@/components/LoadingScreen";
 import { WaveDivider } from "@/components/WaveDivider";
 import { Hero } from "@/components/Hero";
 import { BentoGrid } from "@/components/BentoGrid";
@@ -50,6 +51,8 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-300 transition-colors duration-200">
+      <LoadingScreen />
+
       {/* Liquid Cursor Wave Effect */}
       <CursorWave />
 

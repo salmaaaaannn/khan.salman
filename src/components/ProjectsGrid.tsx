@@ -338,25 +338,39 @@ export function ProjectsGrid() {
                   ))}
                 </div>
 
-                <div className="flex items-center justify-between pt-1">
-                  <a
-                    href={proj.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-1.5 text-xs font-mono text-[#94A3B8] hover:text-white transition-colors"
-                  >
-                    <Github className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>View Repository</span>
-                  </a>
+                <div className="flex items-center justify-between pt-1 text-xs font-mono">
+                  {proj.githubUrl ? (
+                    <a
+                      href={proj.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1.5 text-[#94A3B8] hover:text-white transition-colors"
+                    >
+                      <Github className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>View Repository</span>
+                    </a>
+                  ) : (
+                    <span className="text-[11px] text-slate-500 flex items-center space-x-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-500/50" />
+                      <span>Full-Stack Architecture</span>
+                    </span>
+                  )}
 
-                  <a
-                    href={proj.liveUrl}
-                    onClick={(e) => e.preventDefault()}
-                    className="inline-flex items-center space-x-1 text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors group/link"
-                  >
-                    <span>Architecture Overview</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                  </a>
+                  {proj.liveUrl && proj.liveUrl !== "#" ? (
+                    <a
+                      href={proj.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 text-cyan-400 hover:text-cyan-300 transition-colors group/link"
+                    >
+                      <span>Live Demo</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                    </a>
+                  ) : (
+                    <span className="inline-flex items-center space-x-1 text-cyan-400/90 text-[11px]">
+                      <span>Interactive Simulation Above</span>
+                    </span>
+                  )}
                 </div>
               </div>
             </motion.div>
