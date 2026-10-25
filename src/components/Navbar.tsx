@@ -25,7 +25,7 @@ const Navbar = () => {
     smoother.paused(true);
 
     const links = Array.from(
-      document.querySelectorAll(".header ul a")
+      document.querySelectorAll("a[data-href]")
     ) as HTMLAnchorElement[];
 
     const handleLinkClick = (event: Event) => {
