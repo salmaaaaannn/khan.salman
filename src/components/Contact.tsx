@@ -6,7 +6,7 @@ import {
   MdMailOutline,
   MdPhoneInTalk,
 } from "react-icons/md";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import "./styles/Contact.css";
 import { portfolioData } from "../data/portfolio";
 
@@ -24,9 +24,9 @@ const Contact = () => {
             <div className="contact-copy">
               <p className="contact-kicker">Let's Connect</p>
               <h3>
-                Product strategy,{" "}
-                <span className="contact-accent">delivery rigor,</span>
-                {" "}and AI&#8209;enabled execution.
+                Full-stack development,{" "}
+                <span className="contact-accent">applied AI/ML systems,</span>
+                {" "}and scalable software.
               </h3>
               <p className="contact-lead">{closingStatement}</p>
               <div className="contact-meta">
@@ -128,6 +128,24 @@ const Contact = () => {
                   </div>
                   <MdArrowOutward className="contact-method-arrow" />
                 </a>
+                <a
+                  href={meta.githubHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="contact-method"
+                  data-cursor="disable"
+                >
+                  <div className="contact-method-main">
+                    <span className="contact-method-icon">
+                      <FaGithub />
+                    </span>
+                    <div className="contact-method-copy">
+                      <strong>GitHub</strong>
+                      <small>github.com/salmaaaaannn</small>
+                    </div>
+                  </div>
+                  <MdArrowOutward className="contact-method-arrow" />
+                </a>
               </div>
             </div>
           </div>
@@ -157,7 +175,7 @@ const Contact = () => {
             </article>
 
             <article className="contact-card contact-card-feature">
-              <p className="contact-card-label">Research</p>
+              <p className="contact-card-label">Hackathons</p>
               <h4>{research.title}</h4>
               <p className="contact-card-copy">{research.publication}</p>
               <a
@@ -167,7 +185,7 @@ const Contact = () => {
                 data-cursor="disable"
                 className="contact-link"
               >
-                Read Publication <MdArrowOutward />
+                View GitHub Repos <MdArrowOutward />
               </a>
             </article>
           </div>

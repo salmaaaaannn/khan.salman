@@ -3,7 +3,7 @@ import { TbNotes } from "react-icons/tb";
 import { useEffect } from "react";
 import HoverLinks from "./HoverLinks";
 import { MdLocationOn, MdMailOutline, MdPhoneInTalk } from "react-icons/md";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { portfolioData } from "../data/portfolio";
 
 const SocialIcons = () => {
@@ -95,6 +95,16 @@ const SocialIcons = () => {
             aria-label={`${meta.name} on LinkedIn`}
           >
             <FaLinkedinIn />
+          </a>
+        </span>
+        <span>
+          <a
+            href={meta.githubHref}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${meta.name} on GitHub`}
+          >
+            <FaGithub />
           </a>
         </span>
       </div>

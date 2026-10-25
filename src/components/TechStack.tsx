@@ -154,17 +154,17 @@ const TechStack = () => {
       }
 
       const gradient = context.createLinearGradient(0, 0, 512, 512);
-      gradient.addColorStop(0, "#0f172a");
-      gradient.addColorStop(0.55, "#134e4a");
-      gradient.addColorStop(1, "#22d3ee");
+      gradient.addColorStop(0, "#0a0a0f");
+      gradient.addColorStop(0.5, "#161822");
+      gradient.addColorStop(1, "#232736");
       context.fillStyle = gradient;
       context.fillRect(0, 0, canvas.width, canvas.height);
 
-      context.strokeStyle = "rgba(255, 255, 255, 0.18)";
-      context.lineWidth = 18;
+      context.strokeStyle = "rgba(255, 255, 255, 0.2)";
+      context.lineWidth = 16;
       context.strokeRect(24, 24, canvas.width - 48, canvas.height - 48);
 
-      context.fillStyle = "#f8fafc";
+      context.fillStyle = "#f5f5f7";
       context.textAlign = "center";
       context.textBaseline = "middle";
       context.font = `700 ${
@@ -180,21 +180,21 @@ const TechStack = () => {
         map: texture,
         emissive: "#ffffff",
         emissiveMap: texture,
-        emissiveIntensity: 0.2,
-        metalness: 0.45,
-        roughness: 0.95,
-        clearcoat: 0.1,
+        emissiveIntensity: 0.18,
+        metalness: 0.5,
+        roughness: 0.85,
+        clearcoat: 0.2,
       });
     });
   }, []);
   const fallbackMaterial = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({
-        color: "#134e4a",
-        emissive: "#0f172a",
+        color: "#161822",
+        emissive: "#0a0a0f",
         emissiveIntensity: 0.15,
-        metalness: 0.4,
-        roughness: 0.95,
+        metalness: 0.5,
+        roughness: 0.85,
       }),
     []
   );
@@ -237,7 +237,7 @@ const TechStack = () => {
           environmentRotation={[0, 4, 2]}
         />
         <EffectComposer enableNormalPass={false}>
-          <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
+          <N8AO color="#030305" aoRadius={2} intensity={1.15} />
         </EffectComposer>
       </Canvas>
     </div>
