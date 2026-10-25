@@ -21,11 +21,20 @@
   --accentColor: #38bdf8;
   --accentColorGlow: rgba(56, 189, 248, 0.2);
   --backgroundColor: #030305;
-  --surfaceGlass: rgba(255, 255, 255, 0.05);
-  --surfaceBorder: rgba(255, 255, 255, 0.12);
+  --surfaceGlass: rgba(255, 255, 255, 0.045);
+  --surfaceBorder: rgba(255, 255, 255, 0.1);
   --surfaceHighlight: rgba(255, 255, 255, 0.07);
   --vh: 100vh;
   --vh: 100svh;
+  
+  /* Standardized layout tokens */
+  --page-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --section-gap: clamp(4rem, 8vw, 7rem);
+  --content-max-width: 1380px;
+  --card-gap: clamp(1rem, 2vw, 1.5rem);
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+  --glass-blur: blur(18px) saturate(140%);
 }
 
 h1,
@@ -73,8 +82,8 @@ body {
   height: auto;
   background-color: #030305;
   flex-grow: 1;
-  --cWidth: calc(100% - 30px);
-  --cMaxWidth: 1920px;
+  --cWidth: calc(100% - 2 * var(--page-gutter));
+  --cMaxWidth: 1380px;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -88,6 +97,13 @@ body {
   width: 100%;
   margin: auto;
   position: relative;
+}
+
+.section-container {
+  max-width: var(--cMaxWidth);
+  width: var(--cWidth);
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .container1 {
@@ -114,12 +130,12 @@ body {
   overflow: clip;
   height: var(--vh);
   margin: auto;
-  margin-top: 50px;
-  margin-bottom: -100px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .techstack h2 {
-  font-size: 80px;
+  font-size: clamp(36px, 5.5vw, 80px);
   text-align: center;
   position: absolute;
   width: 100%;
@@ -135,12 +151,13 @@ body {
 
 @media screen and (min-width: 768px) {
   body {
-    --cWidth: 94%;
+    --cWidth: min(calc(100% - 2 * var(--page-gutter)), var(--cMaxWidth));
   }
 }
 
 @media screen and (max-width: 900px) {
   .techstack h2 {
-    font-size: 40px;
+    font-size: 36px;
+    top: 80px;
   }
 }

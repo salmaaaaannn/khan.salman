@@ -4,7 +4,7 @@
   z-index: 2;
   width: 100%;
   background-color: var(--backgroundColor);
-  padding: 100px 0 80px;
+  padding: var(--section-gap) 0;
 }
 
 .contact-inner {
@@ -25,7 +25,7 @@
     rgba(56, 189, 248, 0.3),
     transparent
   );
-  margin-bottom: 100px;
+  margin-bottom: 48px;
 }
 
 /* ── Container card ── */

@@ -1,71 +1,74 @@
 .about-section {
   display: flex;
   align-items: center;
-  justify-content: left;
-  place-items: center;
+  justify-content: flex-start;
   position: relative;
   opacity: 1;
   height: auto;
   width: var(--cWidth);
+  max-width: var(--cMaxWidth);
   margin: auto;
 }
+
 .about-me {
-  padding: 50px 0px;
-  padding-bottom: 0;
-  width: 500px;
-  max-width: calc(100% - 15px);
+  padding: 40px 0;
+  width: 100%;
+  max-width: 600px;
 }
+
 .about-me h3 {
-  font-size: 25px;
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 7px;
-  font-weight: 400;
+  letter-spacing: 3px;
+  font-weight: 600;
   color: var(--accentColor);
+  margin: 0 0 16px 0;
 }
 
 .about-me p {
-  font-size: 33px;
-  font-weight: 600;
-  line-height: 36px;
-  letter-spacing: 1px;
+  font-size: clamp(16px, 2.5vw, 20px);
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: 0.2px;
+  color: rgba(245, 245, 247, 0.88);
+  margin: 0;
 }
 
-@media only screen and (min-width: 600px) {
-  .about-section {
-    justify-content: center;
-  }
-}
 @media only screen and (min-width: 768px) {
   .about-me {
-    width: 500px;
-    max-width: calc(100% - 70px);
-    transform: translateY(0%);
+    padding: 60px 0;
   }
-  .about-section {
-    opacity: 1;
+  .about-me p {
+    font-size: clamp(18px, 2.2vw, 22px);
+    line-height: 1.65;
   }
 }
+
 @media only screen and (min-width: 1025px) {
   .about-section {
     width: var(--cWidth);
-    justify-content: right;
-    max-width: 1920px;
+    justify-content: flex-end;
+    max-width: var(--cMaxWidth);
     height: var(--vh);
-    padding: 0px;
+    padding: 0;
     opacity: 1;
   }
+
   .about-me {
-    padding: 0px;
-    width: 50%;
+    padding: 0;
+    width: 46%;
+    max-width: 580px;
   }
+
   .about-me p {
-    font-size: 1.9vw;
-    line-height: 2.3vw;
+    font-size: clamp(20px, 1.65vw, 25px);
+    line-height: 1.62;
   }
 }
+
 @media only screen and (min-width: 1950px) {
   .about-me p {
-    font-size: 2.5rem;
-    line-height: 2.7rem;
+    font-size: 26px;
+    line-height: 1.65;
   }
 }

@@ -76,6 +76,8 @@ export function initialFX() {
   var landingText4 = new SplitText(".landing-h2-1", TextProps);
   var landingText5 = new SplitText(".landing-h2-2", TextProps);
 
+  gsap.set([landingText3.chars, landingText5.chars], { opacity: 0, y: 80 });
+
   LoopText(landingText2, landingText3);
   LoopText(landingText4, landingText5);
 }
@@ -100,8 +102,9 @@ function LoopText(Text1: SplitText, Text2: SplitText) {
   )
     .fromTo(
       Text1.chars,
-      { y: 80 },
+      { opacity: 0, y: 80 },
       {
+        opacity: 1,
         duration: 1.2,
         ease: "power3.inOut",
         y: 0,
@@ -112,8 +115,9 @@ function LoopText(Text1: SplitText, Text2: SplitText) {
     )
     .fromTo(
       Text1.chars,
-      { y: 0 },
+      { opacity: 1, y: 0 },
       {
+        opacity: 0,
         y: -80,
         duration: 1.2,
         ease: "power3.inOut",
@@ -125,6 +129,7 @@ function LoopText(Text1: SplitText, Text2: SplitText) {
     .to(
       Text2.chars,
       {
+        opacity: 0,
         y: -80,
         duration: 1.2,
         ease: "power3.inOut",

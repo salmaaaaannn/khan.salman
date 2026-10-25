@@ -112,7 +112,7 @@
   position: relative;
   z-index: 1;
   background-color: var(--backgroundColor);
-  padding: 100px 0 120px;
+  padding: var(--section-gap) 0;
   /* section is invisible until .work-entered is added by IntersectionObserver */
   opacity: 0;
   transform: translateY(48px);
@@ -126,17 +126,17 @@
 
 /* ── Heading ── */
 .work-heading-wrap {
-  margin-bottom: 60px;
+  margin-bottom: 44px;
   position: relative;
   display: inline-block;
 }
 
 .work-heading {
-  font-size: 70px;
-  font-weight: 500;
+  font-size: clamp(38px, 5.2vw, 68px);
+  font-weight: 600;
   letter-spacing: -1px;
   margin: 0;
-  line-height: 1;
+  line-height: 1.05;
   background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.45) 100%);
   background-clip: text;
   -webkit-background-clip: text;

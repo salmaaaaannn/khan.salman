@@ -7,23 +7,10 @@ const Work = () => {
   const projects = portfolioData.highlights;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [slideWidth, setSlideWidth] = useState(0);
   const [entered, setEntered] = useState(false);
   const [contentKey, setContentKey] = useState(0); // triggers re-animation on slide change
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  // Measure the container width so translateX is always pixel-exact
-  useEffect(() => {
-    const measure = () => {
-      if (containerRef.current) {
-        setSlideWidth(containerRef.current.offsetWidth);
-      }
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
 
   // Intersection observer — triggers entrance animation when section scrolls into view
   useEffect(() => {
@@ -87,7 +74,7 @@ const Work = () => {
             <div
               className="carousel-track"
               style={{
-                transform: `translateX(-${currentIndex * slideWidth}px)`,
+                transform: `translateX(-${currentIndex * 100}%)`,
               }}
             >
               {projects.map((project, index) => {
