@@ -21,10 +21,13 @@ export type HighlightMetric = {
 export type Highlight = {
   title: string;
   category: string;
+  filterTag: "ai-ml" | "fullstack" | "hackathon";
   summary: string;
   focus: string;
+  techList: string[];
   bullets: string[];
   metrics: HighlightMetric[];
+  projectUrl?: string;
 };
 
 export const portfolioData = {
@@ -147,10 +150,20 @@ export const portfolioData = {
     {
       title: "NURA-AI Platform",
       category: "AI/ML · Healthcare Screening",
+      filterTag: "ai-ml",
       summary:
         "An automated clinical screening web platform combining a Next.js frontend, asynchronous FastAPI microservices, and Tesseract OCR for digitized lab report parsing and biomarker risk evaluation.",
       focus:
         "Next.js, FastAPI, Python, Tesseract OCR, scikit-learn, Biomarker Risk Modeling, Asynchronous APIs.",
+      techList: [
+        "Next.js",
+        "FastAPI",
+        "Python",
+        "Tesseract OCR",
+        "scikit-learn",
+        "TypeScript",
+        "Tailwind CSS",
+      ],
       bullets: [
         "High-precision OCR document extraction digitizing medical reports and unstructured diagnostic panels into structured schemas.",
         "Asynchronous FastAPI validation engine performing clinical sanity checks and biomarker normalization.",
@@ -162,14 +175,25 @@ export const portfolioData = {
         { value: "ML", label: "Biomarker screening" },
         { value: "< 1s", label: "Report triage latency" },
       ],
+      projectUrl: "https://github.com/salmaaaaannn",
     },
     {
       title: "MetaCity Digital Twin",
       category: "3D Simulation · IoT & Smart Cities",
+      filterTag: "ai-ml",
       summary:
         "Interactive 3D urban digital twin simulating real-time smart city dynamics, traffic bottlenecks, environmental microclimates, and municipal infrastructure telemetry.",
       focus:
         "Three.js, WebGL, React, Node.js, Python, Predictive AI, Real-Time Sensor Telemetry.",
+      techList: [
+        "Three.js",
+        "WebGL",
+        "React",
+        "Node.js",
+        "Python",
+        "Predictive AI",
+        "IoT Telemetry",
+      ],
       bullets: [
         "Interactive 3D cityscape spatial rendering with sensor telemetry overlays and dynamic camera controls.",
         "Predictive AI modules analyzing traffic bottlenecks and microclimate temperature variance in real time.",
@@ -181,14 +205,24 @@ export const portfolioData = {
         { value: "Predictive", label: "AI traffic modeling" },
         { value: "60 FPS", label: "Smooth rendering" },
       ],
+      projectUrl: "https://github.com/salmaaaaannn",
     },
     {
       title: "NK IMPEX E-Commerce",
       category: "Full-Stack · Conversational AI",
+      filterTag: "fullstack",
       summary:
         "Live production e-commerce platform integrated with an intelligent conversational AI shopping assistant that guides buyers through personalized product recommendations and checkout.",
       focus:
         "Next.js, Node.js, MongoDB, NLP Assistant, Stripe API, Dynamic Filtering, Tailwind CSS.",
+      techList: [
+        "Next.js",
+        "Node.js",
+        "MongoDB",
+        "Conversational NLP",
+        "Stripe API",
+        "Tailwind CSS",
+      ],
       bullets: [
         "Intelligent conversational shopping assistant providing context-aware recommendations and instant product Q&A.",
         "High-performance catalog search with multi-attribute faceted filtering and real-time inventory synchronization.",
@@ -200,14 +234,24 @@ export const portfolioData = {
         { value: "MongoDB", label: "Dynamic catalog" },
         { value: "Stripe", label: "Secure checkout" },
       ],
+      projectUrl: "https://github.com/salmaaaaannn",
     },
     {
       title: "AI Fitness Tracker",
       category: "Computer Vision · 1st Place Hackathon",
+      filterTag: "hackathon",
       summary:
         "Real-time computer vision fitness tracking application that analyzes exercise biomechanics, detects posture deviations, and counts repetitions automatically with zero wearable hardware.",
       focus:
         "Python, MediaPipe, OpenCV, React, Tailwind CSS, Real-Time Inference, Biomechanical Analysis.",
+      techList: [
+        "MediaPipe",
+        "OpenCV",
+        "Python",
+        "React",
+        "Pose Estimation",
+        "Tailwind CSS",
+      ],
       bullets: [
         "Awarded 1st Place at KC College Hackathon 2026 for breakthrough real-time computer vision health innovation.",
         "Real-time skeletal landmark tracking calculating joint angles and adherence to biomechanical form standards.",
@@ -219,14 +263,24 @@ export const portfolioData = {
         { value: "Real-Time", label: "Auto rep counting" },
         { value: "< 50ms", label: "Inference latency" },
       ],
+      projectUrl: "https://github.com/salmaaaaannn",
     },
     {
       title: "2D Metaverse Workspace",
       category: "Multiplayer · Real-Time Systems",
+      filterTag: "fullstack",
       summary:
         "Multiplayer 2D virtual workspace bringing spatial presence, avatar movement, and spontaneous proximity-based collaboration to distributed engineering teams.",
       focus:
         "Phaser 3, React, Node.js, WebSockets, Colyseus, Spatial Presence, Interactive Audio.",
+      techList: [
+        "Phaser 3",
+        "WebSockets",
+        "React",
+        "Node.js",
+        "Colyseus",
+        "Spatial Audio",
+      ],
       bullets: [
         "2D game physics engine powered by Phaser 3 embedded seamlessly into a modular React application shell.",
         "Low-latency authoritative WebSocket state synchronization for fluid multiplayer avatar movement.",
@@ -238,6 +292,66 @@ export const portfolioData = {
         { value: "Spatial", label: "Proximity audio/chat" },
         { value: "< 35ms", label: "Sync roundtrip" },
       ],
+      projectUrl: "https://github.com/salmaaaaannn",
+    },
+    {
+      title: "Aetherscan Vulnerability Engine",
+      category: "Web3 & Security · 1st Place Hackathon",
+      filterTag: "hackathon",
+      summary:
+        "Automated smart contract security scanner engineered during a competitive hackathon sprint to detect reentrancy vulnerabilities, logic bugs, and bytecode gas inefficiencies.",
+      focus:
+        "Next.js, Python, AST Parsing, Solidity, FastAPI, Tailwind CSS, Static Analysis.",
+      techList: [
+        "Python",
+        "FastAPI",
+        "Solidity",
+        "AST Parsing",
+        "Next.js",
+        "Security Scanning",
+      ],
+      bullets: [
+        "Awarded 1st Place at Jai Hind College Hackathon 2026 for breakthrough automated smart contract analysis.",
+        "Abstract syntax tree (AST) traversal engine flagging potential reentrancy vulnerabilities and gas inefficiencies.",
+        "Interactive dashboard displaying vulnerability severity grading and line-by-line remediation code snippets.",
+      ],
+      metrics: [
+        { value: "1st Place", label: "Jai Hind Hackathon" },
+        { value: "AST Engine", label: "Static bytecode analysis" },
+        { value: "< 2s", label: "Scan turnaround" },
+        { value: "OWASP", label: "Smart contract rules" },
+      ],
+      projectUrl: "https://github.com/salmaaaaannn",
+    },
+    {
+      title: "The Medium Platform",
+      category: "NLP & Publishing · 1st Place Hackathon",
+      filterTag: "hackathon",
+      summary:
+        "Intelligent developer publishing platform with real-time NLP summarization, semantic concept tagging, and interactive in-browser code execution environments.",
+      focus:
+        "React, Node.js, Express, NLP Pipelines, MongoDB, Redis, WebSockets.",
+      techList: [
+        "React",
+        "Node.js",
+        "Express",
+        "NLP Summarizer",
+        "MongoDB",
+        "Redis Cache",
+        "WebSockets",
+      ],
+      bullets: [
+        "Awarded 1st Place at Kirti College Hackathon 2026 for next-generation developer publication platform.",
+        "NLP-driven automated executive summaries and taxonomy tagging for complex technical engineering articles.",
+        "Integrated in-browser code execution sandbox supporting interactive programming examples and execution.",
+      ],
+      metrics: [
+        { value: "1st Place", label: "Kirti College Hackathon" },
+        { value: "NLP", label: "Semantic taxonomy" },
+        { value: "Sub-20ms", label: "Redis cache reads" },
+        { value: "Real-Time", label: "WebSocket collaboration" },
+      ],
+      projectUrl: "https://github.com/salmaaaaannn",
     },
   ] as Highlight[],
   education: [

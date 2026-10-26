@@ -1,15 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import "./styles/Navbar.css";
 import { portfolioData } from "../data/portfolio";
+import {
+  MdMenu,
+  MdClose,
+  MdFileDownload,
+  MdArrowOutward,
+  MdMailOutline,
+} from "react-icons/md";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
 
+const navItems = [
+  { label: "ABOUT", href: "#about" },
+  { label: "SKILLS", href: "#what" },
+  { label: "EXPERIENCE", href: "#career" },
+  { label: "PROJECTS", href: "#work" },
+  { label: "CONTACT", href: "#contact" },
+];
+
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { meta } = portfolioData;
+
   useEffect(() => {
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
@@ -33,7 +52,9 @@ const Navbar = () => {
         event.preventDefault();
         const anchor = event.currentTarget as HTMLAnchorElement;
         const section = anchor.getAttribute("data-href");
-        smoother.scrollTo(section, true, "top top");
+        if (section) {
+          smoother.scrollTo(section, true, "top top");
+        }
       }
     };
 
@@ -41,6 +62,9 @@ const Navbar = () => {
 
     const handleResize = () => {
       ScrollSmoother.refresh(true);
+      if (window.innerWidth > 768) {
+        setMenuOpen(false);
+      }
     };
 
     window.addEventListener("resize", handleResize);
@@ -54,14 +78,27 @@ const Navbar = () => {
     };
   }, []);
 
-  const { meta } = portfolioData;
+  const handleMobileNav = (href: string) => {
+    setMenuOpen(false);
+    setTimeout(() => {
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      } else if (smoother) {
+        smoother.scrollTo(href, true);
+      }
+    }, 150);
+  };
 
   return (
     <>
-      <div className="header">
+      <header className="header">
+        {/* Brand initials */}
         <a href="/#" className="navbar-title" data-cursor="disable">
           {meta.initials}
         </a>
+
+        {/* Center contact pill on desktop */}
         <a
           href={meta.emailHref}
           className="navbar-connect"
@@ -69,24 +106,101 @@ const Navbar = () => {
         >
           {meta.email}
         </a>
-        <ul>
-          <li>
-            <a data-href="#about" href="#about">
-              <HoverLinks text="ABOUT" />
-            </a>
-          </li>
-          <li>
-            <a data-href="#work" href="#work">
-              <HoverLinks text="WORK" />
-            </a>
-          </li>
-          <li>
-            <a data-href="#contact" href="#contact">
-              <HoverLinks text="CONTACT" />
-            </a>
-          </li>
+
+        {/* Desktop Navigation Links */}
+        <ul className="desktop-nav">
+          {navItems.map((item) => (
+            <li key={item.label}>
+              <a data-href={item.href} href={item.href}>
+                <HoverLinks text={item.label} />
+              </a>
+            </li>
+          ))}
         </ul>
-      </div>
+
+        {/* Mobile Hamburger Toggle */}
+        <button
+          className={`mobile-menu-toggle${menuOpen ? " open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          data-cursor="disable"
+        >
+          {menuOpen ? <MdClose /> : <MdMenu />}
+        </button>
+      </header>
+
+      {/* Mobile Drawer Overlay */}
+      <div
+        className={`mobile-drawer-overlay${menuOpen ? " open" : ""}`}
+        onClick={() => setMenuOpen(false)}
+      />
+
+      <nav
+        className={`mobile-drawer${menuOpen ? " open" : ""}`}
+        aria-hidden={!menuOpen}
+      >
+        <div className="mobile-drawer-inner">
+          <div className="mobile-drawer-header">
+            <span className="mobile-drawer-title">{meta.name}</span>
+            <span className="mobile-drawer-role">{meta.title}</span>
+          </div>
+
+          <div className="mobile-drawer-links">
+            {navItems.map((item, idx) => (
+              <button
+                key={item.label}
+                className="mobile-nav-link"
+                onClick={() => handleMobileNav(item.href)}
+                data-cursor="disable"
+              >
+                <span className="link-num">0{idx + 1}</span>
+                <span className="link-text">{item.label}</span>
+                <MdArrowOutward className="link-arrow" />
+              </button>
+            ))}
+          </div>
+
+          <div className="mobile-drawer-footer">
+            <a
+              href={meta.resumePath}
+              download="Salman-Khan-Resume.pdf"
+              className="mobile-resume-btn"
+              data-cursor="disable"
+            >
+              <MdFileDownload /> Download Resume
+            </a>
+
+            <div className="mobile-drawer-socials">
+              <a
+                href={meta.githubHref}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Salman Khan GitHub"
+                data-cursor="disable"
+              >
+                <FaGithub />
+              </a>
+              <a
+                href={meta.linkedinHref}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Salman Khan LinkedIn"
+                data-cursor="disable"
+              >
+                <FaLinkedinIn />
+              </a>
+              <a
+                href={meta.emailHref}
+                aria-label="Email Salman Khan"
+                data-cursor="disable"
+              >
+                <MdMailOutline />
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
 
       <div className="landing-circle1"></div>
       <div className="landing-circle2"></div>

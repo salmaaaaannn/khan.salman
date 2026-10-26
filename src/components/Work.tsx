@@ -1,18 +1,26 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./styles/Work.css";
-import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import {
+  MdArrowOutward,
+  MdEmojiEvents,
+} from "react-icons/md";
+import { FaGithub } from "react-icons/fa";
 import { portfolioData } from "../data/portfolio";
 
+type FilterTag = "all" | "ai-ml" | "fullstack" | "hackathon";
+
+const filterOptions: { id: FilterTag; label: string; count: number }[] = [
+  { id: "all", label: "All Projects", count: 7 },
+  { id: "ai-ml", label: "AI & Machine Learning", count: 2 },
+  { id: "fullstack", label: "Full-Stack & Systems", count: 2 },
+  { id: "hackathon", label: "1st Place Hackathons", count: 3 },
+];
+
 const Work = () => {
-  const projects = portfolioData.highlights;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<FilterTag>("all");
   const [entered, setEntered] = useState(false);
-  const [contentKey, setContentKey] = useState(0); // triggers re-animation on slide change
-  const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Intersection observer — triggers entrance animation when section scrolls into view
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -23,177 +31,182 @@ const Work = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.08 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  const goToSlide = useCallback(
-    (index: number) => {
-      if (isAnimating) return;
-      setIsAnimating(true);
-      setCurrentIndex(index);
-      setContentKey((k) => k + 1); // bump key → re-runs CSS entrance animation
-      setTimeout(() => setIsAnimating(false), 500);
-    },
-    [isAnimating]
-  );
-
-  const goToPrev = useCallback(() => {
-    const newIndex =
-      currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
-    goToSlide(newIndex);
-  }, [currentIndex, goToSlide, projects.length]);
-
-  const goToNext = useCallback(() => {
-    const newIndex =
-      currentIndex === projects.length - 1 ? 0 : currentIndex + 1;
-    goToSlide(newIndex);
-  }, [currentIndex, goToSlide, projects.length]);
-
-  const progressPct = ((currentIndex + 1) / projects.length) * 100;
+  const filteredProjects =
+    activeFilter === "all"
+      ? portfolioData.highlights
+      : portfolioData.highlights.filter((p) => p.filterTag === activeFilter);
 
   return (
-    <div
+    <section
       className={`work-section${entered ? " work-entered" : ""}`}
       id="work"
       ref={sectionRef}
     >
       <div className="work-container section-container">
-        {/* ── Heading with animated underline ── */}
+        {/* ── Section Header ── */}
         <div className="work-heading-wrap">
+          <div className="work-kicker">Portfolio &amp; Production Work</div>
           <h2 className="work-heading">
-            Selected <span>Highlights</span>
+            Featured <span>Projects</span> &amp; Innovations
           </h2>
+          <p className="work-subtitle">
+            Explore Salman's verified portfolio across clinical AI triage, 3D spatial simulation, production e-commerce, and first-place hackathon systems.
+          </p>
           <div className="work-heading-line" />
         </div>
 
-        <div className="carousel-wrapper">
-          <div className="carousel-track-container" ref={containerRef}>
-            <div
-              className="carousel-track"
-              style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
-              }}
-            >
-              {projects.map((project, index) => {
-                const isActive = index === currentIndex;
-                return (
-                  <div className="carousel-slide" key={index}>
-                    <div
-                      className="carousel-content"
-                      /* key forces remount of animated children on slide change */
-                      key={isActive ? `active-${contentKey}` : `idle-${index}`}
-                    >
-                      {/* ── Left: Info + Controls ── */}
-                      <div className="carousel-info">
-                        <div className="carousel-number">
-                          <h3 className={isActive ? "num-animate" : ""}>
-                            0{index + 1}
-                          </h3>
-                        </div>
-                        <div className="carousel-details">
-                          <h4 className={isActive ? "slide-in-up delay-1" : ""}>
-                            {project.title}
-                          </h4>
-                          <p
-                            className={`carousel-category${isActive ? " slide-in-up delay-2" : ""}`}
-                          >
-                            {project.category}
-                          </p>
-                          <div
-                            className={`carousel-tools${isActive ? " slide-in-up delay-3" : ""}`}
-                          >
-                            <span className="tools-label">Focus</span>
-                            <p>{project.focus}</p>
-                          </div>
-                          <div
-                            className={`carousel-nav${isActive ? " slide-in-up delay-4" : ""}`}
-                          >
-                            <button
-                              className="carousel-arrow"
-                              onClick={goToPrev}
-                              aria-label="Previous project"
-                              data-cursor="disable"
-                            >
-                              <MdArrowBack />
-                            </button>
-                            <div className="carousel-dots">
-                              {projects.map((_, i) => (
-                                <button
-                                  key={i}
-                                  className={`carousel-dot${i === currentIndex ? " carousel-dot-active" : ""}`}
-                                  onClick={() => goToSlide(i)}
-                                  aria-label={`Go to project ${i + 1}`}
-                                  data-cursor="disable"
-                                />
-                              ))}
-                            </div>
-                            <button
-                              className="carousel-arrow"
-                              onClick={goToNext}
-                              aria-label="Next project"
-                              data-cursor="disable"
-                            >
-                              <MdArrowForward />
-                            </button>
-                            <span className="carousel-counter">
-                              {String(currentIndex + 1).padStart(2, "0")} /{" "}
-                              {String(projects.length).padStart(2, "0")}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+        {/* ── Filter Tabs ── */}
+        <div className="work-filters" role="tablist" aria-label="Project categories">
+          {filterOptions.map((filter) => {
+            const isActive = activeFilter === filter.id;
+            return (
+              <button
+                key={filter.id}
+                role="tab"
+                aria-selected={isActive}
+                className={`work-filter-btn${isActive ? " active" : ""}`}
+                onClick={() => setActiveFilter(filter.id)}
+                data-cursor="disable"
+              >
+                {filter.id === "hackathon" && <MdEmojiEvents className="filter-trophy-icon" />}
+                <span>{filter.label}</span>
+                <span className="filter-count">{filter.count}</span>
+              </button>
+            );
+          })}
+        </div>
 
-                      {/* ── Right: Detail Panel ── */}
-                      <div
-                        className={`carousel-panel${isActive ? " panel-enter" : ""}`}
-                      >
-                        <p
-                          className={`carousel-summary${isActive ? " fade-in-up delay-1" : ""}`}
-                        >
-                          {project.summary}
-                        </p>
-                        <div className="carousel-metrics">
-                          {project.metrics.map((metric, mi) => (
-                            <div
-                              className={`carousel-metric${isActive ? ` metric-pop delay-${mi + 1}` : ""}`}
-                              key={`${project.title}-${metric.label}`}
-                            >
-                              <strong>{metric.value}</strong>
-                              <span>{metric.label}</span>
-                            </div>
-                          ))}
-                        </div>
-                        <ul className="carousel-highlights">
-                          {project.bullets.map((bullet, bi) => (
-                            <li
-                              className={isActive ? `fade-in-up delay-${bi + 3}` : ""}
-                              key={bullet}
-                            >
-                              {bullet}
-                            </li>
-                          ))}
-                        </ul>
+        {/* ── Natural Vertical Scrolling Project Cards ── */}
+        <div className="work-cards-grid">
+          {filteredProjects.map((project, index) => {
+            const projectNumber = String(index + 1).padStart(2, "0");
+            const isHackathonWinner = project.filterTag === "hackathon";
+
+            return (
+              <article
+                className={`work-project-card${isHackathonWinner ? " card-award" : ""}`}
+                key={project.title}
+              >
+                {/* Top Bar: Number + Category */}
+                <div className="project-card-header">
+                  <div className="project-number-wrap">
+                    <span className="project-number">{projectNumber}</span>
+                    <span className="project-category">{project.category}</span>
+                  </div>
+                  {isHackathonWinner && (
+                    <div className="project-award-badge">
+                      <MdEmojiEvents /> 1st Place Winner
+                    </div>
+                  )}
+                </div>
+
+                {/* Main Content Two-Column Layout */}
+                <div className="project-card-body">
+                  {/* Left Column: Title, Summary, Tech Stack, Links */}
+                  <div className="project-card-main">
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-summary">{project.summary}</p>
+
+                    {/* Tech Stack Pills */}
+                    <div className="project-tech-group">
+                      <span className="tech-label">Architecture &amp; Stack</span>
+                      <div className="project-tech-pills">
+                        {(project.techList || project.focus.split(",").map((s) => s.trim())).map(
+                          (tech) => (
+                            <span className="tech-pill" key={tech}>
+                              {tech}
+                            </span>
+                          )
+                        )}
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
 
-          {/* Progress Bar */}
-          <div className="carousel-progress">
-            <div
-              className="carousel-progress-fill"
-              style={{ width: `${progressPct}%` }}
-            />
+                    {/* Actions */}
+                    <div className="project-card-actions">
+                      <a
+                        href={project.projectUrl || portfolioData.meta.githubHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="project-action-btn primary"
+                        data-cursor="disable"
+                      >
+                        <FaGithub /> View Code &amp; Repo <MdArrowOutward />
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Key Metrics & Engineering Highlights */}
+                  <div className="project-card-details">
+                    {/* Metrics Grid */}
+                    <div className="project-metrics-grid">
+                      {project.metrics.map((metric) => (
+                        <div
+                          className="project-metric-tile"
+                          key={`${project.title}-${metric.label}`}
+                        >
+                          <span className="metric-val">{metric.value}</span>
+                          <span className="metric-lbl">{metric.label}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Bullet Highlights */}
+                    <div className="project-highlights-box">
+                      <span className="highlights-title">Engineering Highlights</span>
+                      <ul className="project-bullets">
+                        {project.bullets.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {/* ── All Projects GitHub Archive Continuation ── */}
+        <div className="work-archive-banner">
+          <div className="archive-banner-glow" />
+          <div className="archive-banner-content">
+            <div className="archive-banner-text">
+              <span className="archive-kicker">Continuous Open Source Engineering</span>
+              <h3 className="archive-title">
+                Explore Salman's Full Codebase on GitHub
+              </h3>
+              <p className="archive-copy">
+                Beyond the highlighted systems above, explore active repositories featuring microservices, WebGL experiments, deep learning pipelines, and hackathon prototypes.
+              </p>
+              <div className="archive-stats">
+                <span className="stat-chip"><strong>35+</strong> Repositories</span>
+                <span className="stat-chip"><strong>3x</strong> 1st Place Hackathons</span>
+                <span className="stat-chip"><strong>FastAPI · Next.js · Three.js</strong></span>
+              </div>
+            </div>
+            <div className="archive-banner-action">
+              <a
+                href={portfolioData.meta.githubHref}
+                target="_blank"
+                rel="noreferrer"
+                className="archive-cta-btn"
+                data-cursor="disable"
+              >
+                <FaGithub className="github-icon" />
+                <span>Browse Full GitHub Archive</span>
+                <MdArrowOutward className="arrow-icon" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
