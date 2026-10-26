@@ -4,8 +4,8 @@
   justify-content: space-between;
   position: relative;
   opacity: 1;
-  height: 100vh;
-  min-height: 720px;
+  min-height: calc(100vh - 40px);
+  padding: 120px 0 100px;
   width: var(--cWidth);
   max-width: var(--cMaxWidth);
   margin: auto;
@@ -14,7 +14,7 @@
 }
 
 .what-box {
-  width: 46%;
+  width: 36%;
   display: flex;
   justify-content: flex-start;
   position: relative;
@@ -22,20 +22,29 @@
 }
 
 .what-box:last-child {
-  width: 52%;
+  width: 62%;
   justify-content: flex-end;
 }
 
-.what-box h2 {
-  font-size: clamp(48px, 5.5vw, 76px);
+.what-box h2,
+.what-heading {
+  font-size: clamp(44px, 5.2vw, 72px);
   line-height: 1.05;
   font-weight: 600;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
   margin: 0;
   background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.5) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: #ffffff;
+}
+
+.what-box h2 div,
+.what-heading div {
+  font-weight: 300;
+  font-style: italic;
+  margin-top: 4px;
 }
 
 .hat-h2 {
@@ -48,6 +57,9 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: var(--accentColor);
+  font-style: normal;
+  font-weight: 600;
 }
 
 .what-box-in {

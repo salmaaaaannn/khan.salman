@@ -164,6 +164,7 @@
 
 @media only screen and (min-width: 1025px) {
   .career-section {
+    margin-top: calc(var(--section-gap) + 80px);
     margin-bottom: calc(var(--section-gap) + 140px);
   }
 }
