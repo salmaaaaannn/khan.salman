@@ -61,17 +61,19 @@ a:hover {
 }
 
 main {
-  opacity: 1;
-  transition: 0.3s;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 .main-active {
-  opacity: 0;
-  animation: fadeIn 1s 1;
-  animation-fill-mode: forwards;
+  opacity: 1;
+  animation: fadeIn 0.8s 1 forwards;
 }
 
 @keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
   100% {
     opacity: 1;
   }

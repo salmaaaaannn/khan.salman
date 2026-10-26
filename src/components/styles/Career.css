@@ -162,6 +162,12 @@
   margin: 0;
 }
 
+@media only screen and (min-width: 1025px) {
+  .career-section {
+    margin-bottom: calc(var(--section-gap) + 140px);
+  }
+}
+
 @media only screen and (max-width: 860px) {
   .career-info {
     padding-left: 24px;

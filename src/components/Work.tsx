@@ -141,8 +141,23 @@ const Work = () => {
                     </div>
                   </div>
 
-                  {/* Right Column: Key Metrics & Engineering Highlights */}
+                  {/* Right Column: Visual Preview, Key Metrics & Highlights */}
                   <div className="project-card-details">
+                    {/* Visual Preview Banner */}
+                    {project.image && (
+                      <div className="project-preview-wrap">
+                        <img
+                          src={project.image}
+                          alt={`${project.title} Preview`}
+                          className="project-preview-img"
+                          loading="lazy"
+                        />
+                        <div className="project-preview-overlay">
+                          <span className="preview-tag">SYSTEM PREVIEW</span>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Metrics Grid */}
                     <div className="project-metrics-grid">
                       {project.metrics.map((metric) => (

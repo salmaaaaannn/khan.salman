@@ -28,6 +28,7 @@ export type Highlight = {
   bullets: string[];
   metrics: HighlightMetric[];
   projectUrl?: string;
+  image?: string;
 };
 
 export const portfolioData = {
@@ -176,6 +177,7 @@ export const portfolioData = {
         { value: "< 1s", label: "Report triage latency" },
       ],
       projectUrl: "https://github.com/salmaaaaannn",
+      image: "/images/preview1.png",
     },
     {
       title: "MetaCity Digital Twin",
@@ -206,6 +208,7 @@ export const portfolioData = {
         { value: "60 FPS", label: "Smooth rendering" },
       ],
       projectUrl: "https://github.com/salmaaaaannn",
+      image: "/images/sapphire.png",
     },
     {
       title: "NK IMPEX E-Commerce",
@@ -235,6 +238,7 @@ export const portfolioData = {
         { value: "Stripe", label: "Secure checkout" },
       ],
       projectUrl: "https://github.com/salmaaaaannn",
+      image: "/images/radix.png",
     },
     {
       title: "AI Fitness Tracker",
@@ -264,6 +268,7 @@ export const portfolioData = {
         { value: "< 50ms", label: "Inference latency" },
       ],
       projectUrl: "https://github.com/salmaaaaannn",
+      image: "/images/callhq.png",
     },
     {
       title: "2D Metaverse Workspace",
@@ -293,6 +298,7 @@ export const portfolioData = {
         { value: "< 35ms", label: "Sync roundtrip" },
       ],
       projectUrl: "https://github.com/salmaaaaannn",
+      image: "/images/bond.png",
     },
     {
       title: "Aetherscan Vulnerability Engine",
@@ -322,6 +328,7 @@ export const portfolioData = {
         { value: "OWASP", label: "Smart contract rules" },
       ],
       projectUrl: "https://github.com/salmaaaaannn",
+      image: "/images/Solidx.png",
     },
     {
       title: "The Medium Platform",
@@ -352,6 +359,7 @@ export const portfolioData = {
         { value: "Real-Time", label: "WebSocket collaboration" },
       ],
       projectUrl: "https://github.com/salmaaaaannn",
+      image: "/images/orrdr.png",
     },
   ] as Highlight[],
   education: [
