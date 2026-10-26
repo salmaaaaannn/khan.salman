@@ -408,6 +408,119 @@
   color: #ffffff;
 }
 
+.particle-self-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Vesper.ai Liquid-Metal Design System ── */
+.liquid-metal-pill {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(198, 198, 198, 0.45) !important;
+  background: linear-gradient(105deg, #050505 0%, #1f1f1f 48%, #3a3a3a 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 8px 24px -6px rgba(0, 0, 0, 0.7);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-metal-pill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.32) 50%, transparent 100%);
+  transform: skewX(-24deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.liquid-metal-pill:hover::before {
+  left: 140%;
+}
+
+.liquid-metal-pill:hover {
+  border-color: rgba(255, 255, 255, 0.65) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 12px 30px -4px rgba(0, 0, 0, 0.8), 0 0 22px rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.landing-action-btn.solid-btn {
+  background: linear-gradient(180deg, #ffffff 0%, #e7e7e7 48%, #cfcfcf 100%) !important;
+  color: #111111 !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 24px rgba(186, 208, 255, 0.32);
+}
+
+.landing-action-btn.solid-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 48%, #dedede 100%) !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 32px rgba(186, 208, 255, 0.6);
+  transform: translateY(-2px);
+  color: #000000 !important;
+}
+
+/* ── Vesper.ai Hero Stats Bar ── */
+.landing-vesper-stats {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(16px, 3.2vw, 44px);
+  padding: 12px clamp(20px, 3vw, 36px);
+  border-radius: var(--radius-pill);
+  background: rgba(8, 8, 12, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 15;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+}
+
+.vesper-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vesper-stat-val {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.vesper-stat-val .italic-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.25em;
+  color: #ffffff;
+}
+
+.vesper-stat-lbl {
+  font-size: 11px;
+  color: #9a9a9a;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.vesper-stat-sep {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .landing-action-btn.secondary {
   background: rgba(255, 255, 255, 0.045);
   border: 1px solid rgba(255, 255, 255, 0.12);

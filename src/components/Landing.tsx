@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import "./styles/Landing.css";
 import { portfolioData } from "../data/portfolio";
+import ParticleSelfBackground from "./ParticleSelfBackground";
 import {
   MdArrowOutward,
   MdFileDownload,
@@ -16,6 +17,9 @@ const Landing = ({ children }: PropsWithChildren) => {
   return (
     <>
       <div className="landing-section" id="landingDiv">
+        {/* Interactive Particle Constellation Background (motionsites.ai/?prompt=particle-self) */}
+        <ParticleSelfBackground />
+
         {/* 3D Holographic Perspective Floor */}
         <div className="landing-depth-floor" />
 
@@ -29,37 +33,37 @@ const Landing = ({ children }: PropsWithChildren) => {
         <div className="landing-container">
           {/* Left Column: Intro & 3D Typography */}
           <div className="landing-intro">
-            {/* Sci-Fi Spatial Telemetry Badge */}
-            <div className="landing-spatial-badge">
+            {/* Vesper.ai Liquid-Metal Telemetry Badge */}
+            <div className="landing-spatial-badge liquid-metal-pill">
               <span className="spatial-live-pulse" />
-              <span>3D SPATIAL INTERFACE // MUMBAI, IN</span>
+              <span>OPERATIONAL AI &amp; 3D SPATIAL SYSTEMS // MUMBAI, IN</span>
             </div>
 
             <h2>{landing.greeting}</h2>
             <h1 className="landing-name-3d">
               <span className="name-sur">KHAN</span>
               <br />
-              <span className="name-given">SALMAN</span>
+              <span className="name-given italic-serif">SALMAN</span>
             </h1>
 
             <p className="landing-bio">
-              Full-Stack Developer &amp; AI/ML Enthusiast. Building intelligent,
-              high-performance web platforms, predictive machine learning models,
+              Full-Stack Developer &amp; <span className="italic-serif">AI Engineer</span>.
+              Architecting intelligent autonomous agents, high-throughput backend infrastructure,
               and interactive 3D WebGL experiences.
             </p>
 
             {/* Achievement Telemetry Chip */}
-            <div className="landing-achieve-chip">
+            <div className="landing-achieve-chip liquid-metal-pill">
               <FaAward className="achieve-icon" />
               <span>3× First-Place Hackathon Lead Developer</span>
             </div>
 
-            {/* Primary Action Buttons */}
+            {/* Primary Action Buttons (Vesper.ai liquid-metal & solid) */}
             <div className="landing-actions">
               <a
                 href="#work"
                 data-href="#work"
-                className="landing-action-btn primary"
+                className="landing-action-btn primary solid-btn"
                 data-cursor="disable"
               >
                 Explore My Work <MdArrowOutward />
@@ -67,7 +71,7 @@ const Landing = ({ children }: PropsWithChildren) => {
               <a
                 href={meta.resumePath}
                 download="Salman-Khan-Resume.pdf"
-                className="landing-action-btn secondary"
+                className="landing-action-btn secondary liquid-metal-pill"
                 data-cursor="disable"
               >
                 Download Resume <MdFileDownload />
@@ -75,7 +79,7 @@ const Landing = ({ children }: PropsWithChildren) => {
               <a
                 href="#contact"
                 data-href="#contact"
-                className="landing-action-btn ghost"
+                className="landing-action-btn ghost liquid-metal-pill"
                 data-cursor="disable"
               >
                 Contact Me <MdMailOutline />
@@ -85,7 +89,7 @@ const Landing = ({ children }: PropsWithChildren) => {
 
           {/* Right Column: Dynamic Headline Ticker & Telemetry */}
           <div className="landing-info">
-            <div className="landing-info-card">
+            <div className="landing-info-card liquid-metal-pill">
               <div className="info-card-header">
                 <MdTerminal className="info-terminal-icon" />
                 <span>CORE SPECIALIZATION</span>
@@ -105,6 +109,36 @@ const Landing = ({ children }: PropsWithChildren) => {
                   <MdOutlineLayers /> THREE.JS 60 FPS
                 </span>
                 <span className="telemetry-pill">REACT · NEXT.JS · FASTAPI</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Hero Stats Row (Vesper.ai 3-stat specification) */}
+          <div className="landing-vesper-stats">
+            <div className="vesper-stat">
+              <div className="vesper-stat-val">
+                <span className="italic-serif">4.2M</span>+
+              </div>
+              <div className="vesper-stat-lbl">
+                Workflows Automated &amp; Data Processed
+              </div>
+            </div>
+            <div className="vesper-stat-sep" />
+            <div className="vesper-stat">
+              <div className="vesper-stat-val">
+                <span className="italic-serif">92</span>%
+              </div>
+              <div className="vesper-stat-lbl">
+                Latency Reduction via High-Perf Pipelines
+              </div>
+            </div>
+            <div className="vesper-stat-sep" />
+            <div className="vesper-stat">
+              <div className="vesper-stat-val">
+                <span className="italic-serif">3</span>×
+              </div>
+              <div className="vesper-stat-lbl">
+                Hackathon Champion &amp; Lead Architect
               </div>
             </div>
           </div>

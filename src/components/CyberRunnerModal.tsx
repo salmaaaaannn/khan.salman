@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import * as THREE from "three";
+import { GLTFLoader, DRACOLoader } from "three-stdlib";
 import "./styles/CyberRunnerModal.css";
 import {
   MdClose,
@@ -104,6 +106,26 @@ export const CyberRunnerModal = ({ isOpen, onClose }: Props) => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [isGlbLoaded, setIsGlbLoaded] = useState(false);
+
+  // 3D GLB Character Offscreen Engine
+  const glbRef = useRef<{
+    loaded: boolean;
+    renderer: THREE.WebGLRenderer | null;
+    scene: THREE.Scene | null;
+    camera: THREE.PerspectiveCamera | null;
+    model: THREE.Object3D | null;
+    mixer: THREE.AnimationMixer | null;
+    canvas: HTMLCanvasElement | null;
+  }>({
+    loaded: false,
+    renderer: null,
+    scene: null,
+    camera: null,
+    model: null,
+    mixer: null,
+    canvas: null,
+  });
 
   const gameState = useRef({
     running: false,
@@ -186,6 +208,121 @@ export const CyberRunnerModal = ({ isOpen, onClose }: Props) => {
     setIsGameOver(false);
     setIsPaused(false);
   }, []);
+
+  // ── Initialize Offscreen Three.js WebGL Engine for 3D GLB Character ──
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let disposed = false;
+    const offCanvas = document.createElement("canvas");
+    offCanvas.width = 128;
+    offCanvas.height = 128;
+
+    let renderer: THREE.WebGLRenderer | null = null;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas: offCanvas,
+        alpha: true,
+        antialias: true,
+        powerPreference: "high-performance",
+      });
+      renderer.setSize(128, 128);
+      renderer.setPixelRatio(1);
+    } catch (e) {
+      console.warn("Could not create WebGLRenderer for runner avatar:", e);
+      return;
+    }
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    camera.position.set(1.1, 0.95, 2.2);
+    camera.lookAt(0, 0.85, 0);
+
+    const ambLight = new THREE.AmbientLight(0xffffff, 1.4);
+    scene.add(ambLight);
+
+    const dirLight = new THREE.DirectionalLight(0x38bdf8, 2.8);
+    dirLight.position.set(2, 3, 2);
+    scene.add(dirLight);
+
+    const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    rimLight.position.set(-2, 2, -2);
+    scene.add(rimLight);
+
+    const loader = new GLTFLoader();
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath("/draco/");
+    loader.setDRACOLoader(dracoLoader);
+
+    loader.load(
+      "/models/character.glb",
+      (gltf) => {
+        if (disposed) return;
+        const char = gltf.scene;
+        char.scale.set(0.9, 0.9, 0.9);
+        char.position.set(0, 0, 0);
+        char.rotation.y = Math.PI * 0.55;
+
+        // Clone and tune materials for crisp contrast
+        char.traverse((c) => {
+          if ((c as THREE.Mesh).isMesh) {
+            const m = c as THREE.Mesh;
+            if (m.material) {
+              const mat = (m.material as THREE.Material).clone() as THREE.MeshStandardMaterial;
+              mat.roughness = 0.55;
+              mat.metalness = 0.2;
+              m.material = mat;
+            }
+          }
+        });
+
+        scene.add(char);
+
+        let mixer: THREE.AnimationMixer | null = null;
+        if (gltf.animations && gltf.animations.length > 0) {
+          mixer = new THREE.AnimationMixer(char);
+          const clip = gltf.animations[0];
+          const action = mixer.clipAction(clip);
+          action.play();
+        }
+
+        glbRef.current = {
+          loaded: true,
+          renderer,
+          scene,
+          camera,
+          model: char,
+          mixer,
+          canvas: offCanvas,
+        };
+        setIsGlbLoaded(true);
+      },
+      undefined,
+      (err) => {
+        console.warn("Could not load GLB for runner avatar:", err);
+      }
+    );
+
+    return () => {
+      disposed = true;
+      try {
+        dracoLoader.dispose();
+        renderer?.dispose();
+      } catch {
+        // Ignore
+      }
+      glbRef.current = {
+        loaded: false,
+        renderer: null,
+        scene: null,
+        camera: null,
+        model: null,
+        mixer: null,
+        canvas: null,
+      };
+      setIsGlbLoaded(false);
+    };
+  }, [isOpen]);
 
   // Main Canvas Game Loop
   useEffect(() => {
@@ -442,28 +579,67 @@ export const CyberRunnerModal = ({ isOpen, onClose }: Props) => {
         ctx.restore();
       });
 
-      // Draw Player (Neon Cyber Avatar)
+      // Draw Player (Salman Khan 3D GLB Model with real-time offscreen WebGL renderer)
       const p = state.player;
+      const glb = glbRef.current;
+
+      // Jump / slide ground shadow
       ctx.save();
-      ctx.shadowColor = "#38bdf8";
-      ctx.shadowBlur = 16;
-      ctx.fillStyle = "#38bdf8";
-
-      // Body
-      ctx.fillRect(p.x, p.y, p.width, p.height);
-
-      // Cyber Visor / VR Headset (nod to Salman's 3D character)
-      ctx.fillStyle = "#f43f5e";
-      ctx.fillRect(p.x + p.width - 10, p.y + 6, 8, 5);
-
-      // Jet exhaust trail when in air
-      if (!p.grounded) {
-        ctx.fillStyle = "#facc15";
-        ctx.beginPath();
-        ctx.arc(p.x + 8, p.y + p.height + 4, 3 + Math.random() * 3, 0, Math.PI * 2);
-        ctx.fill();
-      }
+      ctx.fillStyle = "rgba(56, 189, 248, 0.28)";
+      ctx.beginPath();
+      ctx.ellipse(p.x + p.width / 2, groundY, p.ducking ? 18 : 13, 3.5, 0, 0, Math.PI * 2);
+      ctx.fill();
       ctx.restore();
+
+      if (glb.loaded && glb.model && glb.renderer && glb.scene && glb.camera && glb.canvas) {
+        if (glb.mixer) {
+          glb.mixer.update(0.018);
+        }
+
+        // Running physics and character animation
+        if (p.grounded) {
+          glb.model.position.y = Math.abs(Math.sin(state.frame * 0.35)) * 0.06;
+          glb.model.rotation.z = Math.sin(state.frame * 0.35) * 0.05;
+          glb.model.rotation.y = Math.PI * 0.55 + Math.sin(state.frame * 0.2) * 0.08;
+          glb.model.scale.set(0.9, p.ducking ? 0.52 : 0.9, 0.9);
+        } else {
+          // Aerial jump pose
+          glb.model.position.y = 0.06;
+          glb.model.rotation.z = -0.2;
+          glb.model.scale.set(0.9, 0.9, 0.9);
+        }
+
+        glb.renderer.render(glb.scene, glb.camera);
+
+        const drawW = 72;
+        const drawH = p.ducking ? 46 : 72;
+        const drawX = p.x - 22;
+        const drawY = p.y - (p.ducking ? 6 : 18);
+
+        ctx.drawImage(glb.canvas, drawX, drawY, drawW, drawH);
+      } else {
+        // Fallback Neon Cyber Avatar
+        ctx.save();
+        ctx.shadowColor = "#38bdf8";
+        ctx.shadowBlur = 16;
+        ctx.fillStyle = "#38bdf8";
+
+        // Body
+        ctx.fillRect(p.x, p.y, p.width, p.height);
+
+        // Cyber Visor / VR Headset (nod to Salman's 3D character)
+        ctx.fillStyle = "#f43f5e";
+        ctx.fillRect(p.x + p.width - 10, p.y + 6, 8, 5);
+
+        // Jet exhaust trail when in air
+        if (!p.grounded) {
+          ctx.fillStyle = "#facc15";
+          ctx.beginPath();
+          ctx.arc(p.x + 8, p.y + p.height + 4, 3 + Math.random() * 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
 
       // Draw Particles
       state.particles.forEach((pt) => {
@@ -586,6 +762,13 @@ export const CyberRunnerModal = ({ isOpen, onClose }: Props) => {
             <span className="telemetry-lbl">HI-SCORE</span>
             <span className="telemetry-val">{String(highScore).padStart(6, "0")}</span>
           </div>
+          <div className="telemetry-box glb-box">
+            <span className="telemetry-lbl">3D AVATAR</span>
+            <span className="telemetry-val glb-val">
+              <span className={`glb-radar ${isGlbLoaded ? "online" : ""}`} />
+              {isGlbLoaded ? "GLB SALMAN" : "INITIALIZING..."}
+            </span>
+          </div>
           <div className="telemetry-box">
             <span className="telemetry-lbl">CONTROLS</span>
             <span className="telemetry-hint">[SPACE] JUMP · [↓] DUCK</span>
@@ -635,7 +818,7 @@ export const CyberRunnerModal = ({ isOpen, onClose }: Props) => {
           )}
         </div>
 
-        {/* Mobile Touch Jump Bar */}
+        {/* Mobile Touch Controls */}
         <div className="runner-mobile-bar">
           <button
             className="mobile-jump-btn"
@@ -650,7 +833,27 @@ export const CyberRunnerModal = ({ isOpen, onClose }: Props) => {
             }}
             data-cursor="disable"
           >
-            TAP TO JUMP / RETRY
+            TAP TO JUMP
+          </button>
+          <button
+            className="mobile-duck-btn"
+            onTouchStart={(e) => {
+              e.preventDefault();
+              gameState.current.player.ducking = true;
+            }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              gameState.current.player.ducking = false;
+            }}
+            onMouseDown={() => {
+              gameState.current.player.ducking = true;
+            }}
+            onMouseUp={() => {
+              gameState.current.player.ducking = false;
+            }}
+            data-cursor="disable"
+          >
+            HOLD TO DUCK
           </button>
         </div>
       </div>
