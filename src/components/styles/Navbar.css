@@ -356,3 +356,128 @@
     font-size: 14px;
   }
 }
+
+/* ── Arcade Mini-Game Navbar Button ── */
+.navbar-game-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar-game-btn:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: rgba(56, 189, 248, 0.7);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+  transform: translateY(-1px);
+  color: #ffffff;
+}
+
+.game-btn-icon {
+  font-size: 14px;
+}
+
+/* ── Mobile Drawer Arcade Button ── */
+.mobile-game-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.mobile-game-btn:hover,
+.mobile-game-btn:active {
+  background: rgba(56, 189, 248, 0.24);
+  color: #ffffff;
+}
+
+/* ── Floating HUD Game Launcher ── */
+.floating-game-hud {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(10, 10, 18, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.38);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  color: #f5f5f7;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 10px 28px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(56, 189, 248, 0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-game-hud:hover {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(56, 189, 248, 0.75);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 14px 36px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(56, 189, 248, 0.45);
+  transform: translateY(-3px) scale(1.02);
+  color: #ffffff;
+}
+
+.floating-game-radar {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: radarBlip 1.6s ease-in-out infinite;
+}
+
+@keyframes radarBlip {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50%      { opacity: 1; transform: scale(1.3); }
+}
+
+.floating-game-icon {
+  font-size: 16px;
+  color: var(--accentColor);
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar-game-btn {
+    display: none;
+  }
+  .floating-game-hud {
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 14px;
+    font-size: 11px;
+  }
+}

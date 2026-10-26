@@ -1,0 +1,306 @@
+/* ═══════════════════════════════════════════
+   CYBER RUNNER MINI-GAME MODAL STYLING
+═══════════════════════════════════════════ */
+
+.runner-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999999999;
+  background: rgba(3, 3, 5, 0.82);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: runnerFadeIn 0.25s ease-out;
+}
+
+@keyframes runnerFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.runner-modal {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  background: rgba(10, 10, 18, 0.92);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 24px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 24px 64px rgba(0, 0, 0, 0.7),
+    0 0 45px rgba(56, 189, 248, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CRT Scanlines Overlay */
+.runner-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 10;
+  opacity: 0.6;
+}
+
+/* ── Modal Header ── */
+.runner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.runner-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.runner-title-icon {
+  font-size: 24px;
+  color: var(--accentColor);
+  filter: drop-shadow(0 0 8px var(--accentColor));
+}
+
+.runner-title-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.runner-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #f5f5f7;
+}
+
+.runner-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--accentColor);
+}
+
+.runner-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.runner-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.runner-icon-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.runner-icon-btn.close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #f87171;
+}
+
+/* ── Telemetry Score Bar ── */
+.runner-telemetry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.telemetry-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.telemetry-lbl {
+  color: rgba(245, 245, 247, 0.45);
+  letter-spacing: 1.5px;
+}
+
+.telemetry-val {
+  color: #f5f5f7;
+  font-weight: 700;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.hi-box .telemetry-val {
+  color: #facc15;
+  text-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+}
+
+.telemetry-hint {
+  color: var(--accentColor);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+/* ── Canvas Container ── */
+.runner-canvas-wrap {
+  position: relative;
+  width: 100%;
+  background: #030308;
+  cursor: pointer;
+  outline: none;
+}
+
+.runner-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+/* Game Over Overlay */
+.runner-gameover {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 3, 8, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 20;
+  animation: gameoverPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes gameoverPop {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.runner-gameover h3 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ef4444;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+}
+
+.runner-gameover p {
+  color: rgba(245, 245, 247, 0.7);
+  font-size: 14px;
+  margin: 0;
+}
+
+.gameover-score {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: monospace;
+  color: #facc15;
+}
+
+.runner-restart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(99, 102, 241, 0.2));
+  border: 1px solid rgba(56, 189, 248, 0.6);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+.runner-restart-btn:hover {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.5), rgba(99, 102, 241, 0.35));
+  transform: scale(1.04);
+}
+
+/* Pause Overlay */
+.runner-pause-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 3, 8, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 20;
+}
+
+.runner-pause-overlay h3 {
+  font-size: 22px;
+  color: var(--accentColor);
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.runner-pause-overlay p {
+  color: rgba(245, 245, 247, 0.6);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Mobile Touch Bar */
+.runner-mobile-bar {
+  display: none;
+  padding: 12px 18px;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobile-jump-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  color: #f0f9ff;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .runner-mobile-bar {
+    display: block;
+  }
+
+  .telemetry-hint {
+    display: none;
+  }
+}

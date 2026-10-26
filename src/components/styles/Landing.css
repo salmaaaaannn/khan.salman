@@ -22,6 +22,83 @@
     linear-gradient(180deg, rgba(3, 3, 5, 0.4) 0%, transparent 30%, rgba(3, 3, 5, 0.95) 100%);
 }
 
+/* ── 3D Holographic Perspective Floor ── */
+.landing-depth-floor {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) perspective(500px) rotateX(72deg);
+  width: 120vw;
+  height: 440px;
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 80%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 80%, black 20%, transparent 80%);
+}
+
+/* ── 3D Holographic Stage Pedestal under 3D Character ── */
+.landing-pedestal-wrap {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 440px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.landing-pedestal-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotateX(75deg);
+  pointer-events: none;
+}
+
+.landing-pedestal-ring.ring-outer {
+  width: 440px;
+  height: 440px;
+  border: 1.5px dashed rgba(56, 189, 248, 0.45);
+  animation: pedestalRotate 18s linear infinite;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+.landing-pedestal-ring.ring-inner {
+  width: 320px;
+  height: 320px;
+  border: 1px dotted rgba(129, 140, 248, 0.55);
+  animation: pedestalRotate 10s linear infinite reverse;
+}
+
+.landing-pedestal-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 380px;
+  height: 90px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.28) 0%, rgba(99, 102, 241, 0.12) 45%, transparent 75%);
+  filter: blur(16px);
+  animation: pedestalGlowPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes pedestalRotate {
+  from { transform: translate(-50%, -50%) rotateX(75deg) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotateX(75deg) rotate(360deg); }
+}
+
+@keyframes pedestalGlowPulse {
+  0%   { opacity: 0.5; transform: translate(-50%, -50%) scale(0.95); }
+  100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.08); }
+}
+
 .landing-container {
   width: var(--cWidth);
   margin: auto;
@@ -192,32 +269,99 @@
   max-width: 100%;
 }
 
+.landing-spatial-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--accentColor);
+  margin-bottom: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.spatial-live-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.8; }
+  50%      { transform: scale(1.3); opacity: 1; }
+}
+
 .landing-intro h2 {
   margin: 0;
   color: var(--accentColor);
-  font-size: clamp(16px, 2.2vw, 24px);
-  font-weight: 400;
-  letter-spacing: 2px;
+  font-size: clamp(15px, 2vw, 22px);
+  font-weight: 500;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
 }
 
-.landing-intro h1 {
+.landing-intro h1,
+.landing-name-3d {
   margin: 4px 0 0;
-  letter-spacing: 1.5px;
-  font-size: clamp(28px, 4.2vw, 56px);
-  line-height: 1.05;
-  font-weight: 600;
-  font-family: "Geist", sans-serif;
+  letter-spacing: -1.5px;
+  font-size: clamp(34px, 4.8vw, 68px);
+  line-height: 0.98;
+  font-weight: 700;
+  font-family: "Geist", -apple-system, sans-serif;
+  text-transform: uppercase;
   color: #f5f5f7;
+  filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.28));
+}
+
+.name-sur {
+  display: inline-block;
+  color: #ffffff;
+}
+
+.name-given {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accentColor) 20%, #60a5fa 70%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .landing-bio {
-  margin: 12px 0 0 0;
+  margin: 14px 0 0 0;
   max-width: 380px;
   font-size: 13.5px;
   line-height: 1.6;
-  color: rgba(245, 245, 247, 0.7);
+  color: rgba(245, 245, 247, 0.72);
   letter-spacing: 0.2px;
+}
+
+.landing-achieve-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #fde047;
+  letter-spacing: 0.3px;
+  backdrop-filter: blur(8px);
+}
+
+.achieve-icon {
+  font-size: 13px;
+  color: #facc15;
 }
 
 .landing-actions {
@@ -301,6 +445,57 @@
   bottom: 28px;
   z-index: 9;
   max-width: 100%;
+}
+
+.landing-info-card {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 24px;
+  border-radius: 20px;
+  background: rgba(10, 10, 18, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(245, 245, 247, 0.5);
+  margin-bottom: 8px;
+}
+
+.info-terminal-icon {
+  color: var(--accentColor);
+  font-size: 14px;
+}
+
+.info-card-telemetry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(245, 245, 247, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .landing-info h3 {

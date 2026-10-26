@@ -12,7 +12,8 @@ import {
   MdArrowOutward,
   MdMailOutline,
 } from "react-icons/md";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaGamepad } from "react-icons/fa";
+import { CyberRunnerModal } from "./CyberRunnerModal";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
@@ -27,7 +28,25 @@ const navItems = [
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [gameOpen, setGameOpen] = useState(false);
   const { meta } = portfolioData;
+
+  // Easter egg: typing "mario" or "game" opens arcade
+  useEffect(() => {
+    let keyBuffer = "";
+    const handleKey = (e: KeyboardEvent) => {
+      keyBuffer += e.key.toLowerCase();
+      if (keyBuffer.length > 10) {
+        keyBuffer = keyBuffer.slice(-10);
+      }
+      if (keyBuffer.endsWith("mario") || keyBuffer.endsWith("game")) {
+        setGameOpen(true);
+        keyBuffer = "";
+      }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
 
   useEffect(() => {
     smoother = ScrollSmoother.create({
@@ -108,6 +127,7 @@ const Navbar = () => {
         </a>
 
         {/* Desktop Navigation Links */}
+        {/* Desktop Navigation Links */}
         <ul className="desktop-nav">
           {navItems.map((item) => (
             <li key={item.label}>
@@ -117,6 +137,17 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+
+        {/* Arcade Mini-Game Header Button */}
+        <button
+          className="navbar-game-btn"
+          onClick={() => setGameOpen(true)}
+          aria-label="Play Cyber Runner Mini-Game"
+          data-cursor="disable"
+        >
+          <FaGamepad className="game-btn-icon" />
+          <span className="game-btn-label">ARCADE</span>
+        </button>
 
         {/* Mobile Hamburger Toggle */}
         <button
@@ -162,6 +193,17 @@ const Navbar = () => {
           </div>
 
           <div className="mobile-drawer-footer">
+            <button
+              className="mobile-game-btn"
+              onClick={() => {
+                setMenuOpen(false);
+                setGameOpen(true);
+              }}
+              data-cursor="disable"
+            >
+              <FaGamepad /> Play Cyber Runner Mini-Game
+            </button>
+
             <a
               href={meta.resumePath}
               download="Salman-Khan-Resume.pdf"
@@ -201,6 +243,21 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
+      {/* Floating Glassmorphic Mini-Game Launcher */}
+      <button
+        className="floating-game-hud"
+        onClick={() => setGameOpen(true)}
+        aria-label="Play Cyber Runner Mini-Game"
+        data-cursor="disable"
+      >
+        <span className="floating-game-radar" />
+        <FaGamepad className="floating-game-icon" />
+        <span className="floating-game-text">MINI-GAME</span>
+      </button>
+
+      {/* Cyber Runner Arcade Modal */}
+      <CyberRunnerModal isOpen={gameOpen} onClose={() => setGameOpen(false)} />
 
       <div className="landing-circle1"></div>
       <div className="landing-circle2"></div>
