@@ -29,7 +29,7 @@
     linear-gradient(180deg, rgba(8, 9, 12, 0.4) 0%, rgba(8, 9, 12, 0.98) 100%);
 }
 
-/* ── 3D Atmospheric Spatial Typography (SALMAN KHAN) ── */
+/* ── 3D Atmospheric Spatial Typography (KHAN SALMAN) with Zoom Entrance ── */
 .landing-3d-backdrop {
   position: absolute;
   top: 46%;
@@ -43,8 +43,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  will-change: transform;
-  opacity: 0.85;
+  will-change: transform, opacity;
+  animation: heroBackdropZoom 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroBackdropZoom {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+  }
+  100% {
+    opacity: 0.85;
+    filter: blur(0px);
+  }
 }
 
 .backdrop-text-row {
@@ -290,6 +301,66 @@
   letter-spacing: 0.2px;
 }
 
+/* ── 3D Cubic Solve Telemetry Badge ── */
+.landing-cubic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: rgba(16, 18, 26, 0.65);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  margin-top: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.cubic-badge-icon-wrap {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cubic-cube-icon {
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid #38bdf8;
+  border-radius: 3px;
+  transform: rotate(45deg);
+  animation: cubicRotate 6s linear infinite;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+@keyframes cubicRotate {
+  0%   { transform: rotate(0deg) scale(0.9); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(0.9); }
+}
+
+.cubic-badge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cubic-badge-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #38bdf8;
+}
+
+.cubic-badge-sub {
+  font-size: 9.5px;
+  color: #94a3b8;
+  letter-spacing: 0.8px;
+  font-weight: 500;
+}
+
 /* Focus Tags */
 .landing-focus-tags {
   display: flex;
@@ -496,8 +567,13 @@ h2.landing-info-h2 {
   font-size: 13px;
 }
 
-.metric-icon.location {
+.metric-icon.speed {
   color: #38bdf8;
+  font-size: 14px;
+}
+
+.metric-icon.location {
+  color: #a855f7;
   font-size: 14px;
 }
 

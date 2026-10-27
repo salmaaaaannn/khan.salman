@@ -12,6 +12,7 @@ import {
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
+import { createCubicMatrix } from "./utils/cubicMatrix";
 
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
@@ -20,6 +21,7 @@ const Scene = () => {
   const { setLoading } = useLoading();
 
   const [character, setChar] = useState<THREE.Object3D | null>(null);
+
   useEffect(() => {
     if (canvasDiv.current) {
       const rect = canvasDiv.current.getBoundingClientRect();
@@ -37,8 +39,10 @@ const Scene = () => {
       renderer.toneMappingExposure = 1;
       canvasDiv.current.appendChild(renderer.domElement);
 
+      const targetCameraZ = 4.5;
       const camera = new THREE.PerspectiveCamera(35, aspect, 0.1, 1000);
-      camera.position.set(0, 0.9, 4.5);
+      // Cinematic 3D entrance zoom: starts back at 6.4 and smoothly eases into position
+      camera.position.set(0, 0.9, 6.4);
       camera.lookAt(0, 0.9, 0);
       camera.updateProjectionMatrix();
 
@@ -48,6 +52,7 @@ const Scene = () => {
       const clock = new THREE.Clock();
 
       const light = setLighting(scene);
+      const cubicMatrix = createCubicMatrix(scene);
       const progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
@@ -97,16 +102,28 @@ const Scene = () => {
         });
       };
 
-      document.addEventListener("mousemove", (event) => {
-        onMouseMove(event);
-      });
+      document.addEventListener("mousemove", onMouseMove);
       const landingDiv = document.getElementById("landingDiv");
       if (landingDiv) {
         landingDiv.addEventListener("touchstart", onTouchStart);
         landingDiv.addEventListener("touchend", onTouchEnd);
       }
+
       const animate = () => {
         requestAnimationFrame(animate);
+
+        // Smooth cinematic camera zoom-in toward target position
+        if (camera.position.z > targetCameraZ + 0.01) {
+          camera.position.z = THREE.MathUtils.lerp(
+            camera.position.z,
+            targetCameraZ,
+            0.032
+          );
+        }
+
+        const elapsedTime = clock.getElapsedTime();
+        cubicMatrix.update(elapsedTime, mouse.x, mouse.y);
+
         if (headBone) {
           handleHeadRotation(
             headBone,
@@ -124,8 +141,10 @@ const Scene = () => {
         renderer.render(scene, camera);
       };
       animate();
+
       return () => {
         clearTimeout(debounce);
+        cubicMatrix.dispose();
         scene.clear();
         renderer.dispose();
         window.removeEventListener("resize", () =>

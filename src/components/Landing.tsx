@@ -7,6 +7,7 @@ import {
   MdMailOutline,
   MdLocationOn,
   MdVerified,
+  MdSpeed,
 } from "react-icons/md";
 import { FaAward } from "react-icons/fa";
 
@@ -25,13 +26,11 @@ const Landing = ({ children }: PropsWithChildren) => {
 
     const handleMouseMove = (e: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
-      // Normalized from -1 to 1
       targetX = (e.clientX / innerWidth) * 2 - 1;
       targetY = (e.clientY / innerHeight) * 2 - 1;
     };
 
     const updateParallax = () => {
-      // Smooth lerp interpolation
       currentX += (targetX - currentX) * 0.08;
       currentY += (targetY - currentY) * 0.08;
       setMousePos({ x: currentX, y: currentY });
@@ -69,7 +68,7 @@ const Landing = ({ children }: PropsWithChildren) => {
 
   return (
     <div className="landing-section" id="landingDiv" ref={containerRef}>
-      {/* 3D Atmospheric Spatial Typography (SALMAN KHAN) */}
+      {/* 3D Atmospheric Spatial Typography (KHAN SALMAN) with Cinematic Zoom */}
       <div
         className="landing-3d-backdrop"
         style={{
@@ -77,6 +76,12 @@ const Landing = ({ children }: PropsWithChildren) => {
         }}
       >
         <div className="backdrop-text-row top-row">
+          <span className="backdrop-char">K</span>
+          <span className="backdrop-char">H</span>
+          <span className="backdrop-char">A</span>
+          <span className="backdrop-char">N</span>
+        </div>
+        <div className="backdrop-text-row bottom-row">
           <span className="backdrop-char">S</span>
           <span className="backdrop-char">A</span>
           <span className="backdrop-char">L</span>
@@ -84,15 +89,9 @@ const Landing = ({ children }: PropsWithChildren) => {
           <span className="backdrop-char">A</span>
           <span className="backdrop-char">N</span>
         </div>
-        <div className="backdrop-text-row bottom-row">
-          <span className="backdrop-char">K</span>
-          <span className="backdrop-char">H</span>
-          <span className="backdrop-char">A</span>
-          <span className="backdrop-char">N</span>
-        </div>
       </div>
 
-      {/* Subtle Studio Ambient Light Following Mouse */}
+      {/* Studio Ambient Light Pool Tracking Mouse */}
       <div
         className="landing-ambient-spotlight"
         style={{
@@ -103,10 +102,10 @@ const Landing = ({ children }: PropsWithChildren) => {
       <div className="landing-container">
         {/* Left Column: Introduction & Interactive Actions */}
         <div className="landing-intro">
-          {/* Live Status Pill */}
+          {/* Executive Engineering Status Pill */}
           <div className="landing-status-pill">
             <span className="status-indicator-dot" />
-            <span>AVAILABLE FOR MCA INTERNSHIP &amp; ROLES</span>
+            <span>FULL-STACK ARCHITECT &amp; APPLIED AI SPECIALIST</span>
           </div>
 
           <h2>{landing.greeting}</h2>
@@ -117,10 +116,21 @@ const Landing = ({ children }: PropsWithChildren) => {
           </h1>
 
           <p className="landing-bio">
-            Full-Stack Developer, AI/ML Specialist, and MCA student building
-            interactive digital experiences, intelligent applications, and
-            practical software solutions.
+            Full-Stack Software Architect &amp; Applied AI Specialist engineering
+            high-throughput distributed systems, predictive machine learning pipelines,
+            and immersive 3D digital experiences.
           </p>
+
+          {/* 3D Cubic Solve Telemetry Badge */}
+          <div className="landing-cubic-badge">
+            <div className="cubic-badge-icon-wrap">
+              <span className="cubic-cube-icon" />
+            </div>
+            <div className="cubic-badge-content">
+              <span className="cubic-badge-title">3D CUBIC SOLVE ENGINE</span>
+              <span className="cubic-badge-sub">60 FPS WEBGL · THREE.JS · PYTORCH</span>
+            </div>
+          </div>
 
           {/* Core Specialization Pills */}
           <div className="landing-focus-tags">
@@ -191,18 +201,22 @@ const Landing = ({ children }: PropsWithChildren) => {
             <div className="role-card-metrics">
               <div className="role-metric-item">
                 <FaAward className="metric-icon award" />
-                <span>3× Hackathon 1st Place</span>
+                <span>3× Hackathon 1st Place Champion</span>
+              </div>
+              <div className="role-metric-item">
+                <MdSpeed className="metric-icon speed" />
+                <span>&lt; 45ms Sub-Second API &amp; Inference</span>
               </div>
               <div className="role-metric-item">
                 <MdLocationOn className="metric-icon location" />
-                <span>Mumbai, India</span>
+                <span>Mumbai, India · Available Worldwide</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Center Column: 3D Animated Character Canvas */}
+      {/* Center Column: 3D Animated Character Canvas with Cubic Solve Matrix */}
       {children}
     </div>
   );

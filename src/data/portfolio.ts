@@ -55,8 +55,8 @@ export const portfolioData = {
   meta: {
     initials: "SK",
     name: "Salman Khan",
-    title: "Full-Stack Developer",
-    subtitle: "Full-Stack Developer | AI/ML Enthusiast",
+    title: "Senior Full-Stack & AI Engineer",
+    subtitle: "Full-Stack Software Architect | Applied AI Specialist",
     email: "salmanmuslimkhan@gmail.com",
     phone: "+91 8938359076",
     phoneHref: "tel:+918938359076",
@@ -95,7 +95,7 @@ export const portfolioData = {
     },
   ],
   about:
-    "I am an MCA student and full-stack developer based in Mumbai, India, passionate about building modern web applications, scalable distributed backends, and practical AI/ML solutions. With hands-on internship experience at Entwicklera and three first-place hackathon victories, I focus on turning complex problem statements into elegant, high-performance software with clean code and sub-second latency.",
+    "I am a full-stack software engineer and AI systems specialist based in Mumbai, India, architecting high-throughput distributed backends, modern interactive web platforms, and practical computer vision pipelines. With production engineering experience at Entwicklera and three first-place hackathon victories, I focus on turning complex technical problem statements into elegant, high-performance software with clean code and sub-second latency.",
   capabilities: [
     {
       title: "FULL-STACK DEV",
@@ -160,7 +160,7 @@ export const portfolioData = {
   ] as Capability[],
   experience: [
     {
-      role: "Software Developer Intern",
+      role: "Software Engineer",
       company: "Entwicklera",
       meta: "Mumbai, India",
       period: "Apr 2025 – Jun 2025",
