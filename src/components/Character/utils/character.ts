@@ -51,8 +51,21 @@ const setCharacter = (
                     mat.roughness = 0.65;
                     mat.metalness = 0.0;
                     mesh.material = mat;
+                  } else if (mesh.name === "avaturn_glasses_0") {
+                    child.visible = true;
+                    mat.roughness = 0.25;
+                    mat.metalness = 0.7;
+                    mesh.material = mat;
+                  } else if (mesh.name === "avaturn_glasses_1") {
+                    child.visible = true;
+                    mat.roughness = 0.05;
+                    mat.metalness = 0.15;
+                    mat.transparent = true;
+                    mat.opacity = 0.85;
+                    mesh.material = mat;
                   } else if (mesh.name.startsWith("avaturn_glasses")) {
-                    child.visible = false;
+                    child.visible = true;
+                    mesh.material = mat;
                   }
                 }
 
