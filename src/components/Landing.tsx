@@ -10,25 +10,11 @@ import {
   MdSpeed,
 } from "react-icons/md";
 import { FaAward } from "react-icons/fa";
-import CubicSolveCanvas from "./CubicSolveCanvas";
 
 const Landing = ({ children }: PropsWithChildren) => {
   const { landing, meta } = portfolioData;
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [hero3dMode, setHero3dMode] = useState<"cubic" | "avatar">("cubic");
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // Toggle body class for 3D character visibility
-  useEffect(() => {
-    if (hero3dMode === "cubic") {
-      document.body.classList.add("cubic-hero-active");
-    } else {
-      document.body.classList.remove("cubic-hero-active");
-    }
-    return () => {
-      document.body.classList.remove("cubic-hero-active");
-    };
-  }, [hero3dMode]);
 
   // Track mouse coordinates for 3D parallax depth effect
   useEffect(() => {
@@ -186,33 +172,6 @@ const Landing = ({ children }: PropsWithChildren) => {
           </div>
         </div>
 
-        {/* Center Stage: Interactive 3D Showcase (Cubic Solve or Avatar) */}
-        <div className="landing-center-stage">
-          {/* 3D Experience Mode Switcher */}
-          <div className="hero-3d-switcher glass-pill">
-            <button
-              className={`switcher-tab ${hero3dMode === "cubic" ? "active" : ""}`}
-              onClick={() => setHero3dMode("cubic")}
-              data-cursor="disable"
-              type="button"
-            >
-              <span className="switcher-tab-icon">🧊</span>
-              <span>3D CUBIC MATRIX</span>
-            </button>
-            <button
-              className={`switcher-tab ${hero3dMode === "avatar" ? "active" : ""}`}
-              onClick={() => setHero3dMode("avatar")}
-              data-cursor="disable"
-              type="button"
-            >
-              <span className="switcher-tab-icon">👤</span>
-              <span>3D AVATAR</span>
-            </button>
-          </div>
-
-          {hero3dMode === "cubic" && <CubicSolveCanvas />}
-        </div>
-
         {/* Right Column: Rotating Roles & Highlights Card */}
         <div
           className="landing-info"
@@ -257,7 +216,7 @@ const Landing = ({ children }: PropsWithChildren) => {
         </div>
       </div>
 
-      {/* Children: 3D Avatar canvas */}
+      {/* Center Column: 3D Animated Character Canvas with Cubic Solve Matrix */}
       {children}
     </div>
   );
