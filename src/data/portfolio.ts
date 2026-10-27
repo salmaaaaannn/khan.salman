@@ -73,9 +73,9 @@ export const portfolioData = {
     lastName: "KHAN",
     lead: "FULL-STACK DEVELOPER &",
     accentPrimary: "AI / ML",
-    accentSecondary: "FULL-STACK",
+    accentSecondary: "SOFTWARE",
     basePrimary: "ENTHUSIAST",
-    baseSecondary: "DEVELOPER",
+    baseSecondary: "ENGINEER",
   },
   stats: [
     {
@@ -94,8 +94,15 @@ export const portfolioData = {
       detail: "React, Next.js, Node & FastAPI",
     },
   ],
+  aboutGreeting: "Hey, I'm Salman Khan 👋",
+  aboutParagraphs: [
+    "I'm an MCA student and developer who enjoys turning ideas into real, useful digital experiences. I work across full-stack development and AI/ML, building everything from interactive web applications and real-time multiplayer environments to AI-powered platforms.",
+    "What I enjoy most is the process of taking a problem, exploring different ways to solve it, and building something that actually works. I'm always curious about how things work behind the scenes, whether it's creating a smooth user experience, designing a scalable backend, or experimenting with AI to make applications smarter.",
+    "I've worked on projects in healthcare, e-commerce, fitness, and virtual environments, and I've had the opportunity to showcase my work through college hackathons, where I achieved first-place finishes in three competitions.",
+    "I'm constantly learning, experimenting with new technologies, and pushing myself to build better things. For me, development isn't just about writing code—it's about solving problems, learning through building, and creating experiences that people genuinely find useful.",
+  ],
   about:
-    "I am a full-stack software engineer and AI systems specialist based in Mumbai, India, architecting high-throughput distributed backends, modern interactive web platforms, and practical computer vision pipelines. With production engineering experience at Entwicklera and three first-place hackathon victories, I focus on turning complex technical problem statements into elegant, high-performance software with clean code and sub-second latency.",
+    "Hey, I'm Salman Khan 👋 I'm an MCA student and developer who enjoys turning ideas into real, useful digital experiences. I work across full-stack development and AI/ML, building everything from interactive web applications and real-time multiplayer environments to AI-powered platforms.",
   capabilities: [
     {
       title: "FULL-STACK DEV",

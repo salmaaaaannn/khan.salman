@@ -53,7 +53,7 @@
     filter: blur(14px);
   }
   100% {
-    opacity: 0.85;
+    opacity: 0.10;
     filter: blur(0px);
   }
 }
@@ -383,18 +383,18 @@
 .landing-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 10px;
+  margin-top: 20px;
   align-items: center;
 }
 
 .landing-action-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
+  gap: 7px;
+  padding: 9px 18px;
   border-radius: 9999px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 500;
   letter-spacing: 0.3px;
   text-decoration: none;
@@ -501,15 +501,15 @@
 
 .landing-info h2 {
   margin: 0;
-  margin-top: -6px;
+  margin-top: -4px;
   font-weight: 600;
-  font-size: clamp(26px, 3vw, 44px);
+  font-size: clamp(22px, 2.5vw, 36px);
   line-height: 1.2;
   position: relative;
   display: flex;
   flex-wrap: nowrap;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: #ffffff;
 }
 
@@ -524,12 +524,13 @@
   position: absolute;
   top: 0;
   left: 0;
+  opacity: 0;
 }
 
 h2.landing-info-h2 {
   color: var(--accentColor, #38bdf8);
-  font-size: clamp(30px, 3.6vw, 54px);
-  width: 120%;
+  font-size: clamp(26px, 3vw, 42px);
+  width: 100%;
   margin: 0;
   font-weight: 600;
   position: relative;
@@ -541,6 +542,7 @@ h2.landing-info-h2 {
   position: absolute;
   top: 0;
   left: 0;
+  opacity: 0;
 }
 
 /* Metrics row in role card */
@@ -604,11 +606,11 @@ h2.landing-info-h2 {
   .landing-intro {
     position: absolute;
     top: 50%;
-    left: auto;
-    right: 66%;
-    transform: translate(0%, -50%);
-    width: 380px;
-    max-width: 32vw;
+    left: clamp(35px, 4.5vw, 75px);
+    right: auto;
+    transform: translateY(-50%);
+    width: clamp(340px, 28vw, 420px);
+    max-width: 33vw;
     z-index: 12;
     pointer-events: auto;
   }
@@ -619,11 +621,11 @@ h2.landing-info-h2 {
     top: 50%;
     z-index: 12;
     text-align: left;
-    transform: translate(0%, -50%);
-    right: auto;
-    left: 66%;
-    width: 380px;
-    max-width: 32vw;
+    transform: translateY(-50%);
+    right: clamp(35px, 4.5vw, 75px);
+    left: auto;
+    width: clamp(340px, 28vw, 420px);
+    max-width: 33vw;
     pointer-events: auto;
   }
 }
@@ -631,11 +633,11 @@ h2.landing-info-h2 {
 @media screen and (min-width: 1200px) {
   .landing-intro {
     top: 50%;
-    left: auto;
-    right: 70%;
-    transform: translate(0%, -50%);
-    width: 440px;
-    max-width: 35vw;
+    left: clamp(45px, 5.5vw, 90px);
+    right: auto;
+    transform: translateY(-50%);
+    width: clamp(360px, 27vw, 430px);
+    max-width: 32vw;
   }
 
   .landing-info {
@@ -643,11 +645,11 @@ h2.landing-info-h2 {
     top: 50%;
     z-index: 12;
     text-align: left;
-    transform: translate(0%, -50%);
-    right: auto;
-    left: 70%;
-    width: 420px;
-    max-width: 35vw;
+    transform: translateY(-50%);
+    right: clamp(45px, 5.5vw, 90px);
+    left: auto;
+    width: clamp(360px, 27vw, 430px);
+    max-width: 32vw;
   }
 }
 

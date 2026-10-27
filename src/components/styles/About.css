@@ -33,35 +33,51 @@
   display: inline-block;
   width: 16px;
   height: 2px;
-  background: #06b6d4;
+  background: #38bdf8;
   border-radius: 2px;
 }
 
-.about-me p {
-  font-size: clamp(16px, 2.5vw, 20px);
+.about-me .about-greeting {
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+}
+
+.about-me .about-text {
+  font-size: clamp(14.5px, 1.25vw, 17px);
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.72;
   letter-spacing: 0.2px;
-  color: #e2e8f0;
-  margin: 0;
+  color: #cbd5e1;
+  margin: 0 0 18px 0;
+}
+
+.about-me .about-text:last-child {
+  margin-bottom: 0;
 }
 
 @media only screen and (max-width: 1024px) {
+  .about-section {
+    padding: 60px 0;
+  }
   .about-me {
-    padding: 32px;
+    padding: 32px 28px;
     border-radius: 20px;
-    background: rgba(10, 16, 31, 0.65);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(6, 182, 212, 0.16);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
-    margin: 40px auto;
+    background: rgba(16, 18, 26, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    margin: 20px auto;
   }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-  .about-me p {
-    font-size: 19px;
+  .about-me .about-text {
+    font-size: 16px;
     line-height: 1.7;
   }
 }
@@ -71,29 +87,30 @@
     width: var(--cWidth);
     justify-content: flex-end;
     max-width: var(--cMaxWidth);
-    height: var(--vh);
-    padding: 0;
+    min-height: 100vh;
+    height: auto;
+    padding: 120px 0;
     opacity: 1;
   }
 
   .about-me {
     padding: 0;
-    width: 46%;
-    max-width: 580px;
+    width: 48%;
+    max-width: 620px;
     background: transparent;
     border: none;
     box-shadow: none;
   }
 
-  .about-me p {
-    font-size: clamp(20px, 1.65vw, 25px);
-    line-height: 1.62;
+  .about-me .about-text {
+    font-size: clamp(15px, 1.2vw, 17.5px);
+    line-height: 1.72;
   }
 }
 
 @media only screen and (min-width: 1950px) {
-  .about-me p {
-    font-size: 26px;
-    line-height: 1.65;
+  .about-me .about-text {
+    font-size: 19px;
+    line-height: 1.75;
   }
 }

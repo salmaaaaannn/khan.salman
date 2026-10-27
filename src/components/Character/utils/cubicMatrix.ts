@@ -36,22 +36,22 @@ export function createCubicMatrix(scene: THREE.Scene): CubicMatrixController {
     opacity: 0.55,
   });
 
-  // Pre-calculated orbital spatial positions around character
+  // Orbital spatial positions centered safely around character to avoid text collisions
   const orbitalOffsets = [
-    { x: -1.7, y: 1.5, z: -0.6, scale: 0.26 },
-    { x: -1.4, y: 0.9, z: 0.5, scale: 0.20 },
-    { x: -1.9, y: 0.3, z: -0.3, scale: 0.24 },
-    { x: 1.7, y: 1.6, z: -0.5, scale: 0.28 },
-    { x: 1.4, y: 1.0, z: 0.6, scale: 0.22 },
-    { x: 1.9, y: 0.4, z: -0.4, scale: 0.25 },
-    { x: -1.2, y: 1.8, z: -0.8, scale: 0.18 },
-    { x: 1.3, y: 1.9, z: -0.7, scale: 0.19 },
-    { x: -2.1, y: 1.1, z: 0.2, scale: 0.16 },
-    { x: 2.2, y: 1.2, z: 0.1, scale: 0.17 },
-    { x: -0.9, y: 0.2, z: 0.8, scale: 0.15 },
-    { x: 0.9, y: 0.2, z: 0.8, scale: 0.15 },
-    { x: -1.6, y: 2.1, z: -0.2, scale: 0.20 },
-    { x: 1.6, y: 2.1, z: -0.2, scale: 0.20 },
+    { x: -0.65, y: 1.5, z: -0.6, scale: 0.22 },
+    { x: -0.55, y: 0.9, z: 0.4, scale: 0.18 },
+    { x: -0.70, y: 0.3, z: -0.4, scale: 0.20 },
+    { x: 0.65, y: 1.6, z: -0.5, scale: 0.22 },
+    { x: 0.55, y: 1.0, z: 0.4, scale: 0.18 },
+    { x: 0.70, y: 0.4, z: -0.4, scale: 0.20 },
+    { x: -0.45, y: 1.9, z: -0.8, scale: 0.16 },
+    { x: 0.45, y: 1.9, z: -0.7, scale: 0.16 },
+    { x: -0.80, y: 1.1, z: -1.2, scale: 0.15 },
+    { x: 0.80, y: 1.2, z: -1.2, scale: 0.15 },
+    { x: -0.40, y: 0.15, z: 0.6, scale: 0.14 },
+    { x: 0.40, y: 0.15, z: 0.6, scale: 0.14 },
+    { x: -0.50, y: 2.1, z: -0.3, scale: 0.18 },
+    { x: 0.50, y: 2.1, z: -0.3, scale: 0.18 },
   ];
 
   orbitalOffsets.forEach((data, index) => {

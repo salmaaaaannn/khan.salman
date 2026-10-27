@@ -6,7 +6,12 @@ const About = () => {
     <div className="about-section" id="about">
       <div className="about-me">
         <h3 className="title">About Me</h3>
-        <p className="para">{portfolioData.about}</p>
+        <p className="para about-greeting">{portfolioData.aboutGreeting}</p>
+        {portfolioData.aboutParagraphs.map((para, i) => (
+          <p key={i} className="para about-text">
+            {para}
+          </p>
+        ))}
       </div>
     </div>
   );
