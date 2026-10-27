@@ -3,6 +3,7 @@ import "./styles/Loading.css";
 import { useLoading } from "../context/LoadingProvider";
 import { portfolioData } from "../data/portfolio";
 import { MdArrowForward, MdFastForward } from "react-icons/md";
+import Loader3DCanvas from "./Loader3DCanvas";
 
 interface LoadingProps {
   percent: number;
@@ -43,7 +44,7 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
           module.initialFX();
         }
         setIsLoading(false);
-      }, 600);
+      }, 650);
     });
   }, [setIsLoading]);
 
@@ -76,7 +77,7 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
     if (isLoaded && !clicked) {
       const autoLaunchTimer = setTimeout(() => {
         triggerPortfolioEntry();
-      }, 700);
+      }, 800);
       return () => clearTimeout(autoLaunchTimer);
     }
   }, [isLoaded, clicked, triggerPortfolioEntry]);
@@ -98,13 +99,10 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
   // Dynamic status text based on progress
   const getStatusText = () => {
     if (displayPercent < 35) return "INITIALIZING 3D ENVIRONMENT";
-    if (displayPercent < 70) return "CALIBRATING SPATIAL LIGHTING";
-    if (displayPercent < 100) return "SYNCHRONIZING CREATIVE ASSETS";
-    return "EXPERIENCE READY";
+    if (displayPercent < 70) return "SYNCHRONIZING 3D CUBIC MATRIX";
+    if (displayPercent < 100) return "CALIBRATING SPATIAL ENGINE";
+    return "SYSTEM READY // ENTER PORTFOLIO";
   };
-
-  const circumference = 2 * Math.PI * 54;
-  const strokeDashoffset = circumference - (displayPercent / 100) * circumference;
 
   return (
     <>
@@ -112,7 +110,7 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
         <div className="loader-brand">
           <span className="loader-brand-dot" />
           <span className="loader-brand-name">{meta.name.toUpperCase()}</span>
-          <span className="loader-brand-sub">PORTFOLIO 2026</span>
+          <span className="loader-brand-sub">3D PORTFOLIO 2026</span>
         </div>
 
         <button
@@ -137,37 +135,20 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
         <div className="loader-ambient-glow" />
 
         <div className="loader-center-stage">
-          {/* Circular Precision Ring */}
-          <div className="loader-aperture-wrap">
-            <svg className="loader-aperture-svg" width="130" height="130" viewBox="0 0 130 130">
-              <circle
-                className="loader-aperture-bg"
-                cx="65"
-                cy="65"
-                r="54"
-                strokeWidth="2.5"
-              />
-              <circle
-                className="loader-aperture-progress"
-                cx="65"
-                cy="65"
-                r="54"
-                strokeWidth="2.5"
-                style={{
-                  strokeDasharray: circumference,
-                  strokeDashoffset,
-                }}
-              />
-            </svg>
+          {/* 3D Animated Solving Cube Canvas */}
+          <Loader3DCanvas
+            progress={displayPercent}
+            isReady={loaded}
+            clicked={clicked}
+          />
 
-            {/* Inner Counter */}
-            <div className="loader-aperture-inner">
-              <span className="loader-num-val">{Math.round(displayPercent)}</span>
-              <span className="loader-num-unit">%</span>
-            </div>
+          {/* Precision Typographic Counter & Telemetry */}
+          <div className="loader-counter-row">
+            <span className="loader-num-val">{Math.round(displayPercent)}</span>
+            <span className="loader-num-unit">%</span>
           </div>
 
-          {/* Minimalist Status */}
+          {/* Minimalist Status Readout */}
           <div className="loader-meta-wrap">
             <h2 className="loader-meta-title">{getStatusText()}</h2>
             <div className="loader-progress-track">
@@ -194,7 +175,7 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
 
         {/* Minimal Footer Telemetry */}
         <div className="loader-minimal-footer">
-          <span>MCA · FULL-STACK · APPLIED AI</span>
+          <span>FULL-STACK ARCHITECT · APPLIED AI</span>
           <span>MUMBAI, INDIA</span>
         </div>
       </div>
