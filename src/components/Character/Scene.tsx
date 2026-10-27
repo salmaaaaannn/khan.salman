@@ -12,6 +12,7 @@ import {
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
+import { createCubicMatrix } from "./utils/cubicMatrix";
 
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
@@ -40,8 +41,8 @@ const Scene = () => {
 
       const targetCameraZ = 4.5;
       const camera = new THREE.PerspectiveCamera(35, aspect, 0.1, 1000);
-      // Cinematic 3D entrance zoom: starts back at 6.2 and smoothly eases into position
-      camera.position.set(0, 0.9, 6.2);
+      // Cinematic 3D entrance zoom: starts back at 6.4 and smoothly eases into position
+      camera.position.set(0, 0.9, 6.4);
       camera.lookAt(0, 0.9, 0);
       camera.updateProjectionMatrix();
 
@@ -51,6 +52,7 @@ const Scene = () => {
       const clock = new THREE.Clock();
 
       const light = setLighting(scene);
+      const cubicMatrix = createCubicMatrix(scene);
       const progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
@@ -119,6 +121,9 @@ const Scene = () => {
           );
         }
 
+        const elapsedTime = clock.getElapsedTime();
+        cubicMatrix.update(elapsedTime, mouse.x, mouse.y);
+
         if (headBone) {
           handleHeadRotation(
             headBone,
@@ -139,6 +144,7 @@ const Scene = () => {
 
       return () => {
         clearTimeout(debounce);
+        cubicMatrix.dispose();
         scene.clear();
         renderer.dispose();
         window.removeEventListener("resize", () =>

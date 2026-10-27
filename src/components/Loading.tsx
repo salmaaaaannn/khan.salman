@@ -3,6 +3,7 @@ import "./styles/Loading.css";
 import { useLoading } from "../context/LoadingProvider";
 import { portfolioData } from "../data/portfolio";
 import { MdArrowForward, MdFastForward } from "react-icons/md";
+import Loader3DCanvas from "./Loader3DCanvas";
 
 interface LoadingProps {
   percent: number;
@@ -43,7 +44,7 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
           module.initialFX();
         }
         setIsLoading(false);
-      }, 500);
+      }, 650);
     });
   }, [setIsLoading]);
 
@@ -66,7 +67,7 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
       setLoaded(true);
       const readyTimer = setTimeout(() => {
         setIsLoaded(true);
-      }, 400);
+      }, 500);
       return () => clearTimeout(readyTimer);
     }
   }, [displayPercent, loaded]);
@@ -76,7 +77,7 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
     if (isLoaded && !clicked) {
       const autoLaunchTimer = setTimeout(() => {
         triggerPortfolioEntry();
-      }, 650);
+      }, 800);
       return () => clearTimeout(autoLaunchTimer);
     }
   }, [isLoaded, clicked, triggerPortfolioEntry]);
@@ -95,11 +96,12 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
     return () => clearTimeout(safetyTimer);
   }, [triggerPortfolioEntry]);
 
+  // Dynamic status text based on progress
   const getStatusText = () => {
-    if (displayPercent < 40) return "LOADING 3D ASSETS";
-    if (displayPercent < 85) return "CALIBRATING SCENE";
-    if (displayPercent < 100) return "PREPARING INTERFACE";
-    return "EXPERIENCE READY";
+    if (displayPercent < 35) return "INITIALIZING 3D ENVIRONMENT";
+    if (displayPercent < 70) return "SYNCHRONIZING 3D CUBIC MATRIX";
+    if (displayPercent < 100) return "CALIBRATING SPATIAL ENGINE";
+    return "SYSTEM READY // ENTER PORTFOLIO";
   };
 
   return (
@@ -108,7 +110,7 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
         <div className="loader-brand">
           <span className="loader-brand-dot" />
           <span className="loader-brand-name">{meta.name.toUpperCase()}</span>
-          <span className="loader-brand-sub">PORTFOLIO</span>
+          <span className="loader-brand-sub">3D PORTFOLIO 2026</span>
         </div>
 
         <button
@@ -129,17 +131,24 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
         role="button"
         tabIndex={0}
       >
+        {/* Soft Ambient Vignette */}
         <div className="loader-ambient-glow" />
 
         <div className="loader-center-stage">
-          <div className="loader-title-tag">PORTFOLIO 2026</div>
+          {/* 3D Animated Solving Cube Canvas */}
+          <Loader3DCanvas
+            progress={displayPercent}
+            isReady={loaded}
+            clicked={clicked}
+          />
 
-          {/* Large luxury counter matching main page theme */}
+          {/* Precision Typographic Counter & Telemetry */}
           <div className="loader-counter-row">
             <span className="loader-num-val">{Math.round(displayPercent)}</span>
             <span className="loader-num-unit">%</span>
           </div>
 
+          {/* Minimalist Status Readout */}
           <div className="loader-meta-wrap">
             <h2 className="loader-meta-title">{getStatusText()}</h2>
             <div className="loader-progress-track">
@@ -150,6 +159,7 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
             </div>
           </div>
 
+          {/* Interactive Enter CTA */}
           <button
             className={`loader-enter-btn${loaded ? " enter-btn-ready" : ""}`}
             onClick={(e) => {
@@ -158,13 +168,14 @@ const Loading = ({ percent: externalPercent }: LoadingProps) => {
             }}
             data-cursor="disable"
           >
-            <span>{loaded ? "Enter Portfolio" : "Loading..."}</span>
+            <span>{loaded ? "Enter Portfolio" : "Click to Start"}</span>
             <MdArrowForward className="enter-arrow" />
           </button>
         </div>
 
+        {/* Minimal Footer Telemetry */}
         <div className="loader-minimal-footer">
-          <span>FULL-STACK SOFTWARE ENGINEER</span>
+          <span>FULL-STACK ARCHITECT · APPLIED AI</span>
           <span>MUMBAI, INDIA</span>
         </div>
       </div>

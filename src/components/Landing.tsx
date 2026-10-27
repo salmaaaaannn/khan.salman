@@ -16,7 +16,7 @@ const Landing = ({ children }: PropsWithChildren) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Track mouse coordinates for subtle 3D parallax depth effect
+  // Track mouse coordinates for 3D parallax depth effect
   useEffect(() => {
     let animationFrameId: number;
     let targetX = 0;
@@ -60,15 +60,15 @@ const Landing = ({ children }: PropsWithChildren) => {
     return () => clearTimeout(checkTimer);
   }, []);
 
-  // Compute subtle 3D perspective rotation values
-  const bg3dRotateX = -mousePos.y * 10;
-  const bg3dRotateY = mousePos.x * 12;
-  const bg3dTranslateX = mousePos.x * 18;
-  const bg3dTranslateY = mousePos.y * 10;
+  // Compute 3D perspective rotation values
+  const bg3dRotateX = -mousePos.y * 14;
+  const bg3dRotateY = mousePos.x * 16;
+  const bg3dTranslateX = mousePos.x * 25;
+  const bg3dTranslateY = mousePos.y * 15;
 
   return (
     <div className="landing-section" id="landingDiv" ref={containerRef}>
-      {/* 3D Subtle Watermark Typography (KHAN SALMAN) in background */}
+      {/* 3D Atmospheric Spatial Typography (KHAN SALMAN) with Cinematic Zoom */}
       <div
         className="landing-3d-backdrop"
         style={{
@@ -95,13 +95,19 @@ const Landing = ({ children }: PropsWithChildren) => {
       <div
         className="landing-ambient-spotlight"
         style={{
-          transform: `translate(${mousePos.x * 40}px, ${mousePos.y * 30}px)`,
+          transform: `translate(${mousePos.x * 60}px, ${mousePos.y * 40}px)`,
         }}
       />
 
       <div className="landing-container">
         {/* Left Column: Introduction & Interactive Actions */}
         <div className="landing-intro">
+          {/* Executive Engineering Status Pill */}
+          <div className="landing-status-pill">
+            <span className="status-indicator-dot" />
+            <span>FULL-STACK ARCHITECT &amp; APPLIED AI SPECIALIST</span>
+          </div>
+
           <h2>{landing.greeting}</h2>
           <h1>
             {landing.firstName}
@@ -110,16 +116,27 @@ const Landing = ({ children }: PropsWithChildren) => {
           </h1>
 
           <p className="landing-bio">
-            Full-Stack Software Engineer &amp; AI Specialist architecting
-            high-performance distributed systems, predictive machine learning pipelines,
-            and interactive 3D web platforms.
+            Full-Stack Software Architect &amp; Applied AI Specialist engineering
+            high-throughput distributed systems, predictive machine learning pipelines,
+            and immersive 3D digital experiences.
           </p>
+
+          {/* 3D Cubic Solve Telemetry Badge */}
+          <div className="landing-cubic-badge">
+            <div className="cubic-badge-icon-wrap">
+              <span className="cubic-cube-icon" />
+            </div>
+            <div className="cubic-badge-content">
+              <span className="cubic-badge-title">3D CUBIC SOLVE ENGINE</span>
+              <span className="cubic-badge-sub">60 FPS WEBGL · THREE.JS · PYTORCH</span>
+            </div>
+          </div>
 
           {/* Core Specialization Pills */}
           <div className="landing-focus-tags">
             <span className="focus-tag">Next.js &amp; React</span>
-            <span className="focus-tag">FastAPI &amp; Python</span>
-            <span className="focus-tag">Applied AI &amp; CV</span>
+            <span className="focus-tag">FastAPI &amp; Node</span>
+            <span className="focus-tag">Applied AI &amp; Vision</span>
             <span className="focus-tag">Three.js 3D</span>
           </div>
 
@@ -159,8 +176,8 @@ const Landing = ({ children }: PropsWithChildren) => {
         <div
           className="landing-info"
           style={{
-            transform: `perspective(800px) rotateY(${-mousePos.x * 5}deg) rotateX(${
-              mousePos.y * 5
+            transform: `perspective(800px) rotateY(${-mousePos.x * 6}deg) rotateX(${
+              mousePos.y * 6
             }deg) translate(0%, -50%)`,
           }}
         >
@@ -199,7 +216,7 @@ const Landing = ({ children }: PropsWithChildren) => {
         </div>
       </div>
 
-      {/* Center Column: 3D Character Canvas */}
+      {/* Center Column: 3D Animated Character Canvas with Cubic Solve Matrix */}
       {children}
     </div>
   );
