@@ -23,12 +23,32 @@ export type Highlight = {
   category: string;
   filterTag: "ai-ml" | "fullstack" | "hackathon";
   summary: string;
+  problem: string;
+  solution: string;
   focus: string;
   techList: string[];
   bullets: string[];
   metrics: HighlightMetric[];
   projectUrl?: string;
-  image?: string;
+  image: string;
+  award?: string;
+};
+
+export type SkillCategory =
+  | "frontend"
+  | "backend"
+  | "database"
+  | "aiml"
+  | "problem-solving"
+  | "tools-api";
+
+export type SkillItem = {
+  name: string;
+  category: SkillCategory;
+  categoryLabel: string;
+  description: string;
+  iconKey: string;
+  status?: string;
 };
 
 export const portfolioData = {
@@ -48,15 +68,32 @@ export const portfolioData = {
     resumePath: "/Salman-Khan-Resume.pdf",
   },
   landing: {
-    greeting: "Hi, I'm",
+    greeting: "HI, I'M",
     firstName: "SALMAN",
     lastName: "KHAN",
-    lead: "Full-Stack Developer &",
+    lead: "FULL-STACK DEVELOPER &",
     accentPrimary: "AI / ML",
-    accentSecondary: "ENTHUSIAST",
-    basePrimary: "FULL-STACK",
-    baseSecondary: "ENGINEER",
+    accentSecondary: "FULL-STACK",
+    basePrimary: "ENTHUSIAST",
+    baseSecondary: "DEVELOPER",
   },
+  stats: [
+    {
+      val: "3×",
+      label: "1st Place Hackathon Champion",
+      detail: "Jai Hind · KC College · Kirti College",
+    },
+    {
+      val: "35+",
+      label: "Open Source Repositories",
+      detail: "Full-Stack & Python AI/ML Builds",
+    },
+    {
+      val: "100%",
+      label: "Type-Safe & Scalable Systems",
+      detail: "React, Next.js, Node & FastAPI",
+    },
+  ],
   about:
     "I am an MCA student and full-stack developer based in Mumbai, India, passionate about building modern web applications, scalable distributed backends, and practical AI/ML solutions. With hands-on internship experience at Entwicklera and three first-place hackathon victories, I focus on turning complex problem statements into elegant, high-performance software with clean code and sub-second latency.",
   capabilities: [
@@ -149,11 +186,49 @@ export const portfolioData = {
   ] as Experience[],
   highlights: [
     {
+      title: "2D Metaverse Workspace",
+      category: "Multiplayer · Real-Time Systems",
+      filterTag: "fullstack",
+      summary:
+        "Multiplayer 2D virtual workspace bringing spatial presence, avatar movement, and spontaneous proximity-based collaboration to distributed engineering teams.",
+      problem:
+        "Remote engineering teams suffer from collaboration fatigue and conversational friction due to isolated video calls and static Slack threads that eliminate spontaneous hallway discussions.",
+      solution:
+        "Engineered an interactive 2D spatial canvas with Phaser 3, React, and WebSocket state synchronization, providing directional proximity voice/chat zones and fluid avatar movement with sub-35ms roundtrips.",
+      focus:
+        "Phaser 3, React, Node.js, WebSockets, Colyseus, Spatial Presence, Interactive Audio.",
+      techList: [
+        "Phaser 3",
+        "WebSockets",
+        "React",
+        "Node.js",
+        "Colyseus",
+        "Spatial Audio",
+      ],
+      bullets: [
+        "2D game physics engine powered by Phaser 3 embedded seamlessly into a modular React application shell.",
+        "Low-latency authoritative WebSocket state synchronization for fluid multiplayer avatar movement.",
+        "Proximity-triggered collaboration zones enabling spontaneous team communication and screen sharing.",
+      ],
+      metrics: [
+        { value: "Phaser 3", label: "2D physics engine" },
+        { value: "WebSockets", label: "Multiplayer sync" },
+        { value: "Spatial", label: "Proximity audio/chat" },
+        { value: "< 35ms", label: "Sync roundtrip" },
+      ],
+      projectUrl: "https://github.com/salmaaaaannn",
+      image: "/images/bond.png",
+    },
+    {
       title: "NURA-AI Platform",
       category: "AI/ML · Healthcare Screening",
       filterTag: "ai-ml",
       summary:
-        "An automated clinical screening web platform combining a Next.js frontend, asynchronous FastAPI microservices, and Tesseract OCR for digitized lab report parsing and biomarker risk evaluation.",
+        "Automated clinical screening web platform combining a Next.js frontend, asynchronous FastAPI microservices, and Tesseract OCR for digitized lab report parsing and biomarker risk evaluation.",
+      problem:
+        "Clinical diagnostic lab reports are predominantly issued as unstructured physical paperwork or scanned PDFs, resulting in manual data entry delays and delayed critical biomarker anomaly detection.",
+      solution:
+        "Built an end-to-end clinical ingestion pipeline using Tesseract OCR for automated report extraction, connected to FastAPI async microservices and scikit-learn models for rapid biomarker risk grading under 1 second.",
       focus:
         "Next.js, FastAPI, Python, Tesseract OCR, scikit-learn, Biomarker Risk Modeling, Asynchronous APIs.",
       techList: [
@@ -185,6 +260,10 @@ export const portfolioData = {
       filterTag: "ai-ml",
       summary:
         "Interactive 3D urban digital twin simulating real-time smart city dynamics, traffic bottlenecks, environmental microclimates, and municipal infrastructure telemetry.",
+      problem:
+        "Urban planning departments and traffic controllers lack unified, interactive 3D spatial platforms to visualize multi-sensor IoT telemetry and predict congestion bottlenecks prior to citywide gridlocks.",
+      solution:
+        "Developed a 60 FPS Three.js and WebGL interactive 3D spatial cityscape with React, streaming real-time sensor streams and running predictive AI models to calculate traffic dispersion in real time.",
       focus:
         "Three.js, WebGL, React, Node.js, Python, Predictive AI, Real-Time Sensor Telemetry.",
       techList: [
@@ -216,6 +295,10 @@ export const portfolioData = {
       filterTag: "fullstack",
       summary:
         "Live production e-commerce platform integrated with an intelligent conversational AI shopping assistant that guides buyers through personalized product recommendations and checkout.",
+      problem:
+        "Online buyers in specialized industrial e-commerce encounter high search friction, complex multi-variant product specifications, and abandonment during manual browsing workflows.",
+      solution:
+        "Architected a Next.js full-stack storefront featuring an embedded conversational NLP agent, instant faceted MongoDB catalog search, and automated Stripe checkout flows with real-time stock sync.",
       focus:
         "Next.js, Node.js, MongoDB, NLP Assistant, Stripe API, Dynamic Filtering, Tailwind CSS.",
       techList: [
@@ -244,8 +327,13 @@ export const portfolioData = {
       title: "AI Fitness Tracker",
       category: "Computer Vision · 1st Place Hackathon",
       filterTag: "hackathon",
+      award: "1st Place · KC College Hackathon",
       summary:
         "Real-time computer vision fitness tracking application that analyzes exercise biomechanics, detects posture deviations, and counts repetitions automatically with zero wearable hardware.",
+      problem:
+        "Solo exercisers training at home have no access to biomechanical feedback, frequently performing exercises with incorrect spinal alignment and suffering repetitive stress injuries.",
+      solution:
+        "Implemented real-time 33-point skeletal landmark tracking via MediaPipe and OpenCV in Python with a React interface, computing joint angles under 50ms and providing live visual/auditory posture cues.",
       focus:
         "Python, MediaPipe, OpenCV, React, Tailwind CSS, Real-Time Inference, Biomechanical Analysis.",
       techList: [
@@ -271,41 +359,16 @@ export const portfolioData = {
       image: "/images/callhq.png",
     },
     {
-      title: "2D Metaverse Workspace",
-      category: "Multiplayer · Real-Time Systems",
-      filterTag: "fullstack",
-      summary:
-        "Multiplayer 2D virtual workspace bringing spatial presence, avatar movement, and spontaneous proximity-based collaboration to distributed engineering teams.",
-      focus:
-        "Phaser 3, React, Node.js, WebSockets, Colyseus, Spatial Presence, Interactive Audio.",
-      techList: [
-        "Phaser 3",
-        "WebSockets",
-        "React",
-        "Node.js",
-        "Colyseus",
-        "Spatial Audio",
-      ],
-      bullets: [
-        "2D game physics engine powered by Phaser 3 embedded seamlessly into a modular React application shell.",
-        "Low-latency authoritative WebSocket state synchronization for fluid multiplayer avatar movement.",
-        "Proximity-triggered collaboration zones enabling spontaneous team communication and screen sharing.",
-      ],
-      metrics: [
-        { value: "Phaser 3", label: "2D physics engine" },
-        { value: "WebSockets", label: "Multiplayer sync" },
-        { value: "Spatial", label: "Proximity audio/chat" },
-        { value: "< 35ms", label: "Sync roundtrip" },
-      ],
-      projectUrl: "https://github.com/salmaaaaannn",
-      image: "/images/bond.png",
-    },
-    {
       title: "Aetherscan Vulnerability Engine",
       category: "Web3 & Security · 1st Place Hackathon",
       filterTag: "hackathon",
+      award: "1st Place · Jai Hind Hackathon",
       summary:
         "Automated smart contract security scanner engineered during a competitive hackathon sprint to detect reentrancy vulnerabilities, logic bugs, and bytecode gas inefficiencies.",
+      problem:
+        "Smart contract developers deploy code handling financial assets without accessible static analysis tooling, making vulnerabilities like reentrancy and integer overflows costly to audit manually.",
+      solution:
+        "Engineered an Abstract Syntax Tree (AST) static analysis scanner using Python and FastAPI, traversing bytecode graphs against OWASP security patterns with sub-2 second scan times.",
       focus:
         "Next.js, Python, AST Parsing, Solidity, FastAPI, Tailwind CSS, Static Analysis.",
       techList: [
@@ -334,8 +397,13 @@ export const portfolioData = {
       title: "The Medium Platform",
       category: "NLP & Publishing · 1st Place Hackathon",
       filterTag: "hackathon",
+      award: "1st Place · Kirti College Hackathon",
       summary:
         "Intelligent developer publishing platform with real-time NLP summarization, semantic concept tagging, and interactive in-browser code execution environments.",
+      problem:
+        "Engineering blogs and technical whitepapers are dense and time-consuming to consume, lacking interactive code validation and automated semantic executive summaries.",
+      solution:
+        "Engineered a full-stack publishing platform with React, Node.js, and Express featuring NLP automated executive summaries, Redis-backed sub-20ms reads, and an in-browser code execution sandbox.",
       focus:
         "React, Node.js, Express, NLP Pipelines, MongoDB, Redis, WebSockets.",
       techList: [
@@ -362,6 +430,251 @@ export const portfolioData = {
       image: "/images/orrdr.png",
     },
   ] as Highlight[],
+  engineeringSkills: [
+    // Frontend
+    {
+      name: "React.js",
+      category: "frontend",
+      categoryLabel: "Frontend",
+      description: "Component architecture, custom hooks, and reactive state management.",
+      iconKey: "SiReact",
+      status: "Core Stack",
+    },
+    {
+      name: "Next.js",
+      category: "frontend",
+      categoryLabel: "Frontend",
+      description: "Server-side rendering, App Router, SSG, and full-stack API routes.",
+      iconKey: "SiNextdotjs",
+      status: "Production",
+    },
+    {
+      name: "TypeScript",
+      category: "frontend",
+      categoryLabel: "Frontend",
+      description: "Strict static typing, generic interfaces, and robust enterprise code.",
+      iconKey: "SiTypescript",
+      status: "Core Stack",
+    },
+    {
+      name: "Tailwind CSS",
+      category: "frontend",
+      categoryLabel: "Frontend",
+      description: "Utility-first responsive layouts, custom design tokens, and fluid styling.",
+      iconKey: "SiTailwindcss",
+      status: "Active Stack",
+    },
+    {
+      name: "Three.js",
+      category: "frontend",
+      categoryLabel: "Frontend",
+      description: "3D scene graphs, custom WebGL shaders, camera animation, and lighting.",
+      iconKey: "SiThreedotjs",
+      status: "Interactive 3D",
+    },
+
+    // Backend
+    {
+      name: "Node.js",
+      category: "backend",
+      categoryLabel: "Backend",
+      description: "Asynchronous runtime for concurrent microservices and API gateways.",
+      iconKey: "SiNodedotjs",
+      status: "Core Stack",
+    },
+    {
+      name: "FastAPI",
+      category: "backend",
+      categoryLabel: "Backend",
+      description: "High-performance Python async microservices with Pydantic validation.",
+      iconKey: "SiFastapi",
+      status: "Internship Verified",
+    },
+    {
+      name: "Express.js",
+      category: "backend",
+      categoryLabel: "Backend",
+      description: "RESTful endpoints, middleware chains, and token authentication.",
+      iconKey: "SiExpress",
+      status: "Active Stack",
+    },
+    {
+      name: "WebSockets",
+      category: "backend",
+      categoryLabel: "Backend",
+      description: "Low-latency bidirectional streaming for multiplayer and telemetry.",
+      iconKey: "SiSocketdotio",
+      status: "Production",
+    },
+    {
+      name: "ASP.NET",
+      category: "backend",
+      categoryLabel: "Backend",
+      description: "Enterprise C# backend architectures and structured web controllers.",
+      iconKey: "SiDotnet",
+      status: "Academic",
+    },
+
+    // Database
+    {
+      name: "MongoDB",
+      category: "database",
+      categoryLabel: "Database",
+      description: "Flexible document schemas, aggregation pipelines, and indexing.",
+      iconKey: "SiMongodb",
+      status: "Active Stack",
+    },
+    {
+      name: "PostgreSQL",
+      category: "database",
+      categoryLabel: "Database",
+      description: "Relational data modeling, foreign keys, and ACID transactions.",
+      iconKey: "SiPostgresql",
+      status: "Core Stack",
+    },
+    {
+      name: "MySQL",
+      category: "database",
+      categoryLabel: "Database",
+      description: "Structured query optimization, normalized schemas, and joins.",
+      iconKey: "SiMysql",
+      status: "Internship Verified",
+    },
+    {
+      name: "Redis",
+      category: "database",
+      categoryLabel: "Database",
+      description: "In-memory caching, pub/sub channels, and sub-millisecond lookups.",
+      iconKey: "SiRedis",
+      status: "Production",
+    },
+    {
+      name: "Prisma",
+      category: "database",
+      categoryLabel: "Database",
+      description: "Type-safe ORM with automated migrations and client generation.",
+      iconKey: "SiPrisma",
+      status: "Active Stack",
+    },
+
+    // AI / ML
+    {
+      name: "Python",
+      category: "aiml",
+      categoryLabel: "AI / ML",
+      description: "Primary language for data science, vision models, and AI pipelines.",
+      iconKey: "SiPython",
+      status: "Core Stack",
+    },
+    {
+      name: "MediaPipe & OpenCV",
+      category: "aiml",
+      categoryLabel: "AI / ML",
+      description: "Real-time 33-point skeletal pose estimation and computer vision.",
+      iconKey: "SiOpencv",
+      status: "1st Place Winner",
+    },
+    {
+      name: "Tesseract OCR",
+      category: "aiml",
+      categoryLabel: "AI / ML",
+      description: "Automated document text extraction and lab report parsing.",
+      iconKey: "SiPython",
+      status: "Internship Verified",
+    },
+    {
+      name: "PyTorch",
+      category: "aiml",
+      categoryLabel: "AI / ML",
+      description: "Neural network modeling, tensor manipulation, and deep learning.",
+      iconKey: "SiPytorch",
+      status: "Certified",
+    },
+    {
+      name: "scikit-learn",
+      category: "aiml",
+      categoryLabel: "AI / ML",
+      description: "Statistical modeling, classification, and biomarker risk analysis.",
+      iconKey: "SiScikitlearn",
+      status: "Internship Verified",
+    },
+    {
+      name: "TensorFlow",
+      category: "aiml",
+      categoryLabel: "AI / ML",
+      description: "Computational graphs, model training, and inference pipelines.",
+      iconKey: "SiTensorflow",
+      status: "Specialization",
+    },
+
+    // Programming & Problem Solving
+    {
+      name: "Data Structures & Algorithms",
+      category: "problem-solving",
+      categoryLabel: "Programming & Problem Solving",
+      description: "Algorithmic optimization, tree/graph traversal, and space-time complexity.",
+      iconKey: "MdAccountTree",
+      status: "Core Foundation",
+    },
+    {
+      name: "C / C++",
+      category: "problem-solving",
+      categoryLabel: "Programming & Problem Solving",
+      description: "Memory management, pointer manipulation, and foundational algorithms.",
+      iconKey: "SiCplusplus",
+      status: "Core Foundation",
+    },
+    {
+      name: "Java & OOP",
+      category: "problem-solving",
+      categoryLabel: "Programming & Problem Solving",
+      description: "Object-oriented design patterns, encapsulation, and class hierarchies.",
+      iconKey: "FaJava",
+      status: "Academic",
+    },
+
+    // Tools & APIs
+    {
+      name: "Git & GitHub",
+      category: "tools-api",
+      categoryLabel: "Tools & APIs",
+      description: "Version control, feature branching, code review, and 35+ repos.",
+      iconKey: "SiGit",
+      status: "Active Stack",
+    },
+    {
+      name: "Docker",
+      category: "tools-api",
+      categoryLabel: "Tools & APIs",
+      description: "Containerization, multi-stage Dockerfiles, and reproducible envs.",
+      iconKey: "SiDocker",
+      status: "DevOps",
+    },
+    {
+      name: "Postman",
+      category: "tools-api",
+      categoryLabel: "Tools & APIs",
+      description: "Automated API contract testing, endpoint mocking, and collection runners.",
+      iconKey: "SiPostman",
+      status: "Testing",
+    },
+    {
+      name: "Nginx",
+      category: "tools-api",
+      categoryLabel: "Tools & APIs",
+      description: "Reverse proxying, SSL termination, and static asset delivery.",
+      iconKey: "SiNginx",
+      status: "DevOps",
+    },
+    {
+      name: "Stripe API",
+      category: "tools-api",
+      categoryLabel: "Tools & APIs",
+      description: "Secure payment gateway integration and webhook event handling.",
+      iconKey: "SiStripe",
+      status: "Production",
+    },
+  ] as SkillItem[],
   education: [
     "Master of Computer Applications (MCA) — University of Mumbai (2025–2028, Currently Pursuing)",
     "B.Sc. in Information Technology — University of Mumbai (Graduated)",

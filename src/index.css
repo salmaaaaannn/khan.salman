@@ -1,20 +1,31 @@
-/* Force black immediately so the page can never flash white */
+/* Deep premium graphite/obsidian background */
 html, body {
-  background: #000000 !important;
-  color: #ffffff;
+  background: #08090c !important;
+  color: #f8fafc;
 }
 html, body {
-  background: #000000;
-  background: var(--bg, #000000);
-  color: #ffffff;
-  color: var(--text, #ffffff);
+  background: #08090c;
+  background: var(--bg, #08090c);
+  color: #f8fafc;
+  color: var(--text, #f8fafc);
 }
 
 :root {
-  --bg: #000000;
+  --bg: #08090c;
+  --backgroundColor: #08090c;
+  --secondaryBg: #0f1117;
   --text: #ffffff;
-  --muted: #9a9a9a;
-  --border: rgba(255, 255, 255, 0.16);
+  --textSecondary: #9ca3af;
+  --muted: #6b7280;
+  --border: rgba(255, 255, 255, 0.08);
+  --accentColor: #38bdf8;
+  --accentCyan: #38bdf8;
+  --accentTurquoise: #60a5fa;
+  --accentColorGlow: rgba(56, 189, 248, 0.12);
+  --surfaceGlass: rgba(16, 18, 26, 0.72);
+  --surfaceBorder: rgba(255, 255, 255, 0.08);
+  --surfaceHighlight: rgba(255, 255, 255, 0.05);
+
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: "Instrument Serif", Georgia, serif;
 
@@ -35,12 +46,6 @@ html, body {
   -webkit-user-select: none;
   -moz-user-select: none;
 
-  --accentColor: #38bdf8;
-  --accentColorGlow: rgba(56, 189, 248, 0.2);
-  --backgroundColor: #000000;
-  --surfaceGlass: rgba(255, 255, 255, 0.04);
-  --surfaceBorder: rgba(255, 255, 255, 0.12);
-  --surfaceHighlight: rgba(255, 255, 255, 0.08);
   --vh: 100vh;
   --vh: 100svh;
   
@@ -61,7 +66,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-sans);
-  color: #ffffff;
+  color: #f8fafc;
 }
 
 .italic-serif {
@@ -72,6 +77,14 @@ h6 {
 
 body {
   overflow: hidden;
+  margin: 0;
+  height: auto;
+  background-color: #030712;
+  flex-grow: 1;
+  --cWidth: calc(100% - 2 * var(--page-gutter));
+  --cMaxWidth: 1380px;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 a {
@@ -100,17 +113,6 @@ main {
   100% {
     opacity: 1;
   }
-}
-
-body {
-  margin: 0;
-  height: auto;
-  background-color: #030305;
-  flex-grow: 1;
-  --cWidth: calc(100% - 2 * var(--page-gutter));
-  --cMaxWidth: 1380px;
-  max-width: 100vw;
-  overflow-x: hidden;
 }
 
 .main-body {
@@ -166,11 +168,12 @@ body {
   width: 100%;
   top: 120px;
   left: 0;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -1px;
   text-transform: uppercase;
-  background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.4) 100%);
+  background: linear-gradient(180deg, #f8fafc 40%, rgba(248, 250, 252, 0.4) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

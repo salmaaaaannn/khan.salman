@@ -51,54 +51,29 @@ export function setCharTimeline(
           { z: 5.2, y: 0.95, duration: 6, delay: 2, ease: "power3.inOut" },
           0
         )
-        .to(".about-section", { y: "30%", duration: 6 }, 0)
-        .to(".about-section", { opacity: 0, delay: 3, duration: 2 }, 0)
+        .to(".about-section", { opacity: 0, delay: 2, duration: 3 }, 0)
         .fromTo(
           ".character-model",
-          { pointerEvents: "inherit" },
-          { pointerEvents: "none", x: "-12%", delay: 2, duration: 5 },
+          { pointerEvents: "inherit", opacity: 1 },
+          { pointerEvents: "none", opacity: 0, y: "-35%", delay: 1.5, duration: 4, ease: "power2.inOut" },
           0
         )
-        .to(character.rotation, { y: 0.6, x: 0.05, delay: 3, duration: 3 }, 0);
+        .to(character.rotation, { y: 0.6, x: 0.05, delay: 2, duration: 3 }, 0);
 
       if (neckBone) {
         tl2.to(neckBone.rotation, { x: 0.15, delay: 2, duration: 3 }, 0);
       }
 
-      tl2
-        .fromTo(
-          ".what-box-in",
-          { display: "none" },
-          { display: "flex", duration: 0.1, delay: 6 },
-          0
-        )
-        .fromTo(
-          ".character-rim",
-          { opacity: 1, scaleX: 1.4 },
-          { opacity: 0, scale: 0, y: "-70%", duration: 5, delay: 2 },
-          0.3
-        );
+      tl2.fromTo(
+        ".character-rim",
+        { opacity: 1, scaleX: 1.4 },
+        { opacity: 0, scale: 0, y: "-70%", duration: 5, delay: 2 },
+        0.3
+      );
 
       tl3
-        .fromTo(
-          ".character-model",
-          { y: "0%" },
-          { y: "-100%", duration: 4, ease: "none", delay: 1 },
-          0
-        )
-        .fromTo(".whatIDO", { y: 0 }, { y: "15%", duration: 2 }, 0)
+        .to(".character-model", { opacity: 0, pointerEvents: "none", duration: 0.2 }, 0)
         .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
-    }
-  } else {
-    if (character) {
-      const tM2 = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".what-box-in",
-          start: "top 70%",
-          end: "bottom top",
-        },
-      });
-      tM2.to(".what-box-in", { display: "flex", duration: 0.1, delay: 0 }, 0);
     }
   }
 }

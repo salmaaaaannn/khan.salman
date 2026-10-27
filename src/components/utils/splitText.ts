@@ -22,8 +22,11 @@ export default function setSplitText() {
   paras.forEach((para: ParaElement) => {
     para.classList.add("visible");
     if (para.anim) {
-      para.anim.progress(1).kill();
-      para.split?.revert();
+      para.anim.scrollTrigger?.kill();
+      para.anim.kill();
+    }
+    if (para.split) {
+      para.split.revert();
     }
 
     para.split = new SplitText(para, {
@@ -37,7 +40,7 @@ export default function setSplitText() {
       {
         autoAlpha: 1,
         scrollTrigger: {
-          trigger: para.parentElement?.parentElement,
+          trigger: para.parentElement?.parentElement || para,
           toggleActions: ToggleAction,
           start: TriggerStart,
         },
@@ -48,22 +51,28 @@ export default function setSplitText() {
       }
     );
   });
+
   titles.forEach((title: ParaElement) => {
     if (title.anim) {
-      title.anim.progress(1).kill();
-      title.split?.revert();
+      title.anim.scrollTrigger?.kill();
+      title.anim.kill();
     }
+    if (title.split) {
+      title.split.revert();
+    }
+
     title.split = new SplitText(title, {
       type: "chars,lines",
       linesClass: "split-line",
     });
+
     title.anim = gsap.fromTo(
       title.split.chars,
       { autoAlpha: 0, y: 80, rotate: 10 },
       {
         autoAlpha: 1,
         scrollTrigger: {
-          trigger: title.parentElement?.parentElement,
+          trigger: title.parentElement?.parentElement || title,
           toggleActions: ToggleAction,
           start: TriggerStart,
         },
@@ -75,6 +84,4 @@ export default function setSplitText() {
       }
     );
   });
-
-  ScrollTrigger.addEventListener("refresh", () => setSplitText());
 }

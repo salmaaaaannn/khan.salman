@@ -117,15 +117,6 @@ const Navbar = () => {
           {meta.initials}
         </a>
 
-        {/* Center contact pill on desktop */}
-        <a
-          href={meta.emailHref}
-          className="navbar-connect"
-          data-cursor="disable"
-        >
-          {meta.email}
-        </a>
-
         {/* Desktop Navigation Links */}
         {/* Desktop Navigation Links */}
         <ul className="desktop-nav">

@@ -3,12 +3,12 @@ import { RGBELoader } from "three-stdlib";
 import { gsap } from "gsap";
 
 const setLighting = (scene: THREE.Scene) => {
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
   scene.add(ambientLight);
 
-  const directionalLight = new THREE.DirectionalLight(0x5eead4, 0);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0);
   directionalLight.intensity = 0;
-  directionalLight.position.set(0, 2, 2);
+  directionalLight.position.set(0, 2.2, 2.5);
   directionalLight.castShadow = true;
   directionalLight.shadow.mapSize.width = 1024;
   directionalLight.shadow.mapSize.height = 1024;
@@ -16,7 +16,7 @@ const setLighting = (scene: THREE.Scene) => {
   directionalLight.shadow.camera.far = 50;
   scene.add(directionalLight);
 
-  const pointLight = new THREE.PointLight(0x22d3ee, 0, 100, 3);
+  const pointLight = new THREE.PointLight(0xf1f5f9, 0, 100, 2.5);
   pointLight.position.set(1, 2.5, 3);
   pointLight.castShadow = true;
   scene.add(pointLight);
