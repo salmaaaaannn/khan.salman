@@ -172,6 +172,13 @@ const Landing = ({ children }: PropsWithChildren) => {
           </div>
         </div>
 
+        {/* Center Mobile Slot: 3D Animated Character Canvas with Cubic Matrix */}
+        {children && (
+          <div className="landing-character-mobile-slot">
+            {children}
+          </div>
+        )}
+
         {/* Right Column: Rotating Roles & Highlights Card */}
         <div
           className="landing-info"
@@ -215,9 +222,6 @@ const Landing = ({ children }: PropsWithChildren) => {
           </div>
         </div>
       </div>
-
-      {/* Center Column: 3D Animated Character Canvas with Cubic Solve Matrix */}
-      {children}
     </div>
   );
 };

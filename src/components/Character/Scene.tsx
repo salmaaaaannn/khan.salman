@@ -26,7 +26,7 @@ const Scene = () => {
     if (canvasDiv.current) {
       const rect = canvasDiv.current.getBoundingClientRect();
       const container = { width: rect.width, height: rect.height };
-      const aspect = container.width / container.height;
+      const aspect = container.width / (container.height || 1);
       const scene = sceneRef.current;
 
       const renderer = new THREE.WebGLRenderer({
@@ -34,16 +34,17 @@ const Scene = () => {
         antialias: true,
       });
       renderer.setSize(container.width, container.height);
-      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1;
       canvasDiv.current.appendChild(renderer.domElement);
 
-      const targetCameraZ = 4.5;
+      const isMobile = window.innerWidth <= 1024;
+      const targetCameraZ = isMobile ? 4.9 : 4.5;
       const camera = new THREE.PerspectiveCamera(35, aspect, 0.1, 1000);
-      // Cinematic 3D entrance zoom: starts back at 6.4 and smoothly eases into position
-      camera.position.set(0, 0.9, 6.4);
-      camera.lookAt(0, 0.9, 0);
+      // Cinematic 3D entrance zoom: starts back and smoothly eases into position
+      camera.position.set(0, 0.9, isMobile ? 6.8 : 6.4);
+      camera.lookAt(0, isMobile ? 0.92 : 0.9, 0);
       camera.updateProjectionMatrix();
 
       let headBone: THREE.Object3D | null = null;
@@ -61,11 +62,11 @@ const Scene = () => {
           const animations = setAnimations(gltf);
           hoverDivRef.current && animations.hover(gltf, hoverDivRef.current);
           mixer = animations.mixer;
-          const character = gltf.scene;
+          const charScene = gltf.scene;
 
-          setChar(character);
-          scene.add(character);
-          headBone = character.getObjectByName("Head") || null;
+          setChar(charScene);
+          scene.add(charScene);
+          headBone = charScene.getObjectByName("Head") || null;
 
           progress.loaded().then(() => {
             setTimeout(() => {
@@ -74,7 +75,7 @@ const Scene = () => {
             }, 2500);
           });
           window.addEventListener("resize", () =>
-            handleResize(renderer, camera, canvasDiv, character)
+            handleResize(renderer, camera, canvasDiv, charScene, cubicMatrix)
           );
         }
       });
@@ -85,6 +86,7 @@ const Scene = () => {
       const onMouseMove = (event: MouseEvent) => {
         handleMouseMove(event, (x, y) => (mouse = { x, y }));
       };
+
       let debounce: number | undefined;
       const onTouchStart = (event: TouchEvent) => {
         const element = event.target as HTMLElement;
@@ -105,9 +107,44 @@ const Scene = () => {
       document.addEventListener("mousemove", onMouseMove);
       const landingDiv = document.getElementById("landingDiv");
       if (landingDiv) {
-        landingDiv.addEventListener("touchstart", onTouchStart);
-        landingDiv.addEventListener("touchend", onTouchEnd);
+        landingDiv.addEventListener("touchstart", onTouchStart, { passive: true });
+        landingDiv.addEventListener("touchend", onTouchEnd, { passive: true });
       }
+
+      // ── Scroll & Wheel Interactive Assemble Effect ──
+      let scrollY = window.scrollY || 0;
+      let wheelImpulse = 0;
+      let currentAssemble = 0;
+
+      const onScroll = () => {
+        scrollY = window.scrollY || 0;
+      };
+
+      const onWheel = (e: WheelEvent) => {
+        // Boost assembly momentum on active mouse wheel scroll
+        wheelImpulse = Math.min(wheelImpulse + Math.abs(e.deltaY) * 0.002, 1);
+      };
+
+      let lastTouchY = 0;
+      const onTouchStartScroll = (e: TouchEvent) => {
+        if (e.touches.length > 0) {
+          lastTouchY = e.touches[0].clientY;
+        }
+      };
+
+      const onTouchMoveScroll = (e: TouchEvent) => {
+        if (e.touches.length > 0) {
+          const touchY = e.touches[0].clientY;
+          const delta = Math.abs(touchY - lastTouchY);
+          lastTouchY = touchY;
+          wheelImpulse = Math.min(wheelImpulse + delta * 0.0035, 1);
+        }
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("wheel", onWheel, { passive: true });
+      window.addEventListener("touchstart", onTouchStartScroll, { passive: true });
+      window.addEventListener("touchmove", onTouchMoveScroll, { passive: true });
 
       const animate = () => {
         requestAnimationFrame(animate);
@@ -121,8 +158,19 @@ const Scene = () => {
           );
         }
 
+        // Calculate scroll assemble progress through landing section
+        const landingEl = document.getElementById("landingDiv") || document.querySelector(".landing-section");
+        const landingHeight = landingEl ? (landingEl as HTMLElement).offsetHeight : window.innerHeight;
+        const scrollFraction = Math.min(Math.max(scrollY / (landingHeight * 0.72), 0), 1);
+
+        // Target assemble is driven by vertical scroll position + active scroll impulse
+        const targetAssemble = Math.min(Math.max(scrollFraction * 1.15 + wheelImpulse * 0.65, 0), 1);
+        wheelImpulse *= 0.94; // Decay momentum smoothly
+
+        currentAssemble = THREE.MathUtils.lerp(currentAssemble, targetAssemble, 0.08);
+
         const elapsedTime = clock.getElapsedTime();
-        cubicMatrix.update(elapsedTime, mouse.x, mouse.y);
+        cubicMatrix.update(elapsedTime, mouse.x, mouse.y, currentAssemble);
 
         if (headBone) {
           handleHeadRotation(
@@ -148,9 +196,14 @@ const Scene = () => {
         scene.clear();
         renderer.dispose();
         window.removeEventListener("resize", () =>
-          handleResize(renderer, camera, canvasDiv, character!)
+          handleResize(renderer, camera, canvasDiv, character!, cubicMatrix)
         );
-        if (canvasDiv.current) {
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("wheel", onWheel);
+        window.removeEventListener("touchstart", onTouchStartScroll);
+        window.removeEventListener("touchmove", onTouchMoveScroll);
+
+        if (canvasDiv.current && renderer.domElement.parentNode === canvasDiv.current) {
           canvasDiv.current.removeChild(renderer.domElement);
         }
         if (landingDiv) {
