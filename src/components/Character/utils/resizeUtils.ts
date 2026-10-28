@@ -6,8 +6,7 @@ export default function handleResize(
   renderer: THREE.WebGLRenderer,
   camera: THREE.PerspectiveCamera,
   canvasDiv: React.RefObject<HTMLDivElement>,
-  character: THREE.Object3D,
-  cubicMatrix?: { onResize: (isMobile: boolean) => void }
+  character: THREE.Object3D
 ) {
   if (!canvasDiv.current) return;
   const canvas3d = canvasDiv.current.getBoundingClientRect();
@@ -16,12 +15,6 @@ export default function handleResize(
   renderer.setSize(width, height);
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
-
-  const isMobile = window.innerWidth <= 1024;
-  if (cubicMatrix) {
-    cubicMatrix.onResize(isMobile);
-  }
-
   const workTrigger = ScrollTrigger.getById("work");
   ScrollTrigger.getAll().forEach((trigger) => {
     if (trigger != workTrigger) {

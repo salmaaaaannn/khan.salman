@@ -75,20 +75,6 @@ export function setCharTimeline(
         .to(".character-model", { opacity: 0, pointerEvents: "none", duration: 0.2 }, 0)
         .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
     }
-  } else {
-    // Mobile scroll animations
-    if (character) {
-      tl1
-        .fromTo(character.rotation, { y: 0 }, { y: 0.4, duration: 1 }, 0)
-        .to(camera.position, { z: 5.6, duration: 1 }, 0);
-
-      tl2
-        .to(character.rotation, { y: 0.55, x: 0.05, duration: 3 }, 0);
-
-      if (neckBone) {
-        tl2.to(neckBone.rotation, { x: 0.1, duration: 3 }, 0);
-      }
-    }
   }
 }
 
